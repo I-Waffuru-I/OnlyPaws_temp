@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">OnlyPaws</string>
+
+
+
+    <!-- Error loading cat profiles -->
+    <string name="refresh_cat_profile_list">Retry</string>
+    <string name="error_getting_cat_list">Cat profiles were not loaded correctly.</string>
+
+    <!-- Loading cat profiles -->
+    <string name="loading_cat_profile_list">Cat profiles are loading…</string>
+</resources>

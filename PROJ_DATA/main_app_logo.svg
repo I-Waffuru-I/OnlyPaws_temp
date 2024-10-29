@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="main_app_logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="2.9540684"
+     inkscape:cx="294.33983"
+     inkscape:cy="954.27716"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="277.58328"
+       y="973.9111"
+       width="10.494002"
+       height="44.684138"
+       id="rect9475" />
+    <rect
+       x="189.90759"
+       y="906.88489"
+       width="213.60372"
+       height="124.57396"
+       id="rect9462" />
+    <rect
+       x="148.4076"
+       y="855.97674"
+       width="329.36913"
+       height="128.30076"
+       id="rect4984" />
+    <rect
+       x="155.10988"
+       y="117.76861"
+       width="175.21672"
+       height="105.32152"
+       id="rect3886" />
+    <inkscape:path-effect
+       effect="powermask"
+       id="path-effect2775"
+       is_visible="true"
+       lpeversion="1"
+       uri="#mask-powermask-path-effect2775"
+       invert="false"
+       hide_mask="false"
+       background="true"
+       background_color="#ffffffff" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient462">
+      <stop
+         style="stop-color:#ff2a2a;stop-opacity:1;"
+         offset="0"
+         id="stop458" />
+      <stop
+         style="stop-color:#ebb37b;stop-opacity:1;"
+         offset="1"
+         id="stop460" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient462"
+       id="linearGradient532"
+       x1="106.76237"
+       y1="53.022919"
+       x2="184.14716"
+       y2="178.05669"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,1.016055,0,-0.41989081)" />
+    <filter
+       id="mask-powermask-path-effect2664_inverse"
+       inkscape:label="filtermask-powermask-path-effect2664"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect2664_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect2664_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <filter
+       id="mask-powermask-path-effect2745_inverse"
+       inkscape:label="filtermask-powermask-path-effect2745"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect2745_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect2745_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <mask
+       maskUnits="userSpaceOnUse"
+       id="mask-powermask-path-effect2775">
+      <path
+         id="mask-powermask-path-effect2775_box"
+         style="fill:#ffffff;fill-opacity:1"
+         d="M 54.351631,76.115284 H 164.18879 V 166.93492 H 54.351631 Z" />
+      <g
+         id="g2773"
+         transform="matrix(0.86997879,0,0,1,27.906623,-106.39868)"
+         style="">
+        <path
+           style="display:none;opacity:1;fill:#000000;stroke-width:0.264583"
+           id="path2761"
+           sodipodi:type="arc"
+           sodipodi:cx="93.225502"
+           sodipodi:cy="238.25703"
+           sodipodi:rx="5.0666032"
+           sodipodi:ry="3.9899502"
+           sodipodi:start="0"
+           sodipodi:end="6.2164397"
+           sodipodi:open="true"
+           sodipodi:arc-type="arc"
+           d="m 98.292105,238.25703 a 5.0666032,3.9899502 0 0 1 -4.982064,3.9894 5.0666032,3.9899502 0 0 1 -5.148321,-3.85626 5.0666032,3.9899502 0 0 1 4.810258,-4.11809 5.0666032,3.9899502 0 0 1 5.308846,3.71884" />
+        <path
+           style="opacity:1;fill:#000000;stroke-width:0.264583"
+           d="m 106.33534,134.96165 5.28827,0.0633 1.77331,-3.19829 -0.91832,-2.43831 -6.93492,-0.0317 -0.91832,2.4383 z"
+           id="path2763"
+           transform="matrix(1.1494533,0,0,1,-32.077362,106.39868)" />
+        <path
+           style="opacity:1;fill:#000000;stroke-width:0.264583"
+           d="m 85.82196,241.14936 -35.846218,8.86656 0.126664,0.37999 35.719554,-8.92989 z"
+           id="path2765" />
+        <path
+           style="fill:#000000;stroke-width:0.264583"
+           d="m 100.04929,241.37401 35.84621,8.86656 -0.12666,0.37999 -35.71955,-8.92989 z"
+           id="path2767" />
+        <path
+           style="opacity:1;fill:#000000;stroke-width:0.218142"
+           d="m 85.308936,237.19621 -36.289548,-0.30083 v 0.3438 l 36.289548,0.25785 z"
+           id="path2769" />
+        <path
+           style="fill:#000000;stroke-width:0.218142"
+           d="m 137.20587,237.44628 -36.28955,-0.30083 v 0.3438 l 36.28955,0.25785 z"
+           id="path2771" />
+      </g>
+    </mask>
+    <filter
+       id="mask-powermask-path-effect2775_inverse"
+       inkscape:label="filtermask-powermask-path-effect2775"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect2775_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect2775_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:url(#linearGradient532);fill-opacity:1;stroke-width:0.266698"
+       id="rect294"
+       width="158.71048"
+       height="158.71048"
+       x="29.377563"
+       y="26.153196"
+       inkscape:export-filename="main_app_logo.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:#ececec;stroke-width:0.0898907"
+       d="m 91.346263,113.98461 c -2.98577,-19.169357 2.34178,-26.761187 2.34178,-26.761187 0,0 3.981034,4.68163 5.678824,9.93264 1.697803,5.251007 1.346533,10.248957 1.346533,10.248957 z"
+       id="path758" />
+    <path
+       style="fill:#ececec;stroke-width:0.0898907"
+       d="m 126.18002,114.0754 c 2.98578,-19.169357 -2.34178,-26.761187 -2.34178,-26.761187 0,0 -3.98103,4.68163 -5.67882,9.93264 -1.69779,5.251007 -1.34653,10.248957 -1.34653,10.248957 z"
+       id="path758-2" />
+    <path
+       style="fill:#ececec;stroke-width:0.297599"
+       id="path692"
+       mask="url(#mask-powermask-path-effect2775)"
+       inkscape:path-effect="#path-effect2775"
+       sodipodi:type="arc"
+       sodipodi:cx="109.27021"
+       sodipodi:cy="121.5251"
+       sodipodi:rx="53.918579"
+       sodipodi:ry="44.409817"
+       d="M 163.18879,121.5251 A 53.918579,44.409817 0 0 1 109.27021,165.93492 53.918579,44.409817 0 0 1 55.351631,121.5251 53.918579,44.409817 0 0 1 109.27021,77.115284 53.918579,44.409817 0 0 1 163.18879,121.5251 Z"
+       transform="matrix(0.32682457,0,0,0.34759675,73.051083,69.496963)" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text3884"
+       style="fill:#000000;white-space:pre;shape-inside:url(#rect3886)" />
+    <rect
+       style="fill:#434343;fill-opacity:1;stroke-width:0.264583"
+       id="rect3942"
+       width="130.97171"
+       height="78.279007"
+       x="32.408264"
+       y="207.67192" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text4982"
+       style="white-space:pre;shape-inside:url(#rect4984);fill:#bab5b4;fill-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;fill:#bab5b4;fill-opacity:1;stroke-width:0.264583"
+       x="65.382988"
+       y="230.27353"
+       id="text9458"><tspan
+         sodipodi:role="line"
+         id="tspan9456"
+         style="fill:#da4d31;fill-opacity:1;stroke-width:0.264583"
+         x="65.382988"
+         y="230.27353">ADDING COLOUR</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text9460"
+       style="white-space:pre;shape-inside:url(#rect9462);fill:#bab5b4;fill-opacity:1"><tspan
+         x="189.9082"
+         y="917.83273"
+         id="tspan16941"><tspan
+           style="fill:#d2d2d2"
+           id="tspan16939">Stuff happening here, I can keep </tspan></tspan><tspan
+         x="189.9082"
+         y="932.83273"
+         id="tspan16945"><tspan
+           style="fill:#d2d2d2"
+           id="tspan16943">writing and suddenly add </tspan></tspan><tspan
+         x="189.9082"
+         y="947.83273"
+         id="tspan16949"><tspan
+           style="fill:#d2d2d2"
+           id="tspan16947">CAPITALS AND OTHER STUFF like </tspan></tspan><tspan
+         x="189.9082"
+         y="962.83273"
+         id="tspan16957"><tspan
+           style="font-weight:bold;fill:#d2d2d2"
+           id="tspan16951">bold characters </tspan><tspan
+           style="fill:#d2d2d2"
+           id="tspan16953">and even </tspan><tspan
+           style="font-style:italic;fill:#d2d2d2"
+           id="tspan16955">italics, </tspan></tspan><tspan
+         x="189.9082"
+         y="977.83273"
+         id="tspan16961"><tspan
+           style="font-style:italic;fill:#d2d2d2"
+           id="tspan16959">if you want</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text9473"
+       style="fill:#bab5b4;fill-opacity:1;white-space:pre;shape-inside:url(#rect9475)" />
+  </g>
+</svg>
