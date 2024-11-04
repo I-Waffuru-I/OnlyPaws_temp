@@ -55,9 +55,13 @@ dependencies {
 
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.androidx.constraintlayout)
     annotationProcessor(libs.room.compiler)
     ksp(libs.room.compiler)
     implementation(libs.coil.compose)
+    implementation(libs.kotlinx.coroutines.android)
+
+
 
     implementation(libs.androidx.core.splashscreen)
 
@@ -79,6 +83,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-
+    implementation(kotlin("script-runtime"))
 }

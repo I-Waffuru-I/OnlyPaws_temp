@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="main_background">#434343</color>
+    <color name="main_background_1">#3E3E3E</color>
+    <color name="main_background_2">#4D4D4D</color>
+    <color name="outline_1">#717171</color>
     <color name="main_decoration_1">#FF2A2A</color>
     <color name="main_decoration_2">#EBB37B</color>
     <color name="main_text">#D2D2D2</color>

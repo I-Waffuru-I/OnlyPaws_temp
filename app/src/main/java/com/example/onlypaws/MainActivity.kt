@@ -24,25 +24,8 @@ class MainActivity : ComponentActivity() {
                     OnlyPawsApp(
                         modifier = Modifier.padding(innerPadding)
                     )
-
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    OnlyPawsTheme {
-        Greeting("Android")
     }
 }

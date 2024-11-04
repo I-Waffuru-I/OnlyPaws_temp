@@ -3,11 +3,13 @@ package com.example.onlypaws.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -17,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
+import com.example.onlypaws.models.CatProfileDuo
+import com.example.onlypaws.ui.components.ProfileCard
 import com.example.onlypaws.viewmodels.MainScreenUiState
 
 
@@ -25,7 +29,8 @@ fun MainScreen (
     mainScreenUiState: MainScreenUiState,
     retryAction : () -> Unit,
     modifier : Modifier = Modifier,
-
+    dislikeClick : ()->Unit,
+    likeClick: ()->Unit,
 ){
 
     when(mainScreenUiState) {
@@ -37,7 +42,9 @@ fun MainScreen (
         }
         is MainScreenUiState.GotCatProfiles -> {
             SuccessScreen(
-                cats = mainScreenUiState.cats
+                like = likeClick,
+                dislike = dislikeClick,
+                cats = mainScreenUiState.cats,
             )
         }
     }
@@ -57,7 +64,7 @@ fun ErrorScreen(
     modifier: Modifier = Modifier
 ){
     Column(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -84,23 +91,15 @@ fun ErrorScreen(
 
 @Composable
 fun SuccessScreen(
-    cats : List<CatProfile>,
+    cats : CatProfileDuo,
+    dislike : ()->Unit,
+    like : ()->Unit,
     modifier:Modifier = Modifier,
 ){
-    Column(modifier = modifier) {
-
-        for (cat in cats) {
-            Image(
-                painter = rememberAsyncImagePainter(cat.image),
-                contentDescription = cat.description,
-                modifier = Modifier.size(125.dp)
-
-            )
-            Text(text = cat.name+ " : " + cat.description)
-        }
 
 
-    }
+        ProfileCard(dislike,like, cats.lastCat)
+        ProfileCard(dislike,like, cats.firstCat)
 }
 
 @Preview(showSystemUi = true, showBackground = true)
