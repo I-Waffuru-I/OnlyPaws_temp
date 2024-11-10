@@ -34,61 +34,9 @@ import com.example.onlypaws.models.CatProfile
 fun ProfileCard(
     likeClick: () -> Unit,
     dislikeClick: () -> Unit,
+    displayDetails : (Int)->Unit,
     cat : CatProfile,
 ) {
-/*
-
-    Column (
-        modifier = Modifier.fillMaxWidth()
-            .background(colorResource(R.color.main_background_2))
-            .border(2.dp,colorResource(R.color.outline_1))
-        ){
-
-        Image(
-            painter = rememberAsyncImagePainter(cat.image),
-            contentDescription = cat.description,
-            modifier = Modifier.fillMaxSize()
-        )
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(),
-            text = cat.name,
-            fontSize = 25.sp,
-            color = colorResource(R.color.main_text),
-            textAlign = TextAlign.Left
-
-        )
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(),
-            text = cat.description,
-            fontSize = 25.sp,
-            color = colorResource(R.color.main_text),
-            textAlign = TextAlign.Left
-
-        )
-    }
-
-    Row (horizontalArrangement = Arrangement.SpaceBetween){
-
-        Button(
-            onClick = dislikeClick,
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(100.dp)
-                .alpha(0.1f)
-        ){
-        }
-        Button(
-            onClick = likeClick,
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(100.dp)
-                .alpha(0.1f)
-        ){
-        }
-    }
-    */
 
 
     ConstraintLayout (
@@ -119,38 +67,42 @@ fun ProfileCard(
         Text(
             modifier = Modifier.constrainAs(catName){
                 start.linkTo(catDescription.start)
-                bottom.linkTo(catImg.top)
+                top.linkTo(catImg.top)
             },
             text = cat.name,
             fontSize = 50.sp,
             color = colorResource(R.color.main_text)
         )
 
-        Button(
-            onClick = dislikeClick,
-            modifier = Modifier.constrainAs(dislikeBtn) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
+        Row (
 
+        ) {
+
+            Button(
+                onClick = dislikeClick,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .alpha(0f)
+                    .weight(0.2f)
+            ){
             }
-                .fillMaxHeight()
-                .alpha(0.1f)
-        ){
-        }
-        Button(
-            onClick = likeClick,
-            modifier = Modifier.constrainAs(likeBtn) {
-                end.linkTo(parent.end)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
+            Button(
+                onClick = { displayDetails(cat.id) },
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .alpha(0f)
+                    .weight(0.6f)
+            ){}
+            Button(
+                onClick = likeClick,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .alpha(0f)
+                    .weight(0.2f)
+            ){
             }
-                .fillMaxHeight()
-                .alpha(0.1f)
-        ){
         }
     }
-
 }
 
 
@@ -164,5 +116,5 @@ fun ProfileCardPreview()
         "bobbilicious cat",
         "https://media.discordapp.net/attachments/1298965031366561792/1300939532073435167/AP1GczPOHchuf9ZlmaQol3lF_JS7KHDxegh_L8uIpRg375a2aqLF-T-wiOR8w713-h950-s-no-gm.png?ex=6722a9da&is=6721585a&hm=0d0bada2e398ded094f9652123c570aaf318bb0940bb87b443067754292d62e4&=&format=webp&quality=lossless&width=263&height=350"
     )
-   ProfileCard({},{},cat)
+   ProfileCard({},{},{},cat)
 }

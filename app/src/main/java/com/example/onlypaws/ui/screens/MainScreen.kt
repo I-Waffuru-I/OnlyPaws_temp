@@ -9,17 +9,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
 import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
-import com.example.onlypaws.models.CatProfileDuo
 import com.example.onlypaws.ui.components.ProfileCard
 import com.example.onlypaws.viewmodels.MainScreenUiState
 
@@ -28,30 +25,32 @@ import com.example.onlypaws.viewmodels.MainScreenUiState
 fun MainScreen (
     mainScreenUiState: MainScreenUiState,
     retryAction : () -> Unit,
-    modifier : Modifier = Modifier,
     dislikeClick : ()->Unit,
     likeClick: ()->Unit,
+    displayDetails: (Int) -> Unit,
+    modifier : Modifier = Modifier,
 ){
 
     when(mainScreenUiState) {
         is MainScreenUiState.Loading -> {
-            LoadingScreen(modifier)
+            LoadingMain(modifier)
         }
         is MainScreenUiState.Error -> {
-            ErrorScreen(modifier = modifier, retryAction = retryAction)
+            ErrorMain(modifier = modifier, retryAction = retryAction)
         }
         is MainScreenUiState.GotCatProfiles -> {
-            SuccessScreen(
+            SuccessMain(
                 like = likeClick,
                 dislike = dislikeClick,
-                cats = mainScreenUiState.cats,
+                displayDetails = displayDetails,
+                cat = mainScreenUiState.cat,
             )
         }
     }
 }
 
 @Composable
-fun LoadingScreen(modifier: Modifier = Modifier){
+fun LoadingMain(modifier: Modifier = Modifier){
     Image(
         painter = painterResource(R.drawable.loading_img),
         contentDescription = stringResource(R.string.loading_cat_profile_list),
@@ -59,7 +58,7 @@ fun LoadingScreen(modifier: Modifier = Modifier){
     )
 }
 @Composable
-fun ErrorScreen(
+fun ErrorMain(
     retryAction: () -> Unit,
     modifier: Modifier = Modifier
 ){
@@ -90,20 +89,18 @@ fun ErrorScreen(
 }
 
 @Composable
-fun SuccessScreen(
-    cats : CatProfileDuo,
+fun SuccessMain(
+    cat : CatProfile,
     dislike : ()->Unit,
+    displayDetails: (Int)->Unit,
     like : ()->Unit,
     modifier:Modifier = Modifier,
 ){
-
-
-        ProfileCard(dislike,like, cats.lastCat)
-        ProfileCard(dislike,like, cats.firstCat)
+        ProfileCard(dislike,like, displayDetails ,cat)
 }
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun MainScreenPreview(){
-    ErrorScreen({})
+    ErrorMain({})
 }

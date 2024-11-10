@@ -13,11 +13,20 @@ Begin project:
     - like / dislike worden via twee grote knoppen aangeroepen die heel de lengte van de composable nemen met ogv 20% van de breedte elk.
 - MainScreen.kt is de hoofd pagina, hier worden twee profile cards getekend met data van de repository. Enkel één van de twee is zichtbaar, de andere wordt bewaard om laadtijden te vermijden en wisselt telkens met een nieuwe poes. 
 
-## Week 6 (04/11): ..... uren:
+## Week 6 (04/11): 7 uren:
 
-
-
-
+Eerste werking van het liken/disliken:
+- De huidige poes wordt verwijdert, de oude komt als display en een nieuwe opgehaald vanuit de repo
+- Er is geen verschil tussen like/dislike
+- MainScreenViewModel onthoud de vorige kat een die wordt gecalled + vernieuwd bij het dis/liken.
+MainScreen krijgt terug een CatProfile, geen CatProfileDuo als parameter. De achterste ProfileCard is nu verwijdert aangezien die toch geen nut heeft.
+ProfileScreen:
+- ProfileScreen.kt aangemaakt.
+- ProfileViewModel.kt aangemaakt, met het viewmodel zelf + ProfileViewUiStates
+- Route toegevoegd (oorspronkelijk was ik van plan om heel de CatProfile mee te geven als navigatie details om die niet opnieuw te moeten laden, maar dat wordt niet toegestaan)
+- In ProfileCard kan je nu op drie knoppen klikken, allemaal onzichtbaar over heel de hoogte van de card. Deze zijn : [Dislike, Details, Like], en doen wat u zou verwachten.
+Models/Interests.kt aangemaakt, waar alle categorieën te vinden zullen zijn voor de interessen van de kat. Dit bevat verschillende groepen, waar elke groep  
+Styling is nog niet gebeurt. Probleem voor later :)
 
 ## Week 7 (11/11): ..... uren:
 ## Week 8 (18/11): ..... uren:

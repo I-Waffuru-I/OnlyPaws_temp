@@ -7,14 +7,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.onlypaws.models.CatProfile
-import com.example.onlypaws.models.CatProfileDuo
 import com.example.onlypaws.repos.ICatRepository
 import com.example.onlypaws.repos.MockCatRepo
-import com.example.onlypaws.ui.screens.MainScreenPreview
 import kotlinx.coroutines.launch
 
 sealed class MainScreenUiState {
-    data class GotCatProfiles(val cats : CatProfileDuo) : MainScreenUiState()
+    data class GotCatProfiles(val cat : CatProfile) : MainScreenUiState()
     data object Error : MainScreenUiState()
     data object Loading : MainScreenUiState()
 }
@@ -32,15 +30,8 @@ class MainScreenViewModel(application: Application) : ViewModel() {
 
     fun getStarterCats() {
         viewModelScope.launch {
-            val c = catRepo.getSuggestedCatProfile()
-            mainPageState = MainScreenUiState.GotCatProfiles(
-                CatProfileDuo(
-                   firstCat = catRepo.getLastCatProfile(),
-                   lastCat = c
-               )
-            )
-
-            rememberedCat = c
+            mainPageState = MainScreenUiState.GotCatProfiles(catRepo.getSuggestedCatProfile())
+            rememberedCat = catRepo.getSuggestedCatProfile()
 
             //normaal try-catch voor HTTPException / IOException
         }
@@ -48,15 +39,9 @@ class MainScreenViewModel(application: Application) : ViewModel() {
 
     fun getNextCat ()  {
 
+        mainPageState = MainScreenUiState.GotCatProfiles(rememberedCat)
          viewModelScope.launch {
-            val c = catRepo.getSuggestedCatProfile()
-            mainPageState = MainScreenUiState.GotCatProfiles (
-                CatProfileDuo(
-                    firstCat = rememberedCat,
-                    lastCat = c,
-                )
-            )
-            rememberedCat = c
+            rememberedCat = catRepo.getSuggestedCatProfile()
              // hier ook checken voor HTTPException / IO Exception
         }
     }
