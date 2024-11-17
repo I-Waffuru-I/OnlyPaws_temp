@@ -1,6 +1,7 @@
 [versions]
 coreSplashscreen = "1.0.1"
 kotlinxCoroutinesAndroid = "1.9.0"
+material = "1.7.5"
 retrofit = "2.9.0"
 kotlinxSerializationJson = "1.6.3"
 retrofitKotlinxSerializationJson = "1.0.0"
@@ -24,6 +25,7 @@ coroutines = "1.9.0"
 
 [libraries]
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 retrofit-core = { group="com.squareup.retrofit2", name="retrofit", version.ref="retrofit"}
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }

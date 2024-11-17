@@ -10,15 +10,20 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,40 +45,66 @@ fun ProfileCard(
 
 
     ConstraintLayout (
-        modifier = Modifier.fillMaxWidth()
-            .background(colorResource(R.color.main_background_2))
-            .border(2.dp,colorResource(R.color.outline_1))
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
     ){
 
-        val(catImg,catName,catDescription, dislikeBtn,likeBtn) = createRefs()
+        val(catImg,catName,catDescription) = createRefs()
+
+        // NAME
+        Box(
+
+            modifier = Modifier.constrainAs(catName){
+                start.linkTo(parent.start)
+                top.linkTo(parent.top)
+            }
+//                .background(Color.Red)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.CenterStart
+
+        ){
+            Text(
+                text = cat.name,
+                fontSize = 50.sp,
+                color = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier
+                    .padding(15.dp)
+            )
+        }
+
+        // IMAGE
         Image(
             painter = rememberAsyncImagePainter(cat.image),
             contentDescription = cat.description,
             modifier = Modifier.constrainAs(catImg) {
-                top.linkTo(parent.top)
+                top.linkTo(catName.bottom)
             }
-                .fillMaxSize()
+                .fillMaxWidth(),
+            contentScale = ContentScale.Crop
         )
-        Text(
+
+        // DESCRIPTION
+        Box(
+
             modifier = Modifier.constrainAs(catDescription){
-                start.linkTo(parent.start)
-                bottom.linkTo(catImg.bottom)
+                start.linkTo(catName.start)
+                top.linkTo(catImg.bottom)
+                bottom.linkTo(parent.bottom)
+            }
+                //.background(Color.Blue)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.CenterStart
 
-            },
-            text = cat.description,
-            fontSize = 15.sp,
-            color = colorResource(R.color.main_text)
-        )
-        Text(
-            modifier = Modifier.constrainAs(catName){
-                start.linkTo(catDescription.start)
-                top.linkTo(catImg.top)
-            },
-            text = cat.name,
-            fontSize = 50.sp,
-            color = colorResource(R.color.main_text)
-        )
+        ){
+            Text(
+                text = cat.description,
+                fontSize = 15.sp,
+                color = MaterialTheme.colorScheme.secondary,
+            )
+        }
 
+        // BUTTONS
         Row (
 
         ) {

@@ -23,6 +23,11 @@ class MockInterestsRepository : IInterestsRepository {
             id = "pass_times",
             title = "Activities",
             values = listOf("Playing with some plastic", "Playing with toys", "Catching mice", "Sleeping", "Running between people's legs")
+        ),
+        InterestGroup(
+            id = "sleep_spot",
+            title = "Favourite Sleeping Place",
+            values = listOf("On the human","On the ground","On bed","In the dresser","In a box","On the table")
         )
     )
 

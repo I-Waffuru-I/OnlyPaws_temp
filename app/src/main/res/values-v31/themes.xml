@@ -3,6 +3,8 @@
 
     <style name="Theme.OnlyPaws" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowSplashScreenBackground">@color/main_background_1</item>
+        <item name="android:windowActionBar">false</item>
+
     </style>
 
 </resources>

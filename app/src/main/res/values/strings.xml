@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">OnlyPaws</string>
 
-
+    <string name="logged_in_success">Meowed in!</string>
+    <string name="logged_out_success">Meowed out!</string>
+    <string name="log_in_button">Meow in</string>
+    <string name="log_out_button">Meow out</string>
+    <string name="name_label">Name</string>
+    <string name="email_label">Email</string>
 
     <!-- Error loading cat profiles -->
     <string name="refresh_cat_profile_list">Retry</string>

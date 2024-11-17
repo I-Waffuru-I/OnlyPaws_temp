@@ -5,6 +5,7 @@
     <color name="outline_1">#717171</color>
     <color name="main_decoration_1">#FF2A2A</color>
     <color name="main_decoration_2">#EBB37B</color>
+    <color name="empty_decoration_1">#BBBBBB</color>
     <color name="main_text">#D2D2D2</color>
     <color name="alt_text">#DA4D31</color>
     <color name="black">#FF000000</color>

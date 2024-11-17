@@ -53,6 +53,11 @@ android {
 
 dependencies {
 
+
+    implementation(libs.androidx.material)
+
+
+
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.androidx.constraintlayout)
