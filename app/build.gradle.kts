@@ -3,11 +3,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
     namespace = "com.example.onlypaws"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.onlypaws"
@@ -43,6 +44,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
+
     }
     packaging {
         resources {
@@ -54,25 +56,38 @@ android {
 dependencies {
 
 
-    implementation(libs.androidx.material)
 
+    /* AUTHENTICATION */
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
 
+    /* ROOM */
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
     annotationProcessor(libs.room.compiler)
     ksp(libs.room.compiler)
+
     implementation(libs.coil.compose)
     implementation(libs.kotlinx.coroutines.android)
 
+    /* SERIALIZATION */
+    implementation(libs.kotlinx.serialization.json)
 
 
+    testImplementation(libs.junit)
+
+    /* ANDROIDX */
+    implementation(libs.androidx.material)
     implementation(libs.androidx.core.splashscreen)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.constraintlayout)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -80,8 +95,6 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.kotlinx.serialization.json)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

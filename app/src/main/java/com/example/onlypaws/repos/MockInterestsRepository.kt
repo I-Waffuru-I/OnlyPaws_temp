@@ -5,27 +5,27 @@ import com.example.onlypaws.models.InterestGroup
 class MockInterestsRepository : IInterestsRepository {
     private val interests : List<InterestGroup> = listOf(
         InterestGroup(
-            id = "activity_location_preference",
+            id = 0,
             title = "Interior / Exterior?",
             values = listOf("Indoor","Outdoor")
         ),
         InterestGroup(
-            id="get_food_tactics",
+            id=1,
             title = "Getting Food",
             values = listOf("Hunt","Lazy","Make noises","Playing near bowl")
         ),
         InterestGroup(
-            id="preferred_food",
+            id=2,
             title = "Favourite Food",
             values = listOf("Chicken","Beef","Pork","Veggie")
         ),
         InterestGroup(
-            id = "pass_times",
+            id = 3,
             title = "Activities",
             values = listOf("Playing with some plastic", "Playing with toys", "Catching mice", "Sleeping", "Running between people's legs")
         ),
         InterestGroup(
-            id = "sleep_spot",
+            id = 4,
             title = "Favourite Sleeping Place",
             values = listOf("On the human","On the ground","On bed","In the dresser","In a box","On the table")
         )
@@ -38,14 +38,22 @@ class MockInterestsRepository : IInterestsRepository {
     }
 
     override suspend fun getInterestFromTitle(title: String) : InterestGroup? {
-        var inter : InterestGroup? = null
-
         interests.forEach {
             ig ->
-                if(ig.id == title){
-                    inter = ig
+                if(ig.title == title){
+                    return ig
                 }
         }
-        return inter
+        return null
+    }
+
+    override suspend fun getInterestFromId(interestId: Int): InterestGroup? {
+        interests.forEach {
+            ig ->
+                if(ig.id == interestId){
+                    return ig
+                }
+        }
+        return null
     }
 }

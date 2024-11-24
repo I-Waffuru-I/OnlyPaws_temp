@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class InterestGroup (
-    val id : String,
+    val id : Int,
     val title : String,
     val values : List<String>
 )

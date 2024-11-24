@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "281674326817",
+    "project_id": "onlypaws-temporary",
+    "storage_bucket": "onlypaws-temporary.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281674326817:android:3efa30852e78c887109460",
+        "android_client_info": {
+          "package_name": "com.example.onlypaws"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281674326817-c3kqlf1ldel79lmpaad5qslsr1k8k9q6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.onlypaws",
+            "certificate_hash": "efe1e5265c8d15b1137752b024d9189c6515bdd8"
+          }
+        },
+        {
+          "client_id": "281674326817-2ajln11g82h7mpa2q99aqj8injtnaqv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmqxbARuTtPEnhN2Exk1ygKq3Nx6YYtRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281674326817-2ajln11g82h7mpa2q99aqj8injtnaqv1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

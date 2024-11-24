@@ -1,8 +1,6 @@
 package com.example.onlypaws.ui
 
 import android.app.Application
-import android.view.Window
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -16,15 +14,15 @@ import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -36,15 +34,21 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.onlypaws.R
-import com.example.onlypaws.ui.components.NavBottomBar
-import com.example.onlypaws.ui.screens.AccountScreen
+import com.example.onlypaws.models.InterestGroup
+import com.example.onlypaws.models.UserProfile
+import com.example.onlypaws.repos.LocalUserHandler
+import com.example.onlypaws.ui.screens.AccountInfoScreen
 import com.example.onlypaws.ui.screens.CategoriesScreen
+import com.example.onlypaws.ui.screens.LogInScreen
 import com.example.onlypaws.ui.screens.MainScreen
 import com.example.onlypaws.ui.screens.ProfileScreen
+import com.example.onlypaws.viewmodels.LoginViewModel
 import com.example.onlypaws.viewmodels.MainScreenViewModel
 import com.example.onlypaws.viewmodels.ProfileViewModel
 import kotlinx.serialization.Serializable
+
+@Serializable
+object Login
 
 @Serializable
 object Main
@@ -92,44 +96,50 @@ fun OnlyPawsApp(
         )
     )
 
+    val context = LocalContext.current
+    var userIsLoggedIn by remember { mutableStateOf(false)}
+    var currentUser by remember { mutableStateOf(UserProfile("","",listOf(InterestGroup(-1,"",listOf(""))))) }
     Scaffold (
         modifier = modifier
             .navigationBarsPadding()
             .fillMaxSize(),
         bottomBar = {
-            BottomNavigation(
-                backgroundColor = MaterialTheme.colorScheme.surfaceBright,
-            ){
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
+            if (userIsLoggedIn) {
 
-                routeList.forEach {
-                    route ->
+                BottomNavigation(
+                    backgroundColor = MaterialTheme.colorScheme.surfaceBright,
+                ){
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination
 
-                    val selected = currentDestination?.hierarchy?.any {
-                        it.hasRoute(route.route::class)
-                    } == true
+                    routeList.forEach {
+                        route ->
 
-                    val c : Color = when {
-                        selected -> MaterialTheme.colorScheme.primary
-                        else -> MaterialTheme.colorScheme.surfaceDim
-                    }
+                        val selected = currentDestination?.hierarchy?.any {
+                            it.hasRoute(route.route::class)
+                        } == true
 
-                    BottomNavigationItem(
-                        icon = {
-                            Icon(route.icon,route.name, tint = c)
-                        },
-                        selected = selected,
-                        onClick = {
-                            navController.navigate(route.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
+                        val c : Color = when {
+                            selected -> MaterialTheme.colorScheme.primary
+                            else -> MaterialTheme.colorScheme.surfaceDim
                         }
-                    )
+
+                        BottomNavigationItem(
+                            icon = {
+                                Icon(route.icon,route.name, tint = c)
+                            },
+                            selected = selected,
+                            onClick = {
+                                navController.navigate(route.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -138,14 +148,38 @@ fun OnlyPawsApp(
 
             NavHost(
                 navController = navController,
-                startDestination = Main,
+                startDestination = Login,
                 modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding)
             ){
 
+                composable<Login> {
+                    val vm : LoginViewModel = viewModel{
+                        LoginViewModel()
+                    }
+
+                    val onLoggedIn = {
+                        username : String ->
+                            println("Logged in with user: $username")
+                            userIsLoggedIn = true
+                            navController.navigate(Main) {
+                                popUpTo(Main) {
+                                    inclusive = true
+                                }
+                            }
+                    }
+
+
+                    LogInScreen(
+                        state = vm.state,
+                        onAction = vm::onAction,
+                        onLoggedIn = onLoggedIn,
+                    )
+
+                }
+
                composable<Main> {
-                   val context = LocalContext.current
                    val viewModel : MainScreenViewModel = viewModel{
                        MainScreenViewModel(context.applicationContext as Application)
                    }
@@ -167,7 +201,6 @@ fun OnlyPawsApp(
 
                 composable<Profile> {
                     backStackEntry ->
-                    val context = LocalContext.current
                     val args = backStackEntry.toRoute<Profile>()
                     val viewModel : ProfileViewModel = viewModel{
                         ProfileViewModel(context.applicationContext as Application)
@@ -188,7 +221,21 @@ fun OnlyPawsApp(
                 }
 
                 composable<Account> {
-                    AccountScreen()
+                    val logOutUser = {
+
+                        userIsLoggedIn = false
+                        navController.navigate(Login) {
+                            popUpTo(Login) {
+                                inclusive = true
+                            }
+                        }
+                    }
+
+                    AccountInfoScreen(
+                        currentUser,
+                        logOutUser,
+                    )
+
                 }
             }
     }

@@ -101,9 +101,3 @@ fun SuccessMain(
 ){
     ProfileCard(dislike, like, displayDetails, cat)
 }
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun MainScreenPreview(){
-    ErrorMain({})
-}
