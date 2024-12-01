@@ -4,34 +4,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.onlypaws.models.UserProfile
+import com.example.onlypaws.models.db.GetDbResult
 import com.example.onlypaws.models.login.LoginAction
 import com.example.onlypaws.models.login.LoginState
 import com.example.onlypaws.models.login.SignInResult
-import com.example.onlypaws.models.login.SignUpResult
+import com.example.onlypaws.repos.FireBaseUserRepo
+import com.example.onlypaws.repos.IUserAccountRepository
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
+    private val firebaseUserRepo : IUserAccountRepository = FireBaseUserRepo()
     var state :LoginState by mutableStateOf(LoginState())
+
 
 
     fun onAction(action : LoginAction){
         when (action) {
-            is LoginAction.OnPasswordChange -> {
-                state = state.copy(password = action.password)
-            }
             is LoginAction.OnSignUp -> {
-                state = when (action.result) {
-                    SignUpResult.Cancelled -> {
-                        state.copy(errorMessage = "Sign up was cancelled")
-                    }
-
-                    is SignUpResult.Failure -> {
-                        state.copy(username = "Sign failed" + action.result.error)
-                    }
-
-                    is SignUpResult.Success -> {
-                        state.copy(username = action.result.username)
-                    }
-                }
+                state = state.copy(triesToRegister = true)
             }
             is LoginAction.OnSignIn -> {
                 state = when (action.result) {
@@ -50,7 +42,7 @@ class LoginViewModel : ViewModel() {
                     is SignInResult.Success -> {
                         val m = action.result.username
                         println("LOGIN INFO: $m")
-                        state.copy(username = m)
+                        state.copy(loggedInUser = m, triesToLogIn = true)
                     }
 
                     SignInResult.NoCredentials -> {
@@ -61,12 +53,34 @@ class LoginViewModel : ViewModel() {
                     }
                 }
             }
-            LoginAction.OnToggleIsRegister -> {
-                state = state.copy(isRegister = !state.isRegister)
-            }
-            is LoginAction.OnUsernameChange ->{
-                state = state.copy(username = action.username)
+        }
+    }
+
+    fun getUserInfo(username : String) : UserProfile? {
+        if (username == ""){
+            println("LOGIN FAILURE : Provide a username!")
+            return null
+        }
+
+        var user : UserProfile? = null
+        viewModelScope.launch {
+            when (val rslt = firebaseUserRepo.getLoggedInUser(username)) {
+                is GetDbResult.Failure -> {
+                    println("LOGIN FAILURE: ${rslt.error}")
+                }
+                is GetDbResult.Success -> {
+                    when (rslt.value) {
+                        is UserProfile -> {
+                            user = rslt.value as UserProfile
+                            println("LOGIN INFO : Parsed to user '${user!!.accountName}'")
+                        }
+                        else -> {
+                            println("LOGIN FAILURE : Couldn't parse data into a user")
+                        }
+                    }
+                }
             }
         }
+        return user
     }
 }

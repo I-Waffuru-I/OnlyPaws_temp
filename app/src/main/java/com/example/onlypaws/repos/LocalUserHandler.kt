@@ -7,6 +7,14 @@ import kotlinx.serialization.json.Json
 import java.io.File
 
 
+
+
+/*
+
+    NOT IN USE
+
+ */
+
 class LocalUserHandler(context : Context) {
     private var file : File = File(context.filesDir, "user_data.json")
 

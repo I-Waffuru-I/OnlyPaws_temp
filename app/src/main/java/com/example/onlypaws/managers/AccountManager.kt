@@ -11,25 +11,44 @@ import androidx.credentials.exceptions.CreateCredentialException
 import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.credentials.exceptions.GetCredentialException
 import androidx.credentials.exceptions.NoCredentialException
+import com.example.onlypaws.models.UserProfile
 import com.example.onlypaws.models.login.SignInResult
-import com.example.onlypaws.models.login.SignUpResult
+import com.example.onlypaws.models.register.RegisterState
+import com.example.onlypaws.models.register.SignUpResult
+import com.example.onlypaws.repos.FireBaseUserRepo
+import com.example.onlypaws.repos.IUserAccountRepository
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 class AccountManager(
     private val activity : Activity
 ) {
 
+    private var auth = Firebase.auth
     private val credManager = CredentialManager.create(activity)
+    private val firebaseUser : IUserAccountRepository = FireBaseUserRepo()
+    suspend fun signUp(data : RegisterState) : SignUpResult {
 
-    suspend fun signUp(username : String, password : String) : SignUpResult {
+        val profile = UserProfile(
+            id = data.email,
+            accountName = data.username,
+            accountImageLink = data.imageLink,
+            description = data.description,
+            currentViewedId = 0,
+        )
         return try {
             credManager.createCredential(
                 context = activity,
                 request = CreatePasswordRequest(
-                    id = username,
-                    password = password,
+                    id = data.email,
+                    password = data.password,
                 )
             )
-            SignUpResult.Success(username)
+            auth.createUserWithEmailAndPassword(data.email,data.password)
+
+            firebaseUser.tryRegisterUser(profile)
+
+            SignUpResult.Success(data.email)
         } catch (e : CreateCredentialCancellationException) {
             e.printStackTrace()
             SignUpResult.Cancelled
@@ -50,7 +69,7 @@ class AccountManager(
             val credential = credentialResponse.credential as? PasswordCredential
                 ?: return SignInResult.Failure("Credentials don't exist!")
 
-            // Handle with firebase
+            auth.signInWithEmailAndPassword(credential.id,credential.password)
 
             SignInResult.Success(credential.id)
         } catch (e : GetCredentialCancellationException) {
@@ -62,7 +81,11 @@ class AccountManager(
         } catch (e : GetCredentialException) {
             e.printStackTrace()
             SignInResult.Failure(e.errorMessage.toString())
+        } catch (e : Exception) {
+            e.printStackTrace()
+            SignInResult.Failure(e.message.toString())
         }
+
     }
 
 

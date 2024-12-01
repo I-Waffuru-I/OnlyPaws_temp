@@ -34,21 +34,24 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.onlypaws.models.InterestGroup
 import com.example.onlypaws.models.UserProfile
-import com.example.onlypaws.repos.LocalUserHandler
 import com.example.onlypaws.ui.screens.AccountInfoScreen
 import com.example.onlypaws.ui.screens.CategoriesScreen
 import com.example.onlypaws.ui.screens.LogInScreen
 import com.example.onlypaws.ui.screens.MainScreen
 import com.example.onlypaws.ui.screens.ProfileScreen
+import com.example.onlypaws.ui.screens.RegisterScreen
 import com.example.onlypaws.viewmodels.LoginViewModel
 import com.example.onlypaws.viewmodels.MainScreenViewModel
 import com.example.onlypaws.viewmodels.ProfileViewModel
+import com.example.onlypaws.viewmodels.RegisterViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
 object Login
+
+@Serializable
+object Register
 
 @Serializable
 object Main
@@ -98,7 +101,8 @@ fun OnlyPawsApp(
 
     val context = LocalContext.current
     var userIsLoggedIn by remember { mutableStateOf(false)}
-    var currentUser by remember { mutableStateOf(UserProfile("","",listOf(InterestGroup(-1,"",listOf(""))))) }
+    var currentUser : UserProfile? by remember { mutableStateOf(null) }
+
     Scaffold (
         modifier = modifier
             .navigationBarsPadding()
@@ -160,24 +164,41 @@ fun OnlyPawsApp(
                     }
 
                     val onLoggedIn = {
-                        username : String ->
-                            println("Logged in with user: $username")
-                            userIsLoggedIn = true
-                            navController.navigate(Main) {
-                                popUpTo(Main) {
-                                    inclusive = true
+                        id : String ->
+                            val x = vm.getUserInfo(id)
+                            if(x != null) {
+                                userIsLoggedIn = true
+                                currentUser = x
+                                navController.navigate(Main) {
+                                    popUpTo(Main) {
+                                        inclusive = true
+                                    }
                                 }
                             }
                     }
-
-
+                    val onRegister = {
+                        navController.navigate(Register)
+                    }
                     LogInScreen(
                         state = vm.state,
                         onAction = vm::onAction,
+                        onRegister = onRegister,
                         onLoggedIn = onLoggedIn,
                     )
-
                 }
+
+                composable<Register> {
+                    val vm : RegisterViewModel = viewModel {
+                        RegisterViewModel()
+                    }
+
+
+                    RegisterScreen(
+                        state = vm.state,
+                        onAction = vm::onAction
+                    )
+                }
+
 
                composable<Main> {
                    val viewModel : MainScreenViewModel = viewModel{
@@ -206,8 +227,6 @@ fun OnlyPawsApp(
                         ProfileViewModel(context.applicationContext as Application)
                     }
 
-                    viewModel.getCatProfile(args.cat)
-
                     ProfileScreen(
                         goBackEvent = { navController.popBackStack() },
                         state = viewModel.state,
@@ -231,10 +250,12 @@ fun OnlyPawsApp(
                         }
                     }
 
-                    AccountInfoScreen(
-                        currentUser,
-                        logOutUser,
-                    )
+                    currentUser?.let { it1 ->
+                        AccountInfoScreen(
+                            it1,
+                            logOutUser,
+                        )
+                    }
 
                 }
             }

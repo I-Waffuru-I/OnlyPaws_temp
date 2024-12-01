@@ -57,7 +57,21 @@ Er is weinig documentatie te vinden die up-to-date is met de huidige practices v
 - LoginScreen : Username + paswoord velden toegevoegd, plus een switch knop op Login/Register te togglen.
 # LOGIN WERKT NIET
 Ik begrijp niet waarom, t'is heel frustrerend. Ik gebruik LaunchedEffects om te checken indien de username verandert (via het automatisch inloggen van CredentialManager en niet de login knop). Alleen... dit gebeurt niet, en ik weet niet waarom. Om zeker deze week uit te pluizen.
-## Week 9 (25/11): ..... uren:
+
+
+## Week 9 (25/11): 8-9 uren:
+Ik heb dus uitgepluisd waarom die LaunchedEffects niets deden : *ik veranderde de foute waarde in het viewmodel*. Leuk.
+Heel deze week ben ik bezig geweest met het login systeem. De struktuur en UX is aangepast. Bij het eerst openen van de app krijg je de LoginScreen te zien, zoals altijd, alleen er zullen geen credentials bestaan die de CredManager kan tonen (behalve als je al de app op een ander toestel hebt gebruikt). Je sluit deze af en kan op Register klikken, die naar de RegisterScreen brengt.
+Login :
+    - Users worden in Firebase gezet. Indien die niet bestaat wordt een Error gegeven.
+    - Inloggen gebeurt met een email (maakt niet uit of die wel bestaat) en een paswoord (lengte > 6 chars)
+    - LoginScreen bevat geen invoer velden meer. De Credential Manager zorgt voor het onthouden van gegevens doorheen je toestellen met hetzelfde Google account.
+Register :
+    - Eigelijk is de structuur qwa classes bijna identiek, alleen met Register i.p.v. Login.
+    - Een knop opent een PhotoPicker instantie waarmee je een afbeelding van je toestel kunt inladen. De URI wordt in een text-vak geschreven, **MAAR**, deze hoor je niet te gebruiken (voor nu) 
+    - Een andere knop staat er onder. Hiermee gaat een random kat foto gevonden worden die wel online te vinden is. Dit moet je eigenlijk gebruiken voor je profiel te creeëren.
+    - Verder wordt een gebruikersnaam (de naam van de poes), een email en een paswoord verwacht. 
+
 ## Week 10 (02/12): ..... uren:
 ## Week 11 (09/12): ..... uren:
 ## Week 12 (16/12): ..... uren:

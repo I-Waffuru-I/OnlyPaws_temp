@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.rememberAsyncImagePainter
 import com.example.onlypaws.R
+import com.example.onlypaws.models.USER_INTERESTS
 import com.example.onlypaws.models.UserProfile
 import com.example.onlypaws.ui.components.LogButton
 import com.example.onlypaws.ui.components.TagsBox
@@ -29,7 +30,6 @@ fun AccountInfoScreen(
     user : UserProfile,
     onLogOutClick : ()->Unit,
 ){
-    var auth: FirebaseAuth = Firebase.auth
 
     ConstraintLayout(
 
@@ -67,8 +67,8 @@ fun AccountInfoScreen(
            }
         ){
 
-            user.interests.forEach {
-                TagsBox(it,{},Modifier.fillMaxWidth().padding(5.dp))
+            USER_INTERESTS.forEach {
+                TagsBox(it.value,{},Modifier.fillMaxWidth().padding(5.dp))
             }
 
         }

@@ -1,4 +1,4 @@
-package com.example.onlypaws.models.login
+package com.example.onlypaws.models.register
 
 sealed interface SignUpResult {
     data class Success(val username : String) : SignUpResult

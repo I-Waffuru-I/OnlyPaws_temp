@@ -1,11 +1,14 @@
 package com.example.onlypaws.models
 
-import kotlinx.serialization.Serializable
+import com.google.firebase.database.IgnoreExtraProperties
 
-
-@Serializable
+@IgnoreExtraProperties
 data class UserProfile (
-    val accountName : String,
-    val accountImageLink : String,
-    val interests : List<InterestGroup>
-)
+    val id : String = "",
+    val accountName : String = "",
+    val accountImageLink : String = "",
+    val description : String = "",
+    val currentViewedId : Int = 0,
+){
+
+}

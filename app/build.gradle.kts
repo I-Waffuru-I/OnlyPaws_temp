@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
+    implementation(libs.firebase.database.ktx)
     annotationProcessor(libs.room.compiler)
     ksp(libs.room.compiler)
 

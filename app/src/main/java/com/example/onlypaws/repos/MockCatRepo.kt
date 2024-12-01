@@ -2,6 +2,7 @@ package com.example.onlypaws.repos
 
 import android.app.Application
 import com.example.onlypaws.models.CatProfile
+import com.example.onlypaws.models.db.GetDbResult
 
 class MockCatRepo(application: Application) : ICatRepository {
 
@@ -15,24 +16,23 @@ class MockCatRepo(application: Application) : ICatRepository {
 
     )
 
-    override suspend fun getCatProfiles(): List<CatProfile> {
-        return cats
+    override suspend fun getCatProfiles(): GetDbResult {
+        return GetDbResult.Success(cats)
     }
 
-    override suspend fun getCatProfile(catId: Int): CatProfile {
-        var c  = CatProfile(-1,"error","smth went wrong","https://media.istockphoto.com/id/1131163852/fr/vectoriel/point-dexclamation-signe-avertissement-au-sujet-dune-urgence.jpg?s=2048x2048&w=is&k=20&c=JJZh0DUNByxM81JZpRE_LarAdTvollm4XQgnIe_tsvc=")
+    override suspend fun getCatProfile(catId: Int): GetDbResult {
         for(cat in cats){
             if(cat.id == catId)
-                c = cat
+                return GetDbResult.Success(cat)
         }
-        return c
+        return GetDbResult.Failure("Couldn't get the cat!")
     }
 
-    override suspend fun getLastCatProfile(): CatProfile {
+    override suspend fun getLastCatProfile(): GetDbResult {
         return getCatProfile(_currentCatIndex)
     }
 
-    override suspend fun getSuggestedCatProfile(): CatProfile {
+    override suspend fun getSuggestedCatProfile(): GetDbResult {
         _currentCatIndex += 1
         return getCatProfile(_currentCatIndex)
     }

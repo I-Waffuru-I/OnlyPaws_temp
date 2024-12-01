@@ -5,5 +5,6 @@ data class LoginState (
     var username : String = "user",
     var password : String = "pass",
     var errorMessage : String? = null,
-    var isRegister : Boolean = false,
+    var triesToLogIn : Boolean = false,
+    var triesToRegister : Boolean = false,
 )
