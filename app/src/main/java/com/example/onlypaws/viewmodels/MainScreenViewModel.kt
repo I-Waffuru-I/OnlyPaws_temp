@@ -1,6 +1,5 @@
 package com.example.onlypaws.viewmodels
 
-import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,46 +8,108 @@ import androidx.lifecycle.viewModelScope
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.UserProfile
 import com.example.onlypaws.models.db.GetDbResult
+import com.example.onlypaws.models.main.MainAction
+import com.example.onlypaws.models.main.MainState
+import com.example.onlypaws.models.main.MainStateList
+import com.example.onlypaws.repos.FireBaseUserRepo
+import com.example.onlypaws.repos.FirebaseCatRepo
 import com.example.onlypaws.repos.ICatRepository
-import com.example.onlypaws.repos.MockCatRepo
+import com.example.onlypaws.repos.IUserAccountRepository
 import kotlinx.coroutines.launch
 
-sealed class MainScreenUiState {
-    data class Success(val cat : CatProfile) : MainScreenUiState()
-    data class Failure(val error : String) : MainScreenUiState()
-    data object Loading : MainScreenUiState()
-}
 
 
-class MainScreenViewModel(application: Application) : ViewModel() {
-    private val catRepo : ICatRepository = MockCatRepo(application)
+class MainScreenViewModel(userId : String) : ViewModel() {
+    private val catRepo : ICatRepository = FirebaseCatRepo()
+    private val userRepo : IUserAccountRepository = FireBaseUserRepo()
+    private var currentCatId = -1 // the id the last seen cat, stored in the user account
+    private var userCatId = -1 // the catId of the logged in user
 
-    var mainPageState : MainScreenUiState by mutableStateOf(MainScreenUiState.Loading)
+    var mainPageState : MainState by mutableStateOf(MainState())
 
     init {
-        getStarterCats()
+        getUserInfo(userId)
+        getCurrentCat()
     }
 
-    fun getStarterCats() {
-        getNextCat()
+// Handler voor de screen interacties
+    fun onAction(action : MainAction) {
+        when(action)  {
+            MainAction.OnDislike -> getNextCat()
+            MainAction.OnLike -> getNextCat()
+            MainAction.OnProfileView ->
+                mainPageState = mainPageState.copy(view = true)
+            MainAction.OnRetry -> getCurrentCat()
+        }
     }
 
-    fun getNextCat ()  {
+    private fun getCurrentCat() {
+
+        viewModelScope.launch {
+            currentCatId += if(currentCatId == userCatId)
+                 1
+            else 0
+            mainPageState.state = when (val result = catRepo.getCatProfile(currentCatId)) {
+                is GetDbResult.Failure -> {
+                    MainStateList.Failure(result.error)
+                }
+
+                is GetDbResult.Success -> {
+                    if (result.value is CatProfile){
+                        mainPageState.cat = result.value
+                        MainStateList.Success
+                    } else {
+                        MainStateList.Failure("Got something from the repo, but it's not a user profile...")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getNextCat ()  {
          viewModelScope.launch {
 
-             mainPageState = when (val rslt = catRepo.getCatProfile(0)) {
+             currentCatId += if (currentCatId+1 == userCatId)
+                  2
+             else 1
+
+             mainPageState.state = when (val result = catRepo.getCatProfile(currentCatId)) {
                  is GetDbResult.Failure -> {
-                     MainScreenUiState.Failure(rslt.error)
+                     MainStateList.Failure(result.error)
                  }
 
                  is GetDbResult.Success -> {
-                     if (rslt.value is CatProfile){
-                         MainScreenUiState.Success(rslt.value)
+                     if (result.value is CatProfile){
+                         mainPageState.cat = result.value
+                         MainStateList.Success
                      } else {
-                         MainScreenUiState.Failure("Got something from the repo, but it's not a user profile...")
+                         MainStateList.Failure("Got something from the repo, but it's not a user profile...")
                      }
                  }
              }
         }
     }
+
+    private fun getUserInfo(userId: String){
+
+        viewModelScope.launch {
+            when(val u = userRepo.getLoggedInUser(userId)){
+                is GetDbResult.Failure -> {
+                    mainPageState.state = MainStateList.Failure(error = u.error)
+                }
+                is GetDbResult.Success -> {
+                    if(u.value is UserProfile){
+                        userCatId = u.value.catId
+                        currentCatId = u.value.currentViewedId
+                    } else {
+                        mainPageState.state = MainStateList.Failure(
+                            "VM : User gotten from repo isn't correctly parsed!"
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+
 }

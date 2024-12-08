@@ -35,7 +35,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.onlypaws.models.UserProfile
-import com.example.onlypaws.ui.screens.AccountInfoScreen
+import com.example.onlypaws.repos.FireBaseUserRepo
+import com.example.onlypaws.repos.IUserAccountRepository
+import com.example.onlypaws.ui.screens.AccountScreen
 import com.example.onlypaws.ui.screens.CategoriesScreen
 import com.example.onlypaws.ui.screens.LogInScreen
 import com.example.onlypaws.ui.screens.MainScreen
@@ -100,7 +102,9 @@ fun OnlyPawsApp(
     )
 
     val context = LocalContext.current
+    val firebaseUserRepo : IUserAccountRepository = FireBaseUserRepo()
     var userIsLoggedIn by remember { mutableStateOf(false)}
+    var userId by remember { mutableStateOf("") }
     var currentUser : UserProfile? by remember { mutableStateOf(null) }
 
     Scaffold (
@@ -163,16 +167,14 @@ fun OnlyPawsApp(
                         LoginViewModel()
                     }
 
-                    val onLoggedIn = {
+                    val onLoggedIn =  {
                         id : String ->
-                            val x = vm.getUserInfo(id)
-                            if(x != null) {
-                                userIsLoggedIn = true
-                                currentUser = x
-                                navController.navigate(Main) {
-                                    popUpTo(Main) {
-                                        inclusive = true
-                                    }
+
+                            userIsLoggedIn = true
+                            userId = id
+                            navController.navigate(Main) {
+                                popUpTo(Main) {
+                                    inclusive = true
                                 }
                             }
                     }
@@ -201,8 +203,8 @@ fun OnlyPawsApp(
 
 
                composable<Main> {
-                   val viewModel : MainScreenViewModel = viewModel{
-                       MainScreenViewModel(context.applicationContext as Application)
+                   val vm : MainScreenViewModel = viewModel{
+                       MainScreenViewModel(userId)
                    }
                    val clickDisplayDetails = {
                        catId : Int ->
@@ -210,12 +212,9 @@ fun OnlyPawsApp(
                    }
 
                    MainScreen(
-                       retryAction = { viewModel.getStarterCats() },
-                       mainScreenUiState = viewModel.mainPageState,
-                       dislikeClick = { viewModel.getNextCat() },
-                       likeClick = { viewModel.getNextCat()},
+                       onAction = vm::onAction,
+                       mainScreenUiState = vm.mainPageState,
                        displayDetails = clickDisplayDetails,
-                       modifier =  Modifier.fillMaxSize().padding(innerPadding),
                    )
                }
 
@@ -243,6 +242,7 @@ fun OnlyPawsApp(
                     val logOutUser = {
 
                         userIsLoggedIn = false
+                        userId = ""
                         navController.navigate(Login) {
                             popUpTo(Login) {
                                 inclusive = true
@@ -250,10 +250,12 @@ fun OnlyPawsApp(
                         }
                     }
 
-                    currentUser?.let { it1 ->
-                        AccountInfoScreen(
-                            it1,
-                            logOutUser,
+                    currentUser?.let {
+
+                        AccountScreen(
+                            onAction = {},
+                            onLogOutClick =  logOutUser,
+                            user = it,
                         )
                     }
 

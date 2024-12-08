@@ -9,6 +9,7 @@ data class UserProfile (
     val accountImageLink : String = "",
     val description : String = "",
     val currentViewedId : Int = 0,
+    var catId : Int = -1
 ){
 
 }

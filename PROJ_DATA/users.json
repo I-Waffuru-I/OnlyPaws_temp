@@ -1,18 +1,103 @@
 {
     "users" : {
+        "Zmlyc3RjYXRAZ21haWwuY29t": {
+            "id":"Zmlyc3RjYXRAZ21haWwuY29t",
+            "accountName":"first cat",
+            "description":"very cool cat",
+            "accountImageLink":"https://cdn2.thecatapi.com/images/MjAxMjkwMg.jpg",
+            "currentViewedId":0,
+            "catId":0
+        },
+        "c2Vjb25kY2F0QGdtYWlsLmNvbQ==": {
+            "id":"c2Vjb25kY2F0QGdtYWlsLmNvbQ==",
+            "accountName":"second cat",
+            "description":"less cool, but still cool",
+            "accountImageLink":"https://cdn2.thecatapi.com/images/aup.jpg",
+            "currentViewedId":0,
+            "catId":1
+        },
+        "M3JkY2F0QGdtYWlsLmNvbQ==":{
+            "id":"M3JkY2F0QGdtYWlsLmNvbQ==",
+            "accountName":"3rd cat",
+            "description":"same image as first because bleh",
+            "accountImageLink":"https://cdn2.thecatapi.com/images/dmj.jpg",
+            "currentViewedId":0,
+            "catId":2
+        },
+        "bGFzdGNhdEBnbWFpbC5jb20=":{
+            "id":"bGFzdGNhdEBnbWFpbC5jb20=",
+            "accountName":"last cat",
+            "description":"probably the coolest one",
+            "accountImageLink":"https://cdn2.thecatapi.com/images/d0q.jpg",
+            "currentViewedId":0,
+            "catId":3
+        },
          "bWF0aGEzQGdtYWlsLmNvbQ==":{
             "id":"bWF0aGEzQGdtYWlsLmNvbQ==",
             "accountName":"matha3",
             "accountImageLink":"https://cdn2.thecatapi.com/images/1q7.jpg",
-            "descriptions":"matha's 3rd account",
-            "currentViewedId":0
+            "description":"matha's 3rd account",
+            "currentViewedId":0,
+            "catId":4
         },
         "bWF0aGEyQGdtYWlsLmNvbQ==": {
             "id":"bWF0aGEyQGdtYWlsLmNvbQ==",
             "accountName":"matha2",
             "accountImageLink":"https://cdn2.thecatapi.com/images/MTc1ODk0OQ.jpg",
-            "descriptions":"matha's 2nd account",
-            "currentViewedId":0
+            "description":"matha's 2nd account",
+            "currentViewedId":0,
+            "catId":5
         }
-    }
+    },
+
+
+
+    "user_ids": [
+        "Zmlyc3RjYXRAZ21haWwuY29t",
+        "c2Vjb25kY2F0QGdtYWlsLmNvbQ==",
+        "M3JkY2F0QGdtYWlsLmNvbQ==",
+        "bGFzdGNhdEBnbWFpbC5jb20=",
+        "bWF0aGEzQGdtYWlsLmNvbQ==",
+        "bWF0aGEyQGdtYWlsLmNvbQ=="
+    ],
+
+
+    "cats" : [
+            {
+                "id":0,
+                "name":"first cat",
+                "description":"very cool cat",
+                "image":"https://cdn2.thecatapi.com/images/MjAxMjkwMg.jpg"
+            },
+            {
+                "id":1,
+                "name":"second cat",
+                "description":"less cool, but still cool",
+                "image":"https://cdn2.thecatapi.com/images/aup.jpg"
+            },
+            {
+                "id":2,
+                "name":"3rd cat",
+                "description":"same image as first because bleh",
+                "image":"https://cdn2.thecatapi.com/images/dmj.jpg"
+            },
+            {
+                "id":3,
+                "name":"last cat",
+                "description":"probably the coolest one",
+                "image":"https://cdn2.thecatapi.com/images/d0q.jpg"
+            },
+            {
+                "id":4,
+                "name":"matha2",
+                "image":"https://cdn2.thecatapi.com/images/1q7.jpg",
+                "description":"matha's 2nd account"
+            },
+            {
+                "id":5,
+                "name":"matha3",
+                "image":"https://cdn2.thecatapi.com/images/MTc1ODk0OQ.jpg",
+                "description":"matha's 3rd account"
+            }
+        ]
 }

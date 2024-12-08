@@ -1,33 +1,27 @@
 package com.example.onlypaws.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.rememberAsyncImagePainter
-import com.example.onlypaws.R
 import com.example.onlypaws.models.USER_INTERESTS
 import com.example.onlypaws.models.UserProfile
-import com.example.onlypaws.ui.components.LogButton
+import com.example.onlypaws.models.main.MainAction
+import com.example.onlypaws.models.register.RegisterState
 import com.example.onlypaws.ui.components.TagsBox
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 
 @Composable
-fun AccountInfoScreen(
+fun AccountScreen(
+
     user : UserProfile,
+    onAction : ()->Unit,
     onLogOutClick : ()->Unit,
 ){
 

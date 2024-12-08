@@ -1,49 +1,71 @@
 package com.example.onlypaws.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import coil.compose.AsyncImage
 import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
-import com.example.onlypaws.ui.components.ProfileCard
-import com.example.onlypaws.viewmodels.MainScreenUiState
+import com.example.onlypaws.models.main.MainAction
+import com.example.onlypaws.models.main.MainState
+import com.example.onlypaws.models.main.MainStateList
 
 
 @Composable
 fun MainScreen (
-    mainScreenUiState: MainScreenUiState,
-    retryAction : () -> Unit,
-    dislikeClick : ()->Unit,
-    likeClick: ()->Unit,
+    onAction : (MainAction)->Unit,
+    mainScreenUiState: MainState,
     displayDetails: (Int) -> Unit,
     modifier : Modifier = Modifier,
 ){
 
-    when(mainScreenUiState) {
-        is MainScreenUiState.Loading -> {
+    LaunchedEffect(key1 = mainScreenUiState.view) {
+        if(mainScreenUiState.view && mainScreenUiState.cat != null)
+            displayDetails(mainScreenUiState.cat!!.id)
+
+    }
+
+
+    when(mainScreenUiState.state) {
+        is MainStateList.Loading -> {
             LoadingMain(modifier)
         }
-        is MainScreenUiState.Failure -> {
-            ErrorMain(modifier = modifier, retryAction = retryAction)
-        }
-        is MainScreenUiState.Success -> {
-            SuccessMain(
-                like = likeClick,
-                dislike = dislikeClick,
-                displayDetails = displayDetails,
-                cat = mainScreenUiState.cat,
+        is MainStateList.Failure -> {
+            ErrorMain(
+                modifier = modifier,
+                retryAction = { onAction(MainAction.OnRetry) }
             )
+        }
+        is MainStateList.Success -> {
+            mainScreenUiState.cat?.let {
+                SuccessMain(
+                    cat = mainScreenUiState.cat!!,
+                    onAction = onAction,
+                )
+
+            }
         }
     }
 }
@@ -90,10 +112,97 @@ fun ErrorMain(
 @Composable
 fun SuccessMain(
     cat : CatProfile,
-    dislike : ()->Unit,
-    displayDetails: (Int)->Unit,
-    like : ()->Unit,
+    onAction: (MainAction) -> Unit,
     modifier:Modifier = Modifier,
 ){
-    ProfileCard(dislike, like, displayDetails, cat)
+
+
+    ConstraintLayout (
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ){
+
+        val(catImg,catName,catDescription) = createRefs()
+
+        // NAME
+        Box(
+
+            modifier = Modifier.constrainAs(catName){
+                start.linkTo(parent.start)
+                top.linkTo(parent.top)
+            }
+                .fillMaxWidth(),
+            contentAlignment = Alignment.CenterStart
+
+        ){
+            Text(
+                text = cat.name,
+                fontSize = 50.sp,
+                color = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier
+                    .padding(15.dp)
+            )
+        }
+
+        // IMAGE
+        AsyncImage(
+            model = cat.image,
+            contentDescription = cat.description,
+            modifier = Modifier.constrainAs(catImg) {
+                top.linkTo(catName.bottom)
+            }
+                .fillMaxWidth(),
+            contentScale = ContentScale.Crop
+        )
+
+        // DESCRIPTION
+        Box(
+
+            modifier = Modifier.constrainAs(catDescription){
+                start.linkTo(catName.start)
+                top.linkTo(catImg.bottom)
+                bottom.linkTo(parent.bottom)
+            }
+                .fillMaxWidth(),
+            contentAlignment = Alignment.CenterStart
+
+        ){
+            Text(
+                text = cat.description,
+                fontSize = 15.sp,
+                color = MaterialTheme.colorScheme.secondary,
+            )
+        }
+
+        // BUTTONS
+        Row (
+
+        ) {
+
+            Button(
+                onClick = { onAction(MainAction.OnDislike) },
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .alpha(0f)
+                    .weight(0.2f)
+            ){
+            }
+            Button(
+                onClick = {onAction(MainAction.OnProfileView)},
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .alpha(0f)
+                    .weight(0.6f)
+            ){}
+            Button(
+                onClick = { onAction(MainAction.OnLike) },
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .alpha(0f)
+                    .weight(0.2f)
+            ){
+            }
+        }
+    }
 }

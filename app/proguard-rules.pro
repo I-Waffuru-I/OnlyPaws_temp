@@ -20,6 +20,13 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# For firebase apparently...
+-keepattributes Signature
+-keepclassmembers class com.example.onlypaws.models.** {
+  *;
+}
+
+# For cred manager
 -if class androidx.credentials.CredentialManager
 -keep class androidx.credentials.playservices.** {
   *;

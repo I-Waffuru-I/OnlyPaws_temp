@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -51,100 +52,107 @@ fun RegisterScreen(
         onAction(RegisterAction.OnImageLinkChange(it.toString()))
     }
 
-    FloatingActionButton(
-        onClick = {
-            onAction(RegisterAction.OnSignIn)
-        },
-    ) {
-        Text (
-            text = "<-",
-        )
-    }
 
-    Column (
-        modifier = modifier.padding(5.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-
-        if(state.imageLink != ""){
-
-            AsyncImage (
-                model = state.imageLink,
-                contentDescription =  "cat image",
-                modifier = Modifier.width(150.dp),
-            )
-        }
-
-        TextField(
-            value = state.username,
-            onValueChange = {
-                onAction(RegisterAction.OnUsernameChange(it))
-            },
-            label = { Text(text = "Username") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        TextField(
-            value = state.email,
-            onValueChange = {
-                onAction(RegisterAction.OnEmailChange(it))
-            },
-            label = { Text(text = "Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        TextField(
-            value = state.password,
-            onValueChange = {
-                onAction(RegisterAction.OnPasswordChange(it))
-            },
-            label = { Text(text = "Password") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Button(
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
                 onClick = {
-                    launcher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                    onAction(RegisterAction.OnSignIn)
                 },
-                modifier = Modifier.weight(0.4f)
             ) {
-                Text("Select")
+                Text (
+                    text = "<-",
+                )
             }
-            Spacer(Modifier.weight(0.2f))
-
-            Button(
-                onClick = {
-                    onAction(RegisterAction.OnImageRandomize)
-                },
-                modifier = Modifier.weight(0.4f)
-            ) {
-                Text("Random")
-            }
-
         }
-        Row(modifier = Modifier.fillMaxWidth()) {
+    ) { innerPadding ->
 
-            Text(
-                text = "",
-                modifier = Modifier.weight(0.7f)
-            )
-        }
-
-
-        Button(
-            onClick = {
-                scope.launch {
-
-                    val rslt = accountManager.signUp(
-                        state
-                    )
-                    onAction(RegisterAction.OnRegister(rslt))
-                }
-            },
+        Column (
+            modifier = modifier.padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Text (text = "Create account!")
+
+
+            if (state.imageLink != "") {
+
+                AsyncImage(
+                    model = state.imageLink,
+                    contentDescription = "cat image",
+                    modifier = Modifier.width(150.dp),
+                )
+            }
+
+            TextField(
+                value = state.username,
+                onValueChange = {
+                    onAction(RegisterAction.OnUsernameChange(it))
+                },
+                label = { Text(text = "Username") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            TextField(
+                value = state.email,
+                onValueChange = {
+                    onAction(RegisterAction.OnEmailChange(it))
+                },
+                label = { Text(text = "Email") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            TextField(
+                value = state.password,
+                onValueChange = {
+                    onAction(RegisterAction.OnPasswordChange(it))
+                },
+                label = { Text(text = "Password") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Button(
+                    onClick = {
+                        launcher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                    },
+                    modifier = Modifier.weight(0.4f)
+                ) {
+                    Text("Select")
+                }
+                Spacer(Modifier.weight(0.2f))
+
+                Button(
+                    onClick = {
+                        onAction(RegisterAction.OnImageRandomize)
+                    },
+                    modifier = Modifier.weight(0.4f)
+                ) {
+                    Text("Random")
+                }
+
+            }
+            Row(modifier = Modifier.fillMaxWidth()) {
+
+                Text(
+                    text = "",
+                    modifier = Modifier.weight(0.7f)
+                )
+            }
+
+
+            Button(
+                onClick = {
+                    scope.launch {
+
+                        val rslt = accountManager.signUp(
+                            state
+                        )
+                        onAction(RegisterAction.OnRegister(rslt))
+                    }
+                },
+            ) {
+                Text(text = "Create account!")
+            }
+
         }
     }
 }

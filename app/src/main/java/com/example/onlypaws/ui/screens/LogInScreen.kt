@@ -53,8 +53,9 @@ fun LogInScreen(
     }
 
     // Als username niet null is, navigeer verden naar de app
-    LaunchedEffect(key1 = state.loggedInUser) {
-        if(state.loggedInUser != null) {
+    LaunchedEffect(key1 = state.triesToLogIn) {
+        if(state.loggedInUser != null && state.triesToLogIn) {
+            state.triesToLogIn = false
             onLoggedIn(state.loggedInUser)
         }
     }
@@ -64,7 +65,6 @@ fun LogInScreen(
         if(state.triesToRegister)
             onRegister()
     }
-
 
     Column(
         modifier = Modifier.padding(5.dp),

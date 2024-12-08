@@ -15,7 +15,6 @@ import com.example.onlypaws.repos.IUserAccountRepository
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
-    private val firebaseUserRepo : IUserAccountRepository = FireBaseUserRepo()
     var state :LoginState by mutableStateOf(LoginState())
 
 
@@ -56,31 +55,4 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun getUserInfo(username : String) : UserProfile? {
-        if (username == ""){
-            println("LOGIN FAILURE : Provide a username!")
-            return null
-        }
-
-        var user : UserProfile? = null
-        viewModelScope.launch {
-            when (val rslt = firebaseUserRepo.getLoggedInUser(username)) {
-                is GetDbResult.Failure -> {
-                    println("LOGIN FAILURE: ${rslt.error}")
-                }
-                is GetDbResult.Success -> {
-                    when (rslt.value) {
-                        is UserProfile -> {
-                            user = rslt.value as UserProfile
-                            println("LOGIN INFO : Parsed to user '${user!!.accountName}'")
-                        }
-                        else -> {
-                            println("LOGIN FAILURE : Couldn't parse data into a user")
-                        }
-                    }
-                }
-            }
-        }
-        return user
-    }
 }

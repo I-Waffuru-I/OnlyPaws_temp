@@ -72,6 +72,27 @@ Register :
     - Een andere knop staat er onder. Hiermee gaat een random kat foto gevonden worden die wel online te vinden is. Dit moet je eigenlijk gebruiken voor je profiel te creeëren.
     - Verder wordt een gebruikersnaam (de naam van de poes), een email en een paswoord verwacht. 
 
-## Week 10 (02/12): ..... uren:
+## Week 10 (02/12): 9 uren:
+
+Database : 
+- Structuur wat uitgebreid. Er is nu een `users`, `cats` en `user_ids` deel in Firebase. 
+- `users` bevat login gegevens en een referentie naar het `cat` gedeelte. Dit wordt opgevraagd bij de login pagina, *enkel en alleen jouw eigen informatie uiteraard*
+- `cats` bevat de informatie die men te zien krijgt bij swipen. Naam, beschrijving, afbeelding.
+- Bij het registreren wordt het ID als key gebruikt in de `users` map, maar wordt die ook in het array `user_ids` toegevoegd.
+- Aangezien er maar één profiel te vinden is per account kan ik loopen over die lijst, tellen en er van uitgaan dat de teller +1 uniek is. Dit wordt gebruikt bij het opslaan van de gebruiker.
+- Dummy data aangemaakt voor wat gebruikers.
+-  **Ik krijg nu zo'n leuke bug waarbij een firebase snapshot in de cat repo te nemen heel een blok code lijkt over de steken zonder iets te doen. Heel gek. Om deze week te fixen**
+
+MainScreen :
+- Maakt nu gebruik van dat state systeem van Login/Register; MainState (alle info voor de screen), MainStateList(een enum) en MainAction zijn aangemaakt en toegevoegd.
+- De code van ProfileCard heb ik... idk waarom, uit de card en rechstreeks in de screengezet. Kzal dat later wel terug omzetten, moest een soort brainfart zijn geweest.
+- MockCat/UserRepo zijn alletwee omgezet naar Firebase repos en halen data online op.
+
+Login :
+- Volledig functioneel, data wordt tijdig opgehaald.
+
+Register :
+- Moet nog wat testen of firebase opslaan lukt, maar de structuur is volledig af buiten dit.
+
 ## Week 11 (09/12): ..... uren:
 ## Week 12 (16/12): ..... uren:
