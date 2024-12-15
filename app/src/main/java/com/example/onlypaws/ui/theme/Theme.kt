@@ -281,7 +281,7 @@ fun OnlyPawsTheme(
 
 
   MaterialTheme(
-    colorScheme = colorScheme,
+    colorScheme = darkScheme,
     typography = AppTypography,
     content = content
   )

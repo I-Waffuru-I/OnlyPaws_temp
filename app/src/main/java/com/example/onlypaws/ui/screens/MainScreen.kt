@@ -30,7 +30,6 @@ import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.main.MainAction
 import com.example.onlypaws.models.main.MainState
-import com.example.onlypaws.models.main.MainStateList
 
 
 @Composable
@@ -41,31 +40,27 @@ fun MainScreen (
     modifier : Modifier = Modifier,
 ){
 
-    LaunchedEffect(key1 = mainScreenUiState.view) {
-        if(mainScreenUiState.view && mainScreenUiState.cat != null)
-            displayDetails(mainScreenUiState.cat!!.id)
 
-    }
-
-
-    when(mainScreenUiState.state) {
-        is MainStateList.Loading -> {
+    when(mainScreenUiState) {
+        is MainState.Loading -> {
             LoadingMain(modifier)
         }
-        is MainStateList.Failure -> {
+        is MainState.Failure -> {
             ErrorMain(
+                error = mainScreenUiState.error,
                 modifier = modifier,
                 retryAction = { onAction(MainAction.OnRetry) }
             )
         }
-        is MainStateList.Success -> {
-            mainScreenUiState.cat?.let {
-                SuccessMain(
-                    cat = mainScreenUiState.cat!!,
-                    onAction = onAction,
-                )
+        is MainState.Success -> {
+            SuccessMain(
+                cat = mainScreenUiState.cat,
+                onAction = onAction,
+            )
+        }
 
-            }
+        is MainState.ViewProfile ->{
+            displayDetails(mainScreenUiState.cat.id)
         }
     }
 }
@@ -80,6 +75,7 @@ fun LoadingMain(modifier: Modifier = Modifier){
 }
 @Composable
 fun ErrorMain(
+    error : String,
     retryAction: () -> Unit,
     modifier: Modifier = Modifier
 ){
@@ -96,7 +92,7 @@ fun ErrorMain(
         )
 
         Text(
-            text = stringResource(R.string.error_getting_cat_list),
+            text = error,
             modifier = Modifier.padding(16.dp)
         )
         Button(
@@ -127,7 +123,6 @@ fun SuccessMain(
 
         // NAME
         Box(
-
             modifier = Modifier.constrainAs(catName){
                 start.linkTo(parent.start)
                 top.linkTo(parent.top)

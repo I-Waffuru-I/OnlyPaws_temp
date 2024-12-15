@@ -11,7 +11,15 @@
     <!-- Error loading cat profiles -->
     <string name="refresh_cat_profile_list">Retry</string>
     <string name="error_getting_cat_list">Cat profiles were not loaded correctly.</string>
+    <string name="error_get_not_user">Got something from the repo, but it\'s not a user profile…</string>
+    <string name="error_get_not_cat">Got something from the repo, but it\'s not a cat profile</string>
 
     <!-- Loading cat profiles -->
     <string name="loading_cat_profile_list">Cat profiles are loading…</string>
+
+
+
+    <!--  Account Page field names   -->
+    <string name="account_field_username">Username</string>
+    <string name="account_field_description">Description</string>
 </resources>

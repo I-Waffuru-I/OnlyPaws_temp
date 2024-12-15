@@ -1,45 +1,60 @@
 package com.example.onlypaws.viewmodels
 
-import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.UserProfile
+import com.example.onlypaws.models.account.AccountAction
+import com.example.onlypaws.models.account.AccountStateList
 import com.example.onlypaws.models.db.GetDbResult
 import com.example.onlypaws.repos.FireBaseUserRepo
+import com.example.onlypaws.repos.FirebaseCatRepo
+import com.example.onlypaws.repos.ICatRepository
 import com.example.onlypaws.repos.IUserAccountRepository
 import kotlinx.coroutines.launch
 
-sealed interface AccountState {
-    data class Success(val account : UserProfile) : AccountState
-    data object Loading : AccountState
-    data class Failure(val error : String) : AccountState
-}
 
-class AccountViewModel(application : Application, userId : String) : ViewModel() {
-    private val userRepo : IUserAccountRepository = FireBaseUserRepo()
+class AccountViewModel(userId : String) : ViewModel() {
+    private val _userRepo : IUserAccountRepository = FireBaseUserRepo()
+    private val _catRepo : ICatRepository = FirebaseCatRepo()
+    private var _userId : String = userId
 
-    var state : AccountState by mutableStateOf(AccountState.Loading)
+    var state : AccountStateList by mutableStateOf(AccountStateList.Loading)
 
     init {
-       getProfile(userId)
+       getProfile(_userId)
     }
 
-    fun getProfile(id : String){
+    fun onAction (action : AccountAction){
         viewModelScope.launch {
-            val rslt = userRepo.getLoggedInUser(id)
-            state = when (rslt) {
+            if(state is AccountStateList.Success)
+            when (action) {
+                AccountAction.OnLogOut -> state = AccountStateList.LogOut
+                AccountAction.OnRetry -> getProfile(_userId)
+            }
+        }
+
+    }
+    fun loadPage(userId: String){
+        getProfile(userId)
+    }
+
+    private fun getProfile(id : String){
+        viewModelScope.launch {
+            val result = _catRepo.getCatProfileFromEmail(id)
+            state = when (result) {
                 is GetDbResult.Failure -> {
-                    AccountState.Failure(rslt.error)
+                    AccountStateList.Failure(result.error)
                 }
 
                 is GetDbResult.Success -> {
-                    if (rslt.value is UserProfile){
-                        AccountState.Success(rslt.value)
+                    if (result.value is CatProfile){
+                        AccountStateList.Success(result.value)
                     } else {
-                        AccountState.Failure("Got something from the repo, but it's not a user profile...")
+                        AccountStateList.Failure("Got something from the repo, but it's not a user profile...")
                     }
                 }
             }

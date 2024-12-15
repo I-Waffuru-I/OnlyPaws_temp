@@ -11,10 +11,12 @@ import androidx.credentials.exceptions.CreateCredentialException
 import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.credentials.exceptions.GetCredentialException
 import androidx.credentials.exceptions.NoCredentialException
+import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.UserProfile
+import com.example.onlypaws.models.db.SaveDbResult
 import com.example.onlypaws.models.login.SignInResult
-import com.example.onlypaws.models.register.RegisterState
 import com.example.onlypaws.models.register.SignUpResult
+import com.example.onlypaws.models.registerDetails.DetailState
 import com.example.onlypaws.repos.FireBaseUserRepo
 import com.example.onlypaws.repos.IUserAccountRepository
 import com.google.firebase.Firebase
@@ -27,28 +29,31 @@ class AccountManager(
     private var auth = Firebase.auth
     private val credManager = CredentialManager.create(activity)
     private val firebaseUser : IUserAccountRepository = FireBaseUserRepo()
-    suspend fun signUp(data : RegisterState) : SignUpResult {
 
-        val profile = UserProfile(
-            id = data.email,
-            accountName = data.username,
-            accountImageLink = data.imageLink,
-            description = data.description,
-            currentViewedId = 0,
-        )
+
+
+
+    suspend fun signUp(data : DetailState) : SignUpResult {
+
         return try {
-            credManager.createCredential(
-                context = activity,
-                request = CreatePasswordRequest(
-                    id = data.email,
-                    password = data.password,
-                )
-            )
-            auth.createUserWithEmailAndPassword(data.email,data.password)
 
-            firebaseUser.tryRegisterUser(profile)
+            when(val result = firebaseUser.tryRegisterUser(data)){
+                is SaveDbResult.Failure ->{
+                    return SignUpResult.Failure(result.error)
+                }
+                SaveDbResult.Success -> {
+                    credManager.createCredential(
+                        context = activity,
+                        request = CreatePasswordRequest(
+                            id = data.email,
+                            password = data.password,
+                        )
+                    )
+                    auth.createUserWithEmailAndPassword(data.email,data.password)
+                    return SignUpResult.Success(data.email)
+                }
+            }
 
-            SignUpResult.Success(data.email)
         } catch (e : CreateCredentialCancellationException) {
             e.printStackTrace()
             SignUpResult.Cancelled

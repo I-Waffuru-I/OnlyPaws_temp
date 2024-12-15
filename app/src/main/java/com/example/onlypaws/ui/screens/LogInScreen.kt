@@ -62,8 +62,10 @@ fun LogInScreen(
 
     // Als ge op Register klikt en er gebeurt niks fout komt ge hier uit
     LaunchedEffect(key1 = state.triesToRegister) {
-        if(state.triesToRegister)
+        if(state.triesToRegister) {
+            state.triesToRegister = false
             onRegister()
+        }
     }
 
     Column(

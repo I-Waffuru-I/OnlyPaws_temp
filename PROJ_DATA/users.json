@@ -2,55 +2,35 @@
     "users" : {
         "Zmlyc3RjYXRAZ21haWwuY29t": {
             "id":"Zmlyc3RjYXRAZ21haWwuY29t",
-            "accountName":"first cat",
-            "description":"very cool cat",
-            "accountImageLink":"https://cdn2.thecatapi.com/images/MjAxMjkwMg.jpg",
             "currentViewedId":0,
             "catId":0
         },
         "c2Vjb25kY2F0QGdtYWlsLmNvbQ==": {
             "id":"c2Vjb25kY2F0QGdtYWlsLmNvbQ==",
-            "accountName":"second cat",
-            "description":"less cool, but still cool",
-            "accountImageLink":"https://cdn2.thecatapi.com/images/aup.jpg",
             "currentViewedId":0,
             "catId":1
         },
         "M3JkY2F0QGdtYWlsLmNvbQ==":{
             "id":"M3JkY2F0QGdtYWlsLmNvbQ==",
-            "accountName":"3rd cat",
-            "description":"same image as first because bleh",
-            "accountImageLink":"https://cdn2.thecatapi.com/images/dmj.jpg",
             "currentViewedId":0,
             "catId":2
         },
         "bGFzdGNhdEBnbWFpbC5jb20=":{
             "id":"bGFzdGNhdEBnbWFpbC5jb20=",
-            "accountName":"last cat",
-            "description":"probably the coolest one",
-            "accountImageLink":"https://cdn2.thecatapi.com/images/d0q.jpg",
             "currentViewedId":0,
             "catId":3
         },
          "bWF0aGEzQGdtYWlsLmNvbQ==":{
             "id":"bWF0aGEzQGdtYWlsLmNvbQ==",
-            "accountName":"matha3",
-            "accountImageLink":"https://cdn2.thecatapi.com/images/1q7.jpg",
-            "description":"matha's 3rd account",
             "currentViewedId":0,
             "catId":4
         },
         "bWF0aGEyQGdtYWlsLmNvbQ==": {
             "id":"bWF0aGEyQGdtYWlsLmNvbQ==",
-            "accountName":"matha2",
-            "accountImageLink":"https://cdn2.thecatapi.com/images/MTc1ODk0OQ.jpg",
-            "description":"matha's 2nd account",
             "currentViewedId":0,
             "catId":5
         }
     },
-
-
 
     "user_ids": [
         "Zmlyc3RjYXRAZ21haWwuY29t",

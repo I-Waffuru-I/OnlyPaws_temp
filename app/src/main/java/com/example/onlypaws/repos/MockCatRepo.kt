@@ -17,7 +17,7 @@ class MockCatRepo(application: Application) : ICatRepository {
     )
 
 
-    override suspend fun getCatProfile(catId: Int): GetDbResult {
+    override suspend fun getCatProfileFromEmail(catId: Int): GetDbResult {
         for(cat in cats){
             if(cat.id == catId)
                 return GetDbResult.Success(cat)
@@ -25,13 +25,17 @@ class MockCatRepo(application: Application) : ICatRepository {
         return GetDbResult.Failure("Couldn't get the cat!")
     }
 
+    override suspend fun getCatProfileFromEmail(catId: String): GetDbResult {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getLastCatProfile(): GetDbResult {
-        return getCatProfile(_currentCatIndex)
+        return getCatProfileFromEmail(_currentCatIndex)
     }
 
     override suspend fun getSuggestedCatProfile(): GetDbResult {
         _currentCatIndex += 1
-        return getCatProfile(_currentCatIndex)
+        return getCatProfileFromEmail(_currentCatIndex)
     }
 
 }

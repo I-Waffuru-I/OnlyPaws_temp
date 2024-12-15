@@ -94,5 +94,19 @@ Login :
 Register :
 - Moet nog wat testen of firebase opslaan lukt, maar de structuur is volledig af buiten dit.
 
-## Week 11 (09/12): ..... uren:
+## Week 11 (09/12): 9 uren:
+Database :
+- Dat probleem met de CatProfiles ophalen is opgelost. Ik was vergeten een default (lege) constructor te maken voor het CatProfile model.
+- UserProfile + opgeslagen data is nu vervormdt naar een kleiner object om te vermijden informatie dubbel op te slaan. Zo wordt in `users` alleen nog het CatID, LastSeenCatID en Email onthouden, terwijl `cats` alle echte informatie bevat.
+
+Account :
+- AccountScreen werkt nu met het zelfde State systeem als de andere screens.
+- ValueUpdateField aangemaakt, een composable om velden aan te passen in X of Y context (zal toegepast worden in de AccountScreen bvb). Is wel totaal niet af en ziet er als just niks uit.
+
+Register :
+- Checks toegevoegd om te bepalen of je zelfs mag inloggen. Indien niet wordt de `Register` knop uitgeschakeld
+- Registreren wordt opgesplitst in twee delen. Eerst kom je op RegisterScreen, voeg je een email en wachtwoord in, en pas ééns die beide voldoen aan de checks kan je door naar :
+- de RegisterDetails screen. Hier vul je een gebruikersnaam, beschrijving en afbeelding in met wat invoervelden + die Random Cat knop.
+- Checks : Paswoord langer dan 6 chars (wordt altijd gecheckt) en email die nog niet in gebruik is (enkel wanneer je Register klikt wordt dit gecheckt) 
+
 ## Week 12 (16/12): ..... uren:

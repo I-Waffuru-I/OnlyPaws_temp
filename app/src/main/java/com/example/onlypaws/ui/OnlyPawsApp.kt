@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -42,10 +43,13 @@ import com.example.onlypaws.ui.screens.CategoriesScreen
 import com.example.onlypaws.ui.screens.LogInScreen
 import com.example.onlypaws.ui.screens.MainScreen
 import com.example.onlypaws.ui.screens.ProfileScreen
+import com.example.onlypaws.ui.screens.RegisterDetailsScreen
 import com.example.onlypaws.ui.screens.RegisterScreen
+import com.example.onlypaws.viewmodels.AccountViewModel
 import com.example.onlypaws.viewmodels.LoginViewModel
 import com.example.onlypaws.viewmodels.MainScreenViewModel
 import com.example.onlypaws.viewmodels.ProfileViewModel
+import com.example.onlypaws.viewmodels.RegisterDetailsViewModel
 import com.example.onlypaws.viewmodels.RegisterViewModel
 import kotlinx.serialization.Serializable
 
@@ -54,6 +58,12 @@ object Login
 
 @Serializable
 object Register
+
+@Serializable
+data class RegisterDetail(
+    val user : String,
+    val password : String
+)
 
 @Serializable
 object Main
@@ -76,11 +86,8 @@ data class Route <T : Any>(
 
 @Composable
 fun OnlyPawsApp(
-
     modifier: Modifier = Modifier,
     navController : NavHostController = rememberNavController(),
-    contentWindowInsets : WindowInsets = WindowInsets(0.dp,0.dp,0.dp,0.dp),
-
 ){
 
     val routeList = listOf(
@@ -102,10 +109,8 @@ fun OnlyPawsApp(
     )
 
     val context = LocalContext.current
-    val firebaseUserRepo : IUserAccountRepository = FireBaseUserRepo()
     var userIsLoggedIn by remember { mutableStateOf(false)}
     var userId by remember { mutableStateOf("") }
-    var currentUser : UserProfile? by remember { mutableStateOf(null) }
 
     Scaffold (
         modifier = modifier
@@ -194,15 +199,60 @@ fun OnlyPawsApp(
                         RegisterViewModel()
                     }
 
+                    val onReturnLogin = {
+                        navController.popBackStack()
+                    }
+
+                    val onContinueRegister = {
+                            email : String, password : String ->
+                        navController.navigate(RegisterDetail(email,password))
+                    }
+
 
                     RegisterScreen(
                         state = vm.state,
-                        onAction = vm::onAction
+                        onAction = vm::onAction,
+                        onReturnLogin = { onReturnLogin() },
+                        onContinueRegister = onContinueRegister
                     )
                 }
 
+                composable<RegisterDetail> {
+                    backStackEntry ->
+                        val vm : RegisterDetailsViewModel = viewModel {
+                            RegisterDetailsViewModel()
+                        }
 
-               composable<Main> {
+                        val args = backStackEntry.toRoute<RegisterDetail>()
+                        vm.state.email = args.user
+                        vm.state.password = args.password
+
+                        val onReturnPrevious = {
+                            navController.popBackStack()
+                        }
+
+                        val onFinishedRegister = {
+                                id : String ->
+
+                            userIsLoggedIn = true
+                            userId = id
+                            navController.navigate(Main) {
+                                popUpTo(Main) {
+                                    inclusive = true
+                                }
+                            }
+                        }
+
+
+                        RegisterDetailsScreen(
+                            onAction = vm::onAction,
+                            state = vm.state,
+                            onFinishRegister = onFinishedRegister,
+                            onReturnLogin = { onReturnPrevious() }
+                        )
+                }
+
+                composable<Main> {
                    val vm : MainScreenViewModel = viewModel{
                        MainScreenViewModel(userId)
                    }
@@ -217,7 +267,6 @@ fun OnlyPawsApp(
                        displayDetails = clickDisplayDetails,
                    )
                }
-
 
                 composable<Profile> {
                     backStackEntry ->
@@ -239,26 +288,29 @@ fun OnlyPawsApp(
                 }
 
                 composable<Account> {
-                    val logOutUser = {
+                    if (userId.isNotBlank()) {
 
-                        userIsLoggedIn = false
-                        userId = ""
-                        navController.navigate(Login) {
-                            popUpTo(Login) {
-                                inclusive = true
+                        val vm: AccountViewModel = viewModel {
+                            AccountViewModel(userId)
+                        }
+                        vm.loadPage(userId)
+                        val logOutUser = {
+
+                            userIsLoggedIn = false
+                            userId = ""
+                            navController.navigate(Login) {
+                                popUpTo(Login) {
+                                    inclusive = true
+                                }
                             }
                         }
-                    }
-
-                    currentUser?.let {
 
                         AccountScreen(
-                            onAction = {},
-                            onLogOutClick =  logOutUser,
-                            user = it,
+                            onAction = vm::onAction,
+                            onLogOutClick = logOutUser,
+                            state = vm.state,
                         )
                     }
-
                 }
             }
     }

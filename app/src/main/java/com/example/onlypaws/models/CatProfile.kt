@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CatProfile (
-    val id: Int,
-    val name: String,
-    val description: String,
-    val image: String,
+    val id: Int = -1,
+    val name: String = "",
+    val description: String = "",
+    val image: String = "",
 
 )

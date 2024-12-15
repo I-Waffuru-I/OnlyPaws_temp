@@ -7,6 +7,7 @@ data class RegisterState (
     val email : String = "",
     val description : String = "",
     val errorMessage : String? = null,
-    val triesToRegister : Boolean = false,
-    val triesToReturnLogin : Boolean = false,
+    val canSignUp : Boolean = false,
+    var triesToRegister : Boolean = false,
+    var triesToReturnLogin : Boolean = false,
 )

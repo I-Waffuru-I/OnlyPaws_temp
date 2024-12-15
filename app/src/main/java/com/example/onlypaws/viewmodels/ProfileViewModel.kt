@@ -10,7 +10,6 @@ import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.db.GetDbResult
 import com.example.onlypaws.repos.ICatRepository
 import com.example.onlypaws.repos.MockCatRepo
-import com.example.onlypaws.ui.Profile
 import kotlinx.coroutines.launch
 
 
@@ -31,7 +30,7 @@ class ProfileViewModel (application : Application) : ViewModel() {
 
     fun getCatProfile(id: Int){
         viewModelScope.launch {
-            state = when (val rslt = catRepo.getCatProfile(id)) {
+            state = when (val rslt = catRepo.getCatProfileFromEmail(id)) {
                 is GetDbResult.Failure -> {
                     ProfileViewUiState.Error
                 }
