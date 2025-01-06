@@ -1,5 +1,6 @@
 package com.example.onlypaws.models
 
+import com.example.onlypaws.models.routes.Favorites
 import kotlinx.serialization.Serializable
 
 @Serializable

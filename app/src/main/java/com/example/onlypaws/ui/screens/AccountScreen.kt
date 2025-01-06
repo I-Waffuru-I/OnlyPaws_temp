@@ -1,30 +1,30 @@
 package com.example.onlypaws.ui.screens
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ExitToApp
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
+import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
-import com.example.onlypaws.models.USER_INTERESTS
-import com.example.onlypaws.models.UserProfile
 import com.example.onlypaws.models.account.AccountAction
 import com.example.onlypaws.models.account.AccountStateList
-import com.example.onlypaws.ui.components.TagsBox
+import com.example.onlypaws.ui.components.ValueUpdateField
 
 @Composable
 fun AccountScreen(
@@ -87,64 +87,73 @@ fun AccountFailure(
 
 }
 
+
+
+
 @Composable
 fun AccountSuccess(
     onAction: (AccountAction) -> Unit,
     user : CatProfile,
     modifier: Modifier = Modifier
 ) {
-
-
     ConstraintLayout(
         modifier = modifier.fillMaxSize()
     ) {
-        val (loginBtn, accountImage, accountNameTxt,boxes) = createRefs()
+        val (loginBtn, accountImage, accountName, accDescription) = createRefs()
 
-        Button(
-            onClick = { onAction(AccountAction.OnLogOut) },
+        Box(
             modifier = Modifier.constrainAs(loginBtn) {
                 top.linkTo(parent.top)
                 end.linkTo(parent.end)
-            }
+            },
+            contentAlignment = Alignment.Center
         ) {
-            Text("Meow out!")
+            Button(
+                onClick = { onAction(AccountAction.OnLogOut) },
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Rounded.ExitToApp,
+                    contentDescription = "Log out"
+                )
+            }
         }
+
 
         AsyncImage(
             model = user.image,
             contentDescription = user.name,
-            modifier = Modifier.constrainAs(accountImage) {
-                top.linkTo(parent.top, 20.dp)
-            }
-                .height(250.dp)
-                .width(250.dp),
+            modifier = Modifier
+                .constrainAs(accountImage) {
+                    top.linkTo(loginBtn.bottom, 10.dp)
+                    start.linkTo(parent.start,40.dp)
+                    end.linkTo(parent.end,40.dp)
+                    width = Dimension.fillToConstraints
+                },
             contentScale = ContentScale.Inside
-
         )
 
-        Text(
-            user.name,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.constrainAs(accountNameTxt) {
-                top.linkTo(accountImage.bottom,5.dp)
-            }
+        ValueUpdateField(
+            onEditPress = {
+                onAction(AccountAction.OnSaveUsername(it))
+            },
+            title = stringResource(R.string.account_field_username),
+            value = user.name,
+            modifier = Modifier
+                .constrainAs(accountName) {
+                    top.linkTo(accountImage.bottom, 10.dp)
+                }
         )
 
-        /*
-        Column (
-            modifier = Modifier.constrainAs(boxes) {
-                top.linkTo(accountNameTxt.bottom,5.dp)
-            }
-        ){
-            USER_INTERESTS.forEach {
-                TagsBox(it.value,{},
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp))
-            }
-        }
-         */
-
-
+        ValueUpdateField(
+            onEditPress = {
+                onAction(AccountAction.OnSaveDescription(it))
+            },
+            title = stringResource(R.string.account_field_description),
+            value = user.description,
+            modifier = Modifier
+                .constrainAs(accDescription) {
+                    top.linkTo(accountName.bottom, 5.dp)
+                }
+        )
     }
 }

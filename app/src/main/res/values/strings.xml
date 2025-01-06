@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">OnlyPaws</string>
 
+    <!-- General -->
+    <string name="general_confirm">Confirm</string>
+    <string name="general_confirmation">Confirmation</string>
+    <string name="general_swap">Swap</string>
+
     <string name="logged_in_success">Meowed in!</string>
     <string name="logged_out_success">Meowed out!</string>
     <string name="log_in_button">Meow in</string>
@@ -19,7 +24,14 @@
 
 
 
-    <!--  Account Page field names   -->
+    <!--  Account Screen field names   -->
     <string name="account_field_username">Username</string>
     <string name="account_field_description">Description</string>
+
+
+    <!--  List Screen Title  -->
+    <string name="list_title_like">Liked</string>
+    <string name="list_title_dislike">Disliked</string>
+    <string name="list_check_delete">Are you sure you want to remove this cat from your likes?</string>
+    <string name="list_check_add">Are you sure you want to add this cat to your likes?</string>
 </resources>

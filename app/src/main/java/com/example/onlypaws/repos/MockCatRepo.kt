@@ -3,6 +3,7 @@ package com.example.onlypaws.repos
 import android.app.Application
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.db.GetDbResult
+import com.example.onlypaws.models.db.SaveDbResult
 
 class MockCatRepo(application: Application) : ICatRepository {
 
@@ -17,7 +18,7 @@ class MockCatRepo(application: Application) : ICatRepository {
     )
 
 
-    override suspend fun getCatProfileFromEmail(catId: Int): GetDbResult {
+    override suspend fun getCatProfileFromID(catId: Int): GetDbResult {
         for(cat in cats){
             if(cat.id == catId)
                 return GetDbResult.Success(cat)
@@ -30,12 +31,20 @@ class MockCatRepo(application: Application) : ICatRepository {
     }
 
     override suspend fun getLastCatProfile(): GetDbResult {
-        return getCatProfileFromEmail(_currentCatIndex)
+        return getCatProfileFromID(_currentCatIndex)
     }
 
     override suspend fun getSuggestedCatProfile(): GetDbResult {
         _currentCatIndex += 1
-        return getCatProfileFromEmail(_currentCatIndex)
+        return getCatProfileFromID(_currentCatIndex)
+    }
+
+    override suspend fun updateCatProfileInformation(
+        catId: Int,
+        property: String,
+        value: String
+    ): SaveDbResult {
+        TODO("Not yet implemented")
     }
 
 }

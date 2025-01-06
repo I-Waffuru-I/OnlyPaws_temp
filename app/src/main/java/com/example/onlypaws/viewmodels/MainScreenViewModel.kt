@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.UserProfile
 import com.example.onlypaws.models.db.GetDbResult
+import com.example.onlypaws.models.db.SaveDbResult
 import com.example.onlypaws.models.main.MainAction
 import com.example.onlypaws.models.main.MainState
 import com.example.onlypaws.repos.FireBaseUserRepo
@@ -23,6 +24,7 @@ class MainScreenViewModel(userId : String) : ViewModel() {
     private val userRepo : IUserAccountRepository = FireBaseUserRepo()
     private var currentCatId = -1 // the id the last seen cat, stored in the user account
     private var userCatId = -1 // the catId of the logged in user
+    private var _userID = userId
 
     var mainPageState : MainState by mutableStateOf( MainState.Loading )
 
@@ -35,10 +37,9 @@ class MainScreenViewModel(userId : String) : ViewModel() {
 
     fun onAction(action : MainAction) {
         viewModelScope.launch {
-
             when(action)  {
-                MainAction.OnDislike -> getNextCat()
-                MainAction.OnLike -> getNextCat()
+                MainAction.OnDislike -> likeCatProfile(true)
+                MainAction.OnLike -> likeCatProfile(false)
                 MainAction.OnProfileView -> openCatProfile()
                 MainAction.OnRetry -> getCurrentCat()
             }
@@ -46,8 +47,7 @@ class MainScreenViewModel(userId : String) : ViewModel() {
     }
 
     private suspend fun openCatProfile() {
-
-        mainPageState = when(val result = catRepo.getCatProfileFromEmail(currentCatId)){
+        mainPageState = when(val result = catRepo.getCatProfileFromID(currentCatId)){
             is GetDbResult.Failure ->
                  MainState.Failure(result.error)
             is GetDbResult.Success -> {
@@ -58,6 +58,14 @@ class MainScreenViewModel(userId : String) : ViewModel() {
                 }
             }
         }
+    }
+
+    private suspend fun likeCatProfile(liked : Boolean) {
+        val likeSuccess = userRepo.addToLiked(_userID,currentCatId,liked)
+        if(likeSuccess is SaveDbResult.Success)
+            getNextCat()
+        else
+            mainPageState = MainState.Failure("Something went wrong!")
 
     }
 
@@ -66,7 +74,7 @@ class MainScreenViewModel(userId : String) : ViewModel() {
             currentCatId += 1
 
 
-        mainPageState = when (val result = catRepo.getCatProfileFromEmail(currentCatId)) {
+        mainPageState = when (val result = catRepo.getCatProfileFromID(currentCatId)) {
             is GetDbResult.Failure -> {
                 MainState.Failure(result.error)
             }
@@ -87,7 +95,8 @@ class MainScreenViewModel(userId : String) : ViewModel() {
          if (currentCatId == userCatId)
              currentCatId += 1
 
-         mainPageState = when (val result = catRepo.getCatProfileFromEmail(currentCatId)) {
+         userRepo.changeViewedId(_userID,currentCatId)
+         mainPageState = when (val result = catRepo.getCatProfileFromID(currentCatId)) {
              is GetDbResult.Failure -> {
                  MainState.Failure(result.error)
              }

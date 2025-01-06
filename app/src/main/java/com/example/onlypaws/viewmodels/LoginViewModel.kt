@@ -48,7 +48,7 @@ class LoginViewModel : ViewModel() {
 
                         val m = "No credentials"
                         println("LOGIN FAILURE: $m")
-                        state.copy(errorMessage = m)
+                        state.copy(hasNoCredentials = true)
                     }
                 }
             }

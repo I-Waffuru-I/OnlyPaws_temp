@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +31,7 @@ import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.main.MainAction
 import com.example.onlypaws.models.main.MainState
+import com.example.onlypaws.ui.components.CenteredText
 
 
 @Composable
@@ -39,8 +41,6 @@ fun MainScreen (
     displayDetails: (Int) -> Unit,
     modifier : Modifier = Modifier,
 ){
-
-
     when(mainScreenUiState) {
         is MainState.Loading -> {
             LoadingMain(modifier)
@@ -60,7 +60,7 @@ fun MainScreen (
         }
 
         is MainState.ViewProfile ->{
-            displayDetails(mainScreenUiState.cat.id)
+            //displayDetails(mainScreenUiState.cat.id)
         }
     }
 }
@@ -73,6 +73,7 @@ fun LoadingMain(modifier: Modifier = Modifier){
         modifier = modifier
     )
 }
+
 @Composable
 fun ErrorMain(
     error : String,
@@ -119,7 +120,7 @@ fun SuccessMain(
             .background(MaterialTheme.colorScheme.background)
     ){
 
-        val(catImg,catName,catDescription) = createRefs()
+        val(catImg,catName) = createRefs()
 
         // NAME
         Box(
@@ -131,13 +132,22 @@ fun SuccessMain(
             contentAlignment = Alignment.CenterStart
 
         ){
-            Text(
-                text = cat.name,
-                fontSize = 50.sp,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier
-                    .padding(15.dp)
-            )
+            Column {
+                CenteredText(
+                    text = cat.name,
+                    fontSize = 50.sp,
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier
+                        .padding(15.dp)
+                )
+                CenteredText(
+                    text = cat.description,
+                    fontSize = 15.sp,
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier
+                        .padding(15.dp)
+                )
+            }
         }
 
         // IMAGE
@@ -151,53 +161,29 @@ fun SuccessMain(
             contentScale = ContentScale.Crop
         )
 
-        // DESCRIPTION
-        Box(
-
-            modifier = Modifier.constrainAs(catDescription){
-                start.linkTo(catName.start)
-                top.linkTo(catImg.bottom)
-                bottom.linkTo(parent.bottom)
-            }
-                .fillMaxWidth(),
-            contentAlignment = Alignment.CenterStart
-
-        ){
-            Text(
-                text = cat.description,
-                fontSize = 15.sp,
-                color = MaterialTheme.colorScheme.secondary,
-            )
-        }
-
         // BUTTONS
         Row (
 
         ) {
+            Button(
+                onClick = { onAction(MainAction.OnLike) },
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .alpha(0f)
+                    .weight(0.4f)
+            ){}
+
+            Spacer(
+                modifier = Modifier.weight(0.2f)
+            )
 
             Button(
                 onClick = { onAction(MainAction.OnDislike) },
                 modifier = Modifier
                     .fillMaxHeight()
                     .alpha(0f)
-                    .weight(0.2f)
-            ){
-            }
-            Button(
-                onClick = {onAction(MainAction.OnProfileView)},
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .alpha(0f)
-                    .weight(0.6f)
+                    .weight(0.4f)
             ){}
-            Button(
-                onClick = { onAction(MainAction.OnLike) },
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .alpha(0f)
-                    .weight(0.2f)
-            ){
-            }
         }
     }
 }

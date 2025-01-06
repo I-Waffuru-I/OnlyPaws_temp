@@ -1,16 +1,15 @@
 package com.example.onlypaws.ui
 
 import android.app.Application
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.List
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,8 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -35,47 +32,22 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.onlypaws.models.UserProfile
-import com.example.onlypaws.repos.FireBaseUserRepo
-import com.example.onlypaws.repos.IUserAccountRepository
 import com.example.onlypaws.ui.screens.AccountScreen
-import com.example.onlypaws.ui.screens.CategoriesScreen
+import com.example.onlypaws.ui.screens.ListScreen
 import com.example.onlypaws.ui.screens.LogInScreen
 import com.example.onlypaws.ui.screens.MainScreen
 import com.example.onlypaws.ui.screens.ProfileScreen
 import com.example.onlypaws.ui.screens.RegisterDetailsScreen
 import com.example.onlypaws.ui.screens.RegisterScreen
 import com.example.onlypaws.viewmodels.AccountViewModel
+import com.example.onlypaws.viewmodels.ListViewModel
 import com.example.onlypaws.viewmodels.LoginViewModel
 import com.example.onlypaws.viewmodels.MainScreenViewModel
 import com.example.onlypaws.viewmodels.ProfileViewModel
 import com.example.onlypaws.viewmodels.RegisterDetailsViewModel
 import com.example.onlypaws.viewmodels.RegisterViewModel
-import kotlinx.serialization.Serializable
+import com.example.onlypaws.models.routes.*
 
-@Serializable
-object Login
-
-@Serializable
-object Register
-
-@Serializable
-data class RegisterDetail(
-    val user : String,
-    val password : String
-)
-
-@Serializable
-object Main
-
-@Serializable
-data class Profile(val cat : Int)
-
-@Serializable
-object Categories
-
-@Serializable
-object Account
 
 data class Route <T : Any>(
     val name : String,
@@ -97,9 +69,9 @@ fun OnlyPawsApp(
             Icons.Rounded.Home
         ),
         Route(
-            "Categories",
-            Categories,
-            Icons.Rounded.MoreVert
+            "List",
+            Favorites,
+            Icons.AutoMirrored.Rounded.List
         ),
         Route(
             "Account",
@@ -108,7 +80,6 @@ fun OnlyPawsApp(
         )
     )
 
-    val context = LocalContext.current
     var userIsLoggedIn by remember { mutableStateOf(false)}
     var userId by remember { mutableStateOf("") }
 
@@ -119,11 +90,12 @@ fun OnlyPawsApp(
         bottomBar = {
             if (userIsLoggedIn) {
 
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentDestination = navBackStackEntry?.destination
+
                 BottomNavigation(
                     backgroundColor = MaterialTheme.colorScheme.surfaceBright,
                 ){
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
-                    val currentDestination = navBackStackEntry?.destination
 
                     routeList.forEach {
                         route ->
@@ -232,7 +204,7 @@ fun OnlyPawsApp(
                         }
 
                         val onFinishedRegister = {
-                                id : String ->
+                            id : String ->
 
                             userIsLoggedIn = true
                             userId = id
@@ -271,27 +243,36 @@ fun OnlyPawsApp(
                 composable<Profile> {
                     backStackEntry ->
                     val args = backStackEntry.toRoute<Profile>()
-                    val viewModel : ProfileViewModel = viewModel{
-                        ProfileViewModel(context.applicationContext as Application)
+                    val vm : ProfileViewModel = viewModel{
+                        ProfileViewModel()
                     }
+
+                    vm.getCatProfile(args.cat)
 
                     ProfileScreen(
                         goBackEvent = { navController.popBackStack() },
-                        state = viewModel.state,
-                        retryAction = { viewModel.getCatProfile(args.cat) }
+                        state = vm.state,
+                        retryAction = { vm.getCatProfile(args.cat) }
                     )
 
                 }
 
-                composable<Categories> {
-                    CategoriesScreen()
+                composable<Favorites> {
+                    val vm : ListViewModel = viewModel()
+                    vm.setup(userId)
+
+                    ListScreen(
+                        cats = vm.cats,
+                        state = vm.listPageState,
+                        onAction = vm::doAction
+                    )
                 }
 
                 composable<Account> {
                     if (userId.isNotBlank()) {
 
                         val vm: AccountViewModel = viewModel {
-                            AccountViewModel(userId)
+                            AccountViewModel()
                         }
                         vm.loadPage(userId)
                         val logOutUser = {

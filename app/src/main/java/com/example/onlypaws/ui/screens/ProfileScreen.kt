@@ -23,29 +23,29 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
-import com.example.onlypaws.viewmodels.ProfileViewUiState
+import com.example.onlypaws.models.profile.ProfileState
 
 @Composable
 fun ProfileScreen(
     goBackEvent : ()->Unit,
     retryAction: () -> Unit,
-    state : ProfileViewUiState,
+    state : ProfileState,
     modifier: Modifier = Modifier,
 ){
 
     when (state) {
 
-        is ProfileViewUiState.Loading -> {
+        is ProfileState.Loading -> {
             LoadingProfile(modifier = modifier)
         }
 
-        is ProfileViewUiState.Error -> {
+        is ProfileState.Failure -> {
             ErrorProfile(
                 retryAction = retryAction,
                 modifier = modifier,
             )
         }
-        is ProfileViewUiState.GotCatprofile -> {
+        is ProfileState.Success -> {
             SuccessProfile(
                 goBackEvent = goBackEvent,
                 state.cat,

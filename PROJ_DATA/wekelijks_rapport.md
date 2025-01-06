@@ -109,4 +109,16 @@ Register :
 - de RegisterDetails screen. Hier vul je een gebruikersnaam, beschrijving en afbeelding in met wat invoervelden + die Random Cat knop.
 - Checks : Paswoord langer dan 6 chars (wordt altijd gecheckt) en email die nog niet in gebruik is (enkel wanneer je Register klikt wordt dit gecheckt) 
 
-## Week 12 (16/12): ..... uren:
+## Week 12 (16/12):  uren:
+Account : 
+- Verdere UI improvements. Afbeelding staat centraal, update fields werken en hebben wat betere styling, de aangepaste waardes worden opgeslaan.
+
+MainScreen :
+- Like/Disliken is nu volledig functioneel. De knoppen waren nog verwisselt, maar dat is snel opgelost.
+- Als je dus dis/liked wordt het catID opgeslagen in het `liked`/`userID`/`d/l` lijsten. Zo wordt er efficiënt onthouden wat al geliked is zonder alle gezien profielen op te halen, inclusief degene die je een dislike gegeven hebt.
+- Liken / Disliken verhoogd nu ook de CatID
+- Wanneer je inlogd wordt de correcte ID opgehaald. Als je 0 -> 5 al gezien hebt kom je terecht bij 6
+- *Er kwam een bug op bij het navigeren naar de Profile pagina, maar dat valt nog op te lossen.*
+
+Database :
+- Extra functies toegevoegd aan de User + Cat repositories voor de extra bewerkingen in MainScreen.

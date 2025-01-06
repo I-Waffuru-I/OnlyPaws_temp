@@ -8,38 +8,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.db.GetDbResult
+import com.example.onlypaws.models.profile.ProfileState
+import com.example.onlypaws.repos.FirebaseCatRepo
 import com.example.onlypaws.repos.ICatRepository
 import com.example.onlypaws.repos.MockCatRepo
 import kotlinx.coroutines.launch
 
+class ProfileViewModel : ViewModel() {
 
-sealed class ProfileViewUiState {
-    data class GotCatprofile(val cat : CatProfile) : ProfileViewUiState()
-    data object Loading : ProfileViewUiState()
-    data object Error : ProfileViewUiState()
-}
+    private val catRepo : ICatRepository = FirebaseCatRepo()
 
-
-
-class ProfileViewModel (application : Application) : ViewModel() {
-
-    private val catRepo : ICatRepository = MockCatRepo(application)
-
-    var state : ProfileViewUiState by mutableStateOf(ProfileViewUiState.Loading)
+    var state : ProfileState by mutableStateOf(ProfileState.Loading)
 
 
     fun getCatProfile(id: Int){
         viewModelScope.launch {
-            state = when (val rslt = catRepo.getCatProfileFromEmail(id)) {
+            state = when (val result = catRepo.getCatProfileFromID(id)) {
                 is GetDbResult.Failure -> {
-                    ProfileViewUiState.Error
+                    ProfileState.Failure(result.error)
                 }
 
                 is GetDbResult.Success -> {
-                    if(rslt.value is CatProfile){
-                        ProfileViewUiState.GotCatprofile(rslt.value)
+                    if(result.value is CatProfile){
+                        ProfileState.Success(result.value)
                     } else {
-                        ProfileViewUiState.Error
+                        ProfileState.Failure("Got something from the repo, but it isn't a Cat Profile!")
                     }
                 }
             }

@@ -4,6 +4,7 @@ import android.util.Base64
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.UserProfile
 import com.example.onlypaws.models.db.GetDbResult
+import com.example.onlypaws.models.db.SaveDbResult
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 import com.google.firebase.database.getValue
@@ -13,7 +14,7 @@ class FirebaseCatRepo : ICatRepository {
 
     private val database = Firebase.database
 
-    override suspend fun getCatProfileFromEmail(catId: Int): GetDbResult {
+    override suspend fun getCatProfileFromID(catId: Int): GetDbResult {
 
         return try {
             val id = catId.toString()
@@ -42,11 +43,30 @@ class FirebaseCatRepo : ICatRepository {
 
     }
 
+    override suspend fun updateCatProfileInformation(catId: Int, property: String, value: String) : SaveDbResult {
+        return try {
+            if(catId == -1) SaveDbResult.Failure("Invalid Cat ID : -1")
+            if(property.isBlank()) SaveDbResult.Failure("Provide a property")
+            if(value.isBlank()) SaveDbResult.Failure("Provide a value to save")
+
+            database.getReference("cats").child(catId.toString()).child(property).setValue(value).await()
+
+            SaveDbResult.Success
+        } catch (e : Exception){
+
+            SaveDbResult.Failure(e.message.toString())
+        }
+    }
+
+
+    // wordt niet gebruikt
     override suspend fun getLastCatProfile(): GetDbResult {
         TODO("Not yet implemented")
     }
 
+    // kan niet gebruikt worden want ik heb geen server om alles op te hosten en logica uit te voeren
     override suspend fun getSuggestedCatProfile(): GetDbResult {
         TODO("Not yet implemented")
     }
+
 }

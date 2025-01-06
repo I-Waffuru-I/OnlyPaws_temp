@@ -7,4 +7,5 @@ data class LoginState (
     var errorMessage : String? = null,
     var triesToLogIn : Boolean = false,
     var triesToRegister : Boolean = false,
+    var hasNoCredentials : Boolean = false,
 )

@@ -68,6 +68,13 @@ fun LogInScreen(
         }
     }
 
+    LaunchedEffect(key1 = state.hasNoCredentials) {
+        if(state.hasNoCredentials) {
+            state.hasNoCredentials = false
+            onRegister()
+        }
+    }
+
     Column(
         modifier = Modifier.padding(5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
