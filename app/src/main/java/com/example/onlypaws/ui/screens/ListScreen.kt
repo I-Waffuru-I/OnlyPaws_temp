@@ -34,12 +34,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.airbnb.lottie.Lottie
 import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.list.ListAction
 import com.example.onlypaws.models.list.ListState
 import com.example.onlypaws.ui.components.ListItemDisplay
 import com.example.onlypaws.ui.components.CenteredText
+import com.example.onlypaws.ui.components.LottieLoading
 
 @Composable
 fun ListScreen(
@@ -64,14 +66,12 @@ fun ListScreen(
             onAction = onAction,
             modifier = modifier
         )
-
         is ListState.SuccessDislike ->  SuccessList(
             cats = cats,
             liked = false,
             onAction = onAction,
             modifier = modifier
         )
-
     }
 }
 
@@ -211,9 +211,10 @@ private fun LoadingList(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
     ) {
-        CenteredText(
+        LottieLoading()
+        /*CenteredText(
             text = stringResource(R.string.loading_cat_profile_list)
-        )
+        )*/
         Button(
             onClick = onRetry
         ) {

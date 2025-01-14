@@ -32,6 +32,7 @@ import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.main.MainAction
 import com.example.onlypaws.models.main.MainState
 import com.example.onlypaws.ui.components.CenteredText
+import com.example.onlypaws.ui.components.LottieLoading
 
 
 @Composable
@@ -66,12 +67,23 @@ fun MainScreen (
 }
 
 @Composable
-fun LoadingMain(modifier: Modifier = Modifier){
+fun LoadingMain(
+    modifier: Modifier = Modifier
+){
+    /*
     Image(
         painter = painterResource(R.drawable.loading_img),
         contentDescription = stringResource(R.string.loading_cat_profile_list),
         modifier = modifier
     )
+     */
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        LottieLoading()
+    }
 }
 
 @Composable

@@ -28,6 +28,8 @@ googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.1.0"
 playServicesAuth = "21.2.0"
 firebaseDatabaseKtx = "21.0.0"
+lottiAnim = "5.2.0"
+
 
 [libraries]
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -65,6 +67,9 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
 firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
+
+com-airbnb-android-lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottiAnim" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

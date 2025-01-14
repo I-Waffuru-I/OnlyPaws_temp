@@ -32,7 +32,6 @@ fun AccountScreen(
     onAction : (AccountAction)->Unit,
     onLogOutClick : ()->Unit,
 ){
-
     when(state) {
         is AccountStateList.Failure ->
             AccountFailure(
@@ -53,7 +52,6 @@ fun AccountScreen(
             onLogOutClick()
         }
     }
-
 }
 
 @Composable

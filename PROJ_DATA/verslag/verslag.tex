@@ -1,10 +1,15 @@
-\documentclass{article}
+\documentclass{report}
 
 
 % Language + Document formatting
 \usepackage[dutch]{babel}
 \usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage[indent=10pt]{parskip}
+
+% Titles customization
+\usepackage{titlesec}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp}{0pt}{\Huge\bfseries}
 
 
 % Afbeeldingen
@@ -18,8 +23,9 @@
 \begin{document}
 \maketitle
 
+\tableofcontents
 
-\section{Inleiding}
+\chapter{Inleiding}
 De eerste vraag wanneer een project zo absurd als ``een dating platform voor katten'' gepresenteerd wordt is: \verb|Waarom?| Een concreet antwoord hierop\dots heb ik niet.
 Toen het project voorgelegen werdt nam ik de beslissing om geen standard onderwerp te nemen. Wat brutaal gezegd: niks saai.
 Zo behoud ik mijn motivatie en valt de kraan niet zo snel dicht.
@@ -48,11 +54,11 @@ Verder nog, zelf vind ik dat bedrijven veel te gericht zijn op winst, niet op de
 Deze negatieve kanten van het oorspronkelijk product zijn dus niet te vinden in dit project --- en meer zelfs! Deze verschillen bespreek ik wel eens ze aan bod komen.
 
 
-\section{Verloop}
+\chapter{Verloop}
 
 Bij het openen van de app gaat Google's \textit{Credential Manager} open. Deze onthoudt welke gegevens al gebruikt zijn om in te loggen of te registreren.
 Dankzij deze moet je je paswoord ook niet onthouden; het wordt allemaal veilig bewaard door Google.
-De pop-up laat je selecteren welk account je wilt gebruiken als, stel maar, je twee katten hebt. Indien er geen credentials te vinden zijn wordt je automatisch naar de Register pagina verstuurd.
+De pop-up laat je selecteren welk account je wilt gebruiken als, stel maar, je meerdere katten hebt. Indien er geen credentials te vinden zijn wordt je automatisch naar de Register pagina verstuurd.
 Verder kan je ook het Credentials menu sluiten om een gebruiker aan te maken.
 
 Het proces om een gebruiker aan te maken neemt twee stappen, gesplitst over twee opeenvolgende paginas; eerst de belangrijke gegevens voor login, dan de informatie die andere gebruikers zullen zien.
@@ -75,11 +81,14 @@ Voer de nieuwe text in, duuw op het knopje en de gegevens worden opgeslaan.
 In de boven-rechtse hoek is een Log-Out knop te vinden waarmee je, uiteraard, kunt uitloggen van het account en terug naar de Login gaan.
 
 
+\chapter{Documentatie}
 \section{MVVM}
-MVVM is een structuur waarbij er zo veel mogelijk abstractie is tussen data en display. Doorheen het process is de structuur meerdere keren vanaf nul weer begonnen.
+MVVM is een structuur waarbij er zo veel mogelijk abstractie is tussen data en display. Doorheen het process is de structuur meerdere keren vanaf nul weer begonnen,
+vaak omdat ik een nieuwe manier van werken gevonden had en die voorkeur gaf over de oude methode.
 Een van de belangrijkste concepten is het \textit{Separation of Concerns} principe. Dit legt voor dat elk object, elke classe, elke pagina, elk data model geen kennis mag hebben van waar het gebruikt wordt, of in welke toepassing het beland.
 Eender welk bestand zou theoretisch geplakt kunnen worden in eender welke omgeving en werken. Een pagina zou geen fout moeten geven als een viewmodel verwisselt wordt.
-De structuur die ik aangenomen heb voor dit project draait om een paar begrippen die bij elke toepassing opnieuw gemaakt worden.
+De structuur die ik aangenomen heb voor dit project draait om een paar begrippen die bij elke toepassing opnieuw gemaakt worden,
+en op een robuste manier code veiligheid behalen.
 
 
 \subsection{ViewModel}
@@ -87,21 +96,49 @@ Viewmodels zijn de classes waarin data wordt bijgehouden. Ze doen het rekenwerk,
 Intern bestaan er meerdere variabelen die doorheen de levenstijd van het viewmodel geldig blijven, samen met de nodige functies om alles operationeel te krijgen.
 Verder is er maar één publieke property --- de ScreenState --- en één publieke methode --- de OnAction methode. Meer hierover in het Action subsectie.
 
+Het basis ViewModel classe heeft twee eigenschappen die nodig zijn voor hun verwachtte werking.
+De eerste hiervan is dat ze niet composable zijn; hierdoor moet er geen \textit{remember} toegevoegd worden zodat ze heen de lifecycle van de applicatie blijven.
+Dit werkt samen met de tweede eigenschap: ze volgen het singleton patroon. Dit garandeert dat elke nieuwe aanroeping van een VM identiek hetzelfde object zal geven.
+Aan de hand van deze twee eigenschappen kunnen VMs doorheen de levenscyclus van de applicatie geldig blijven.
+
+
 
 
 \subsection{Screen}
-De Screen, of pagina, waarin de zichtbare componenten te vinden zijn. Screens vormen de omgeving waarmee de gebruiker kan interageren.
-Het toont de gegevens op één manier ongeacht welke gegevens dit precies zijn. Van waar de data komt maakt niks uit. Wat er met de gegevens gebeurt wanneer de knop ingeduuwd wordt maakt niks uit.
+Screens vormen de omgeving waarmee de gebruiker kan interageren. Dit zijn de ``views'' van in het MVC patroon.
+Het toont de gegevens op één manier ongeacht welke gegevens dit precies zijn. 
 Al wat de Screen weet is dat er een dataset gegeven wordt in een zeker formaat en dat er een zeker stuk code uitgevoerd moet worden bij het klikken op de knop.
+Nogmaals, dit is een manier om de taken binnen de applicatie te splitsen. Wat het klikken op een knop doet maakt de Screen volledig niets uit. Of dit een externe library ophaalt, data schrijft naar een bestand of een Toast aanmaakt is irrelevant.
+Alles wat een component hoort te weten is dat er een functie bestaat bij het klikken van elke knop.
+
+Aan de hand van de huidige state parameter wordt de correcte display vooruit gebracht.
+Elke screen heeft één publieke constructor en verschillende privé constructoren die voor de verschillende scenario's dienen.
+Zo zijn er standard een ``Success(value)'', ``Failure(error)'' en ``Loading'', drie vaak voorkomende scenarios.
+
+\begin{center}
+    \includegraphics{Screen_state}
+\end{center}
 
 \subsection{State}
-Het State object, die doorgeeft aan de Screen welke toestand er is en welke data te tonen.
+State object zijn bundles waarmee alle nodige informatie voor de screens wordt gegeven.
+Er wordt gebruik gemaakt van Kotlin's sterke enum types om verschillende mogelijkheden efficiënt te behandelen. Elke entry is een data class/object heeft andere parameters.
+Zo weet de Screen dat een Failure entry een foutmeldingsstring bevat, terwijl een Success entry bvb. een CatProfile heeft.
+De publieke constructor van de screens krijgen een state als parameter vanuit het viewmodel en lossen intern elke entry op met een aparte composable functie.
+
+Stel er wordt externe data opgehaald door het viewmodel, en er loopt iets mis. Het viewmodel kan een Failure state inzetten met een foutmelding.
+Dit belandt bij de Screen en deze kan verder met de correcte privé constructor.
+
+
+\begin{center}
+    \includegraphics{VM_State}
+\end{center}
+
+
 
 \subsection{Action}
 
 Het Action object, waarmee de Screen acties kan laten uitvoeren in het viewmodel.
 
-\includegraphics{VM_Action}
 
 
 

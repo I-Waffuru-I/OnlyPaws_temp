@@ -11,9 +11,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -76,9 +81,7 @@ fun RegisterDetailsScreen(
                     onAction(DetailAction.OnBackSignUp)
                 },
             ) {
-                Text (
-                    text = "<-",
-                )
+                Icon(Icons.AutoMirrored.Rounded.ArrowBack, "back")
             }
         },
         floatingActionButtonPosition = FabPosition.Start

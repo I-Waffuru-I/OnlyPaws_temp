@@ -80,6 +80,10 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
 
+    /* LOTTIE ANIMATION */
+    implementation(libs.com.airbnb.android.lottie.compose)
+
+
     testImplementation(libs.junit)
 
     /* ANDROIDX */
