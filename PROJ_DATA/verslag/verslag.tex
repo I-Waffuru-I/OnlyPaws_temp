@@ -113,32 +113,49 @@ Alles wat een component hoort te weten is dat er een functie bestaat bij het kli
 
 Aan de hand van de huidige state parameter wordt de correcte display vooruit gebracht.
 Elke screen heeft één publieke constructor en verschillende privé constructoren die voor de verschillende scenario's dienen.
-Zo zijn er standard een ``Success(value)'', ``Failure(error)'' en ``Loading'', drie vaak voorkomende scenarios.
+Zo zijn er standard een ``Success(value)'', ``Failure(error)'' en ``Loading()'', drie vaak voorkomende scenarios, voornamelijk wanneer er data opgehaald moet worden.
 
 \begin{center}
     \includegraphics{Screen_state}
 \end{center}
 
 \subsection{State}
-State object zijn bundles waarmee alle nodige informatie voor de screens wordt gegeven.
-Er wordt gebruik gemaakt van Kotlin's sterke enum types om verschillende mogelijkheden efficiënt te behandelen. Elke entry is een data class/object heeft andere parameters.
-Zo weet de Screen dat een Failure entry een foutmeldingsstring bevat, terwijl een Success entry bvb. een CatProfile heeft.
+State worden gebruikt om door te geven aan de UI wat te tonen. Alle nodige informatie voor de screens wordt zo gegeven.
+Twee formaten worden doorheen de app gebruikt, volgens wat de context nodig heeft.
+
+\subsubsection{State List}
+State List data classes maken gebruik van Kotlin's sterke enum types en smart casting om verschillende mogelijkheden efficiënt te behandelen, zonder extra gevallen.
+Elke entry is een data class/object en heeft andere parameters. Zo weet de Screen dat een Failure entry een foutmeldingsstring bevat, terwijl een Success entry bvb. een CatProfile heeft.
 De publieke constructor van de screens krijgen een state als parameter vanuit het viewmodel en lossen intern elke entry op met een aparte composable functie.
 
 Stel er wordt externe data opgehaald door het viewmodel, en er loopt iets mis. Het viewmodel kan een Failure state inzetten met een foutmelding.
-Dit belandt bij de Screen en deze kan verder met de correcte privé constructor.
-
+Dit belandt bij de Screen, waar een FailureScreen wordt gemaakt met de geleverde fout, die in een textvak wordt gezet.
+Stel de gebruiker herlaad de pagina, maar deze keer komt de data wel correct binnen. Het viewmodel zet dan de state op Success met de State Container als parameter.
 
 \begin{center}
     \includegraphics{VM_State}
 \end{center}
 
+\subsubsection{State Container}
+State Containers zijn, kort door de bocht, data classes waarmee alle data voor de UI in een bundle wordt verzameld.
+Zo moet er maar één parameter gegeven worden indien de UI er meerdere nodig heeft.
+Uiteraard bestaat er zo één per pagina; ze hebben niet de zelfde informatie nodig!
+
 
 
 \subsection{Action}
+Terwijl State gebruikt wordt om van het viewmodel naar de UI te communiceren, Action is net het omgekeerde.
+Zoals State List, Actions zijn enums (sealed classes), waardoor er makkelijk en veilig verschillende opties gemaakt kunnen worden.
+Met één centrale methode in het viewmodel kunnen alle nodige acties uitgevoerd worden zonder een nieuwe parameter aan te maken voor elke interactie.
+Zo wordt de code in de App file wat beperkt; het is anders makkelijk om honderden regels code te maken om alle interacties in te stellen voor elke pagina.
+In het viewmodel bestaat maar één publieke methode: \textit{DoAction}, die als enige parameter een Action object van de overeenkomende type nodig heeft.
+Intern worden alle scenarios behandeld en het resultaat via het de State weergegeven in de UI. 
 
-Het Action object, waarmee de Screen acties kan laten uitvoeren in het viewmodel.
-
+Het beste voorbeeld hiervan is de Register pagina. Hier moet een emailadress en paswoord ingevuld worden, twee cruciale elementen van de gebruiker.
+Uiteraard mag het paswoord niet te kort of simpel zijn.
+Abstractie zegt dat de UI deze logika niet zelf mag uitvoeren --- wat ook erg logisch is volgens mij --- dus deze informatie moet tot het viewmodel geraken.
+Aan de hand van het DoAction methode van het viewmodel, doorgegeven via de constructor van de pagina, kan OnPasswordUpdate uitgevoerd worden, met het paswoord als invoer.
+Deze controleert of het voldoet en update de \textit{canSignUp} property van de state.
 
 
 
