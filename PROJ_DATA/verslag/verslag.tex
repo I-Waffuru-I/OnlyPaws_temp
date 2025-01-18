@@ -155,12 +155,38 @@ Het beste voorbeeld hiervan is de Register pagina. Hier moet een emailadress en 
 Uiteraard mag het paswoord niet te kort of simpel zijn.
 Abstractie zegt dat de UI deze logika niet zelf mag uitvoeren --- wat ook erg logisch is volgens mij --- dus deze informatie moet tot het viewmodel geraken.
 Aan de hand van het DoAction methode van het viewmodel, doorgegeven via de constructor van de pagina, kan OnPasswordUpdate uitgevoerd worden, met het paswoord als invoer.
-Deze controleert of het voldoet en update de \textit{canSignUp} property van de state.
+Deze controleert of het voldoet en update de \textit{canSignUp} property van de State Container.
 
 
 
 \section{Database}
+\subsection{Optimisatie}
+Data ophalen en opslaan is één van de kenmerken van hedendaagse applicaties.
+Al kunnen we ervan uitgaan dat hardware over het algemeen steeds sterker en communicatie steeds sneller verloopt, moeten we rekening houden met sommige eigenschappen van mobiele telefoons.
+Deze hebben beperkte batterij en vaak maken gebruik van mobiele data i.p.v. wifi.
+Vaak of veel data ophalen neemt extra rekenkracht en verbruikt onnodig veel data, die bij sommige gebruikers beperkt kan zijn.
+Het is dus in het belang van de gebruikers om alle communicatie zo efficiënt en vlot mogelijk te maken om zo weinig mogelijk batterij en mobiele data te gebruiken.
+
+
+Het zou volledig mogelijk zijn om dit project op te bouwen envan uitgaand dat iedere gebruiker over onbeperkte data en de nieuwste generatie telefoon beschikt.
+Dit zou mij veel moeite besparen op vlak van programmeer- en denkwerk, maar\ldots daar ben ik zelf niet tevreden mee.
+Hardware stijgt razendsnel in rekenkracht, programma's kunnen meer en meer resources in beslag nemen, en deze app zal realistisch nooit meer dan drie gebruikers hebben (dank je wel, Oma).
+Nochtands kan ik het niet over mijn hart krijgen om niet te optimiseren waar mogelijk, enerzijds omdat mijn telefoon zelf best achterhaald is, maar anderzijds omdat mijn principes dat vereisen.
+De beschikbaarheid van telloze resources betekend niet dat één app alles in beslag mag nemen.
+
+
+
+De eerste stap om dit probleem te benaderen is identificeren wanneer er nieuwe data moet opgehaald worden en deze momenten zo streng mogelijk reglementeren.
+Sommige scenarios zijn onmisbaar, zoals de Home pagina, waarbij elke Like/Dislike een nieuwe profiel wordt ingeladen. Hier wordt beide de bruto informatie en de afbeelding ingeladen.
+Op de Favorites pagina worden
+ 
+
+
+\subsection{Structuur}
 
 \section{Navigatie}
+
+
+\chapter{Besluit}
 
 \end{document}

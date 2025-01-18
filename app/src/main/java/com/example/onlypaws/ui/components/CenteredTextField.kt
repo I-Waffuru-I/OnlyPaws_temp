@@ -3,6 +3,7 @@ package com.example.onlypaws.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,8 @@ fun CenteredTextField(
     onValueChange : (String)->Unit,
     modifier: Modifier = Modifier,
     fontSize : TextUnit = TextUnit.Unspecified,
+    label : @Composable (()->Unit)? = null,
+    placeholder : @Composable (()->Unit)? = null,
     color : Color = Color.DarkGray,
     backgroundColor : Color = Color.Transparent,
     alignment: Alignment = Alignment.CenterStart,
@@ -39,12 +42,16 @@ fun CenteredTextField(
            value = text,
            onValueChange = onValueChange,
            textStyle = TextStyle(color = color, fontSize = fontSize),
+           label = label,
            colors = TextFieldDefaults.colors(
                unfocusedContainerColor = Color.Transparent,
                focusedContainerColor = Color.Transparent,
            ),
+           placeholder = placeholder,
            minLines = minLines,
-           modifier = Modifier.align(alignment)
+           modifier = Modifier
+               .align(alignment)
+               .fillMaxWidth()
        )
     }
 }

@@ -64,7 +64,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth.ktx)
 
-    /* ROOM */
+    /* DATABASE */
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.firebase.auth)
@@ -82,6 +82,13 @@ dependencies {
 
     /* LOTTIE ANIMATION */
     implementation(libs.com.airbnb.android.lottie.compose)
+
+
+    /*  */
+    implementation(libs.retrofit.core)
+    implementation(libs.converter.gson)
+
+
 
 
     testImplementation(libs.junit)

@@ -37,9 +37,6 @@ class RegisterViewModel : ViewModel() {
                     state.copy(password = action.password)
                 }
 
-                RegisterAction.OnBackSignIn ->
-                    state.copy(triesToReturnLogin = true)
-
                 is RegisterAction.OnRegister -> {
                     if(userRepo.doesUserExist(state.email))
                         state.copy(errorMessage = "Email is already in use!")

@@ -3,8 +3,10 @@ package com.example.onlypaws.viewmodels
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.UserProfile
 import com.example.onlypaws.models.db.GetDbResult
@@ -19,20 +21,21 @@ import kotlinx.coroutines.launch
 
 
 
-class MainScreenViewModel(userId : String) : ViewModel() {
+class MainScreenViewModel : ViewModel() {
     private val catRepo : ICatRepository = FirebaseCatRepo()
     private val userRepo : IUserAccountRepository = FireBaseUserRepo()
     private var currentCatId = -1 // the id the last seen cat, stored in the user account
     private var userCatId = -1 // the catId of the logged in user
-    private var _userID = userId
+    private var _userID : String = ""
 
     var mainPageState : MainState by mutableStateOf( MainState.Loading )
 
-    init {
-        viewModelScope.launch{
-            getUserInfo(userId)
-            getCurrentCat()
-        }
+    fun setup(user : String) {
+        if(user != _userID)
+            viewModelScope.launch{
+                getUserInfo(user)
+                getCurrentCat()
+            }
     }
 
     fun onAction(action : MainAction) {
@@ -65,7 +68,7 @@ class MainScreenViewModel(userId : String) : ViewModel() {
         if(likeSuccess is SaveDbResult.Success)
             getNextCat()
         else
-            mainPageState = MainState.Failure("Something went wrong!")
+            mainPageState = MainState.Failure("Something failed...")
 
     }
 

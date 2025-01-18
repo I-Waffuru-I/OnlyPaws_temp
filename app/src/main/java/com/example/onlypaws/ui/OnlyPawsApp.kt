@@ -225,19 +225,20 @@ fun OnlyPawsApp(
                 }
 
                 composable<Main> {
-                   val vm : MainScreenViewModel = viewModel{
-                       MainScreenViewModel(userId)
-                   }
-                   val clickDisplayDetails = {
-                       catId : Int ->
-                           navController.navigate(Profile(catId))
-                   }
+                    val vm : MainScreenViewModel = viewModel()
 
-                   MainScreen(
-                       onAction = vm::onAction,
-                       mainScreenUiState = vm.mainPageState,
-                       displayDetails = clickDisplayDetails,
-                   )
+                    vm.setup(userId)
+
+                    val clickDisplayDetails = {
+                        catId : Int ->
+                            navController.navigate(Profile(catId))
+                    }
+
+                    MainScreen(
+                        onAction = vm::onAction,
+                        mainScreenUiState = vm.mainPageState,
+                        displayDetails = clickDisplayDetails,
+                    )
                }
 
                 composable<Profile> {

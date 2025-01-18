@@ -57,7 +57,6 @@ fun ListScreen(
             modifier = modifier
         )
         ListState.Loading -> LoadingList(
-            onRetry = { onAction(ListAction.OnRefresh) },
             modifier = modifier
         )
         is ListState.SuccessLike -> SuccessList(
@@ -105,6 +104,7 @@ private fun SuccessList(
                 val t = if(liked) R.string.list_check_delete else R.string.list_check_add
                 CenteredText(
                     text = stringResource(R.string.general_confirmation),
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 30.sp
                 )
                 CenteredText(
@@ -140,7 +140,6 @@ private fun SuccessList(
         }
     }
 
-
     // SCREEN ITSELF
     Column (
         modifier = modifier
@@ -153,7 +152,7 @@ private fun SuccessList(
                 .background(MaterialTheme.colorScheme.surfaceDim)
         ){
             val t = if(liked) R.string.list_title_like else R.string.list_title_dislike
-            val i = if(liked) Icons.Rounded.FavoriteBorder else Icons.Rounded.Favorite
+            val i = if(liked) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder
             CenteredText(
                 text = stringResource(t),
                 fontSize = 30.sp,
@@ -202,7 +201,6 @@ private fun SuccessList(
 
 @Composable
 private fun LoadingList(
-    onRetry: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -212,14 +210,6 @@ private fun LoadingList(
         modifier = modifier
     ) {
         LottieLoading()
-        /*CenteredText(
-            text = stringResource(R.string.loading_cat_profile_list)
-        )*/
-        Button(
-            onClick = onRetry
-        ) {
-            Text(stringResource(R.string.refresh_cat_profile_list))
-        }
     }
 }
 

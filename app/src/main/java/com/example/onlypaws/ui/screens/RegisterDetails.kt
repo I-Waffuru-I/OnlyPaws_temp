@@ -1,14 +1,21 @@
 package com.example.onlypaws.ui.screens
 
+import android.util.Log
+import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -19,22 +26,38 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import coil.compose.AsyncImage
+import com.example.onlypaws.R
 import com.example.onlypaws.managers.AccountManager
 import com.example.onlypaws.models.register.RegisterAction
 import com.example.onlypaws.models.registerDetails.DetailAction
 import com.example.onlypaws.models.registerDetails.DetailState
+import com.example.onlypaws.ui.components.CenteredTextField
 import kotlinx.coroutines.launch
 
 @Composable
@@ -68,8 +91,11 @@ fun RegisterDetailsScreen(
 
     // Launcher om een afbeelding te kiezen
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) {
-        println("Got following URI from activity pick : \r $it")
-        onAction(DetailAction.OnImageLinkChange(it.toString()))
+        if(it != null) {
+            onAction(DetailAction.OnImageLinkChange(it.toString()))
+            Log.i("Media Picker","URI is not null!")
+        }
+        Log.i("Media Picker","Got following URI from activity pick : \r ${it.toString()}")
     }
 
 
@@ -87,38 +113,94 @@ fun RegisterDetailsScreen(
         floatingActionButtonPosition = FabPosition.Start
     ) { innerPadding ->
 
+        var offset : IntOffset by remember { mutableStateOf(IntOffset(0,-40)) }
+        val view = LocalView.current
+        val viewTreeObserver = view.viewTreeObserver
+        DisposableEffect(viewTreeObserver) {
+            val listener = ViewTreeObserver.OnGlobalLayoutListener {
+                val isKeyboardOpen = ViewCompat.getRootWindowInsets(view)
+                    ?.isVisible(WindowInsetsCompat.Type.ime()) ?: true
+                // ... do anything you want here with `isKeyboardOpen`
+                offset = if(isKeyboardOpen) offset.copy(y = -240) else offset.copy(y = -40)
+            }
+
+            viewTreeObserver.addOnGlobalLayoutListener(listener)
+            onDispose {
+                viewTreeObserver.removeOnGlobalLayoutListener(listener)
+            }
+        }
+
+
         Column (
-            modifier = modifier.padding(innerPadding),
+            modifier = modifier
+                .fillMaxSize()
+                .padding(innerPadding).padding(horizontal = 10.dp)
+                .offset{
+                    offset
+                }
+                ,
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+
         ) {
 
 
-            if (state.imageLink != "") {
+            if (state.imageLink.isBlank()) {
+                Image(
+                    painter = painterResource(R.drawable.empty_profile_icon),
+                    contentDescription = "cat image",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .width(150.dp)
+                        .height(150.dp),
+                )
 
+            }else {
                 AsyncImage(
                     model = state.imageLink,
                     contentDescription = "cat image",
-                    modifier = Modifier.width(150.dp),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(150.dp)
+                        .width(150.dp),
                 )
             }
 
-            TextField(
-                value = state.name,
+            Spacer(modifier = Modifier.height(5.dp))
+
+            CenteredTextField(
+                text = state.name,
                 onValueChange = {
                     onAction(DetailAction.OnChangeName(it))
                 },
-                label = { Text(text = "Name") },
+                label = {
+                    Text(
+                        text = stringResource(R.string.register_label_name),
+                        color = MaterialTheme.colorScheme.secondary
+                    )},
+                backgroundColor = MaterialTheme.colorScheme.onSecondary,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.fillMaxWidth()
             )
-            TextField(
-                value = state.description,
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            CenteredTextField(
+                text = state.description,
                 onValueChange = {
                     onAction(DetailAction.OnChangeDescription(it))
                 },
-                label = { Text(text = "Description") },
+                label = {
+                    Text(
+                        text = stringResource(R.string.register_label_description),
+                        color = MaterialTheme.colorScheme.secondary
+                    )},
+                backgroundColor = MaterialTheme.colorScheme.onSecondary,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.fillMaxWidth()
             )
+
+            Spacer(modifier = Modifier.height(5.dp))
 
             Row(modifier = Modifier.fillMaxWidth()) {
                 Button(
@@ -131,7 +213,7 @@ fun RegisterDetailsScreen(
                     },
                     modifier = Modifier.weight(0.4f)
                 ) {
-                    Text("Select")
+                    Text( stringResource(R.string.register_btn_manual) )
                 }
                 Spacer(Modifier.weight(0.2f))
 
@@ -141,16 +223,9 @@ fun RegisterDetailsScreen(
                     },
                     modifier = Modifier.weight(0.4f)
                 ) {
-                    Text("Random")
+                    Text( stringResource(R.string.register_btn_random) )
                 }
 
-            }
-            Row(modifier = Modifier.fillMaxWidth()) {
-
-                Text(
-                    text = "",
-                    modifier = Modifier.weight(0.7f)
-                )
             }
 
 
@@ -158,7 +233,6 @@ fun RegisterDetailsScreen(
                 enabled = state.canSignUp,
                 onClick = {
                     scope.launch {
-
                         val result = accountManager.signUp(
                             state
                         )
@@ -166,9 +240,8 @@ fun RegisterDetailsScreen(
                     }
                 },
             ) {
-                Text(text = "Create account!")
+                Text( stringResource(R.string.register_btn_register) )
             }
-
         }
     }
 

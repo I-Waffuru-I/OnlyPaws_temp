@@ -20,7 +20,7 @@ import coil.compose.AsyncImage
 fun ListItemDisplay(
     title : String,
     description : String,
-    image : String,
+    image : Any?,
     onToggle : ()->Unit,
     isAdded : Boolean,
     modifier: Modifier = Modifier
@@ -70,40 +70,3 @@ fun ListItemDisplay(
         }
     }
 }
-/*
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-private fun prevCatItem(modifier: Modifier = Modifier) {
-    val c1 = CatProfile(
-        id = 0,
-        name = "Bob",
-        description = "bobby",
-        image = "https://cdn2.thecatapi.com/images/MjAxMjkwMg.jpg"
-    )
-    val c2 = CatProfile(
-        id= 1,
-        description="less cool, but still cool",
-        image="https://cdn2.thecatapi.com/images/aup.jpg",
-        name= "second cat"
-    )
-
-    OnlyPawsTheme {
-        Column {
-            ListItemDisplay(
-                title = c1.name,
-                image = c1.image,
-                isAdded = true,
-                onToggle = {}
-            )
-            ListItemDisplay(
-                title = c2.name,
-                image = c2.image,
-                isAdded = false,
-                onToggle = {}
-            )
-        }
-    }
-
-}
- */

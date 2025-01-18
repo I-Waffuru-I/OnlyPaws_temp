@@ -17,6 +17,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -125,13 +129,13 @@ fun SuccessMain(
     modifier:Modifier = Modifier,
 ){
 
-
     ConstraintLayout (
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ){
 
+        var closeTutorial : Boolean by remember { mutableStateOf(false) }
         val(catImg,catName) = createRefs()
 
         // NAME
@@ -173,6 +177,50 @@ fun SuccessMain(
             contentScale = ContentScale.Crop
         )
 
+
+
+        // highlights for Dis/Like
+        if(cat.id == 0 && !closeTutorial){
+
+            Row ()
+            {
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .alpha(0.4f)
+                        .background(MaterialTheme.colorScheme.onSecondary)
+                        .weight(0.4f)
+                ){
+                    Image(
+                        painterResource(R.drawable.heart_like),
+                        contentDescription = "like"
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .alpha(0f)
+                        .weight(0.2f)
+                ){
+                    Button(onClick = {closeTutorial = true}) { }
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .alpha(0.4f)
+                        .background(MaterialTheme.colorScheme.onSecondary)
+                        .weight(0.4f)
+
+                ){
+
+                    Image(
+                        painterResource(R.drawable.heart_dislike),
+                        contentDescription = "dislike"
+                    )
+                }
+            }
+        }
+
         // BUTTONS
         Row (
 
@@ -197,5 +245,6 @@ fun SuccessMain(
                     .weight(0.4f)
             ){}
         }
+
     }
 }
