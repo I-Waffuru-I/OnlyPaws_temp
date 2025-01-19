@@ -48,7 +48,7 @@ fun ListItemDisplay(
             CenteredText(
                 text = title,
                 color = MaterialTheme.colorScheme.secondary,
-                fontSize = 25.sp,
+                fontSize = 22.sp,
                 modifier = Modifier
                     .padding(10.dp)
                     .weight(0.4f)
@@ -69,7 +69,8 @@ fun ListItemDisplay(
                 .weight(0.2f)
         ) {
             val ic = if(isAdded) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder
-            val t = if(isAdded) "Remove" else "Add"
+            var t = if(isAdded) "Remove " else "Add "
+            t += title
             Icon(
                 imageVector = ic,
                 tint = MaterialTheme.colorScheme.primary,

@@ -1,6 +1,7 @@
 package com.example.onlypaws.ui.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +27,7 @@ import com.example.onlypaws.R
 import com.example.onlypaws.models.CatProfile
 import com.example.onlypaws.models.account.AccountAction
 import com.example.onlypaws.models.account.AccountStateList
+import com.example.onlypaws.ui.components.LottieLoading
 import com.example.onlypaws.ui.components.ValueUpdateField
 
 @Composable
@@ -41,9 +43,7 @@ fun AccountScreen(
                 onRetry = { onAction(AccountAction.OnRetry) }
             )
         AccountStateList.Loading ->
-            AccountLoading(
-                onRetry = { onAction(AccountAction.OnRetry) }
-            )
+            AccountLoading()
         is AccountStateList.Success -> {
             AccountSuccess(
                 onAction = onAction,
@@ -58,15 +58,15 @@ fun AccountScreen(
 
 @Composable
 fun AccountLoading(
-    onRetry : ()->Unit,
     modifier: Modifier = Modifier
 ) {
 
-    Column(modifier = modifier) {
-        Text("Loading \r\n. . .")
-        Button(onClick = onRetry) {
-            Text("Refresh")
-        }
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        LottieLoading()
     }
 }
 

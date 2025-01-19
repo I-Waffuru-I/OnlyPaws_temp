@@ -42,8 +42,8 @@ class MainScreenViewModel : ViewModel() {
     fun onAction(action : MainAction) {
         viewModelScope.launch {
             when(action)  {
-                MainAction.OnDislike -> likeCatProfile(true)
-                MainAction.OnLike -> likeCatProfile(false)
+                MainAction.OnLike -> likeCatProfile(true)
+                MainAction.OnDislike -> likeCatProfile(false)
                 MainAction.OnProfileView -> openCatProfile()
                 MainAction.OnRetry -> getCurrentCat()
             }

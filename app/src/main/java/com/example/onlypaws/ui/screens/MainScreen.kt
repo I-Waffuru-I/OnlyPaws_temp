@@ -2,6 +2,7 @@ package com.example.onlypaws.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -74,13 +75,6 @@ fun MainScreen (
 fun LoadingMain(
     modifier: Modifier = Modifier
 ){
-    /*
-    Image(
-        painter = painterResource(R.drawable.loading_img),
-        contentDescription = stringResource(R.string.loading_cat_profile_list),
-        modifier = modifier
-    )
-     */
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -194,27 +188,6 @@ fun SuccessMain(
                         .alpha(0.4f)
                         .background(MaterialTheme.colorScheme.onSecondary)
                         .weight(0.4f)
-                ){
-                    Image(
-                        painterResource(R.drawable.heart_like),
-                        contentDescription = "like",
-                        modifier = Modifier.align(Alignment.Center)
-                    )
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .alpha(0f)
-                        .weight(0.2f)
-                ){
-                    Button(onClick = {showTutorial = false}) { }
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .alpha(0.4f)
-                        .background(MaterialTheme.colorScheme.onSecondary)
-                        .weight(0.4f)
 
                 ){
 
@@ -225,6 +198,28 @@ fun SuccessMain(
                             .align(Alignment.Center)
                     )
                 }
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .alpha(0f)
+                        .weight(0.2f)
+                        .clickable{
+                            showTutorial = false
+                        }
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .alpha(0.4f)
+                        .background(MaterialTheme.colorScheme.onSecondary)
+                        .weight(0.4f)
+                ){
+                    Image(
+                        painterResource(R.drawable.heart_like),
+                        contentDescription = "like",
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
             }
         }
 
@@ -233,7 +228,7 @@ fun SuccessMain(
 
         ) {
             Button(
-                onClick = { onAction(MainAction.OnLike) },
+                onClick = { onAction(MainAction.OnDislike) },
                 modifier = Modifier
                     .fillMaxHeight()
                     .alpha(0f)
@@ -245,7 +240,7 @@ fun SuccessMain(
             )
 
             Button(
-                onClick = { onAction(MainAction.OnDislike) },
+                onClick = { onAction(MainAction.OnLike) },
                 modifier = Modifier
                     .fillMaxHeight()
                     .alpha(0f)

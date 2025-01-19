@@ -44,7 +44,7 @@ class RegisterDetailsViewModel : ViewModel(){
                     if (action.link != "") {
                         state.copy(imageLink = action.link)
                     } else {
-                        state
+                        state.copy()
                     }
                 }
 
