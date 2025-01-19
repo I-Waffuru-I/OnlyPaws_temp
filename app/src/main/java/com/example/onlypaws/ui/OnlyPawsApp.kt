@@ -1,6 +1,5 @@
 package com.example.onlypaws.ui
 
-import android.app.Application
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -21,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -135,8 +133,8 @@ fun OnlyPawsApp(
                 navController = navController,
                 startDestination = Login,
                 modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding)
+                    .fillMaxSize()
+                    .padding(innerPadding)
             ){
 
                 composable<Login> {
@@ -297,3 +295,5 @@ fun OnlyPawsApp(
             }
     }
 }
+
+

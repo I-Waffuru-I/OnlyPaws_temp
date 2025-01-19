@@ -1,8 +1,10 @@
 package com.example.onlypaws.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,9 +32,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.airbnb.lottie.Lottie
 import com.example.onlypaws.R
@@ -42,6 +47,7 @@ import com.example.onlypaws.models.list.ListState
 import com.example.onlypaws.ui.components.ListItemDisplay
 import com.example.onlypaws.ui.components.CenteredText
 import com.example.onlypaws.ui.components.LottieLoading
+import com.example.onlypaws.ui.theme.OnlyPawsTheme
 
 @Composable
 fun ListScreen(
@@ -93,13 +99,14 @@ private fun SuccessList(
     if(isDialogShown.value){
         BasicAlertDialog(
             onDismissRequest = {
-            isDialogShown.value = false
+                isDialogShown.value = false
             }
         ) {
             Column (
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.surface)
+                    .padding(10.dp)
             ) {
                 val t = if(liked) R.string.list_check_delete else R.string.list_check_add
                 CenteredText(
@@ -109,6 +116,7 @@ private fun SuccessList(
                 )
                 CenteredText(
                     text = stringResource(t),
+                    color = MaterialTheme.colorScheme.secondary,
                     fontSize = 15.sp
                 )
                 Button(
@@ -135,7 +143,12 @@ private fun SuccessList(
             AsyncImage(
                 model = currentCat.value.image,
                 contentDescription = currentCat.value.name,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable{
+                        isImageShown.value = false
+                    }
+
             )
         }
     }
@@ -147,9 +160,10 @@ private fun SuccessList(
     ) {
         Row (
             horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surfaceDim)
+                .background(MaterialTheme.colorScheme.surface)
         ){
             val t = if(liked) R.string.list_title_like else R.string.list_title_dislike
             val i = if(liked) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder
@@ -160,40 +174,56 @@ private fun SuccessList(
                 modifier = Modifier.padding(15.dp)
             )
 
-            IconButton(
-                onClick = {
-                    onAction(ListAction.OnSwitchDisplayed)
-                }
-            ) {
-                Icon(
-                    imageVector = i,
-                    contentDescription = stringResource(R.string.general_swap),
-                    tint = MaterialTheme.colorScheme.secondary
+            Icon(
+                imageVector = i,
+                contentDescription = stringResource(R.string.general_swap),
+                tint = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier
+                    .height(50.dp)
+                    .clickable {
+                        onAction(ListAction.OnSwitchDisplayed)
+                    }
+                    .padding(end = 15.dp)
+            )
+        }
+        Spacer(Modifier.height(8.dp))
+
+        if(cats.isEmpty()){
+            Box(
+               modifier = Modifier.fillMaxSize()
+            ){
+                Image(
+                    painter = painterResource(R.drawable.cat_not_found),
+                    contentDescription = stringResource(R.string.error_no_cats),
+                    modifier = Modifier.align(Alignment.Center)
                 )
             }
-        }
-        LazyColumn {
-            items(cats)  {
-                ListItemDisplay(
-                    title = it.name,
-                    image = it.image,
-                    description = it.description,
-                    isAdded = liked,
-                    onToggle = {
-                        isDialogShown.value = true
-                        currentCatId.intValue = it.id
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp)
-                        .clickable {
-                            currentCat.value = it
-                            isImageShown.value = true
-                        }
-                )
-                Spacer(
-                    modifier = Modifier.height(10.dp)
-                )
+        } else {
+            LazyColumn {
+                items(cats) {
+                    ListItemDisplay(
+                        title = it.name,
+                        image = it.image,
+                        description = it.description,
+                        isAdded = liked,
+                        onToggle = {
+                            isDialogShown.value = true
+                            currentCatId.intValue = it.id
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp)
+                            .clickable {
+                                currentCat.value = it
+                                isImageShown.value = true
+                            }
+                    )
+                    Spacer(
+                        modifier = Modifier.height(5.dp)
+                    )
+                }
+
+
             }
         }
     }
@@ -233,5 +263,26 @@ private fun FailureList(
         ) {
             Text(stringResource(R.string.refresh_cat_profile_list))
         }
+    }
+}
+
+
+
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+private fun EmptylistPrev() {
+    val l = emptyList<CatProfile>()
+    OnlyPawsTheme {
+        Box (
+            modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
+        ){
+
+            SuccessList(
+                cats = l,
+                liked = true,
+                onAction = {}
+            )
+        }
+
     }
 }

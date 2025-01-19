@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.onlypaws.models.CatApiResult
 import com.example.onlypaws.models.register.RegisterAction
 import com.example.onlypaws.models.register.RegisterState
+import com.example.onlypaws.models.register.SignUpResult
 import com.example.onlypaws.models.registerDetails.DetailAction
 import com.example.onlypaws.models.registerDetails.DetailState
 import com.example.onlypaws.repos.FireBaseUserRepo
@@ -59,7 +60,14 @@ class RegisterDetailsViewModel : ViewModel(){
                     state.copy(triesToReturnLogin = true)
 
                 is DetailAction.OnTrySignUp -> {
-                    state.copy(triesToRegister = true)
+                    when(action.result){
+                        SignUpResult.Cancelled ->
+                            state.copy()
+                        is SignUpResult.Failure ->
+                            state.copy()
+                        is SignUpResult.Success ->
+                            state.copy(triesToRegister = true)
+                    }
                 }
 
                 is DetailAction.OnChangeDescription -> {

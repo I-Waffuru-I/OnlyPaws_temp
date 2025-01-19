@@ -3,6 +3,7 @@
 
     <!-- General -->
     <string name="general_confirm">Confirm</string>
+    <string name="general_return">Back</string>
     <string name="general_confirmation">Confirmation</string>
     <string name="general_swap">Swap</string>
 
@@ -22,6 +23,7 @@
     <string name="error_get_not_user">Got something from the repo, but it\'s not a user profile…</string>
     <string name="error_get_not_cat">Got something from the repo, but it\'s not a cat profile</string>
     <string name="error_general_failed">Something failed…</string>
+    <string name="error_no_cats">No cats found!</string>
 
     <!-- Loading cat profiles -->
     <string name="loading_cat_profile_list">Cat profiles are loading…</string>
@@ -31,6 +33,8 @@
     <!--  Account Labels   -->
     <string name="account_field_username">Username</string>
     <string name="account_field_description">Description</string>
+    <string name="account_btn_logout">Log Out</string>
+    <string name="account_btn_save">Saved!</string>
 
     <!-- Register Labels & Buttons -->
     <string name="register_btn_manual">Select</string>

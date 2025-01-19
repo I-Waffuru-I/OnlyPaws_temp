@@ -12,5 +12,5 @@
 \contentsline {section}{\numberline {3.2}Database}{6}{}%
 \contentsline {subsection}{\numberline {3.2.1}Optimisatie}{6}{}%
 \contentsline {subsection}{\numberline {3.2.2}Structuur}{6}{}%
-\contentsline {section}{\numberline {3.3}Navigatie}{6}{}%
-\contentsline {chapter}{\numberline {4}Besluit}{7}{}%
+\contentsline {section}{\numberline {3.3}Navigatie}{7}{}%
+\contentsline {chapter}{\numberline {4}Besluit}{8}{}%

@@ -27,13 +27,13 @@
 
 \chapter{Inleiding}
 De eerste vraag wanneer een project zo absurd als ``een dating platform voor katten'' gepresenteerd wordt is: \verb|Waarom?| Een concreet antwoord hierop\dots heb ik niet.
-Toen het project voorgelegen werdt nam ik de beslissing om geen standard onderwerp te nemen. Wat brutaal gezegd: niks saai.
-Zo behoud ik mijn motivatie en valt de kraan niet zo snel dicht.
+Toen het project voorgelegen werdt nam ik de beslissing om geen standard onderwerp te nemen. Kort door de bocht: niks saai.
+Zo behoud ik mijn motivatie en valt de inspiratiestroom niet zo snel stil.
 Een ander punt waar ik rekening mee nam was dat dit project, indien mooi afgerond, leuk op een CV / Portfolio kan komen. 
 Kotlin is een snel evoluerende taal die veel gebruikt wordt binnen de Google-omgeving, en zeker toegepast kan worden binnen de context van een bedrijf.
 Een topic kiezen die interessant is en waarover veel te bespreken valt is dus erg belangrijk; veel valt er niet te vertellen over een \verb|To-Do| app, maar een online dating app voor poezen? Dat lokt wel aandacht!
 
-Dit waren dus de officiële redenen voor dit project, maar er blijven er nog twee over die het meeste invloed gehad hebben op mijn beslissing. 
+Dat zijn de officiële redenen voor dit project, maar er blijven er nog twee over die het meeste invloed gehad hebben op mijn beslissing. 
 \begin{enumerate}
     \item Ik heb poezen graag; het zijn grappige beesten.
     \item Het is een grappig concept.
@@ -49,14 +49,15 @@ Sommige details in de UX vielen erg hard op, zoals bij voorbeeld hoe vaak er een
 Al zou het hilarisch zijn om tijdens de demonstratie niks te kunnen tonen omdat er betaald moet worden, dit zal ik voor overduidelijke redenen niet doen. 
 
 De economische strategieën van techgiants zijn niet te bespreken in dit verslag. Dit is een project in academische context, geld-gerichte implementaties zijn dus niet gepast.
-Verder nog, zelf vind ik dat bedrijven veel te gericht zijn op winst, niet op de producten die gemaakt worden; \textit{Tinder} valt amper te gebruiken door alle reclame die ingebouwd is. Dit weiger ik op eender welke wijze te implementeren.
+Verder nog, zelf vind ik dat bedrijven veel te gericht zijn op winst, niet op de producten die gemaakt worden; \textit{Tinder} valt amper te gebruiken door alle reclame die ingebouwd is.
+Dit weiger ik op eender welke wijze te implementeren.
 
-Deze negatieve kanten van het oorspronkelijk product zijn dus niet te vinden in dit project --- en meer zelfs! Deze verschillen bespreek ik wel eens ze aan bod komen.
+Deze negatieve kanten van het oorspronkelijk product zijn dus niet te vinden in dit project! Deze verschillen bespreek ik wel eens ze aan bod komen.
 
 
 \chapter{Verloop}
 
-Bij het openen van de app gaat Google's \textit{Credential Manager} open. Deze onthoudt welke gegevens al gebruikt zijn om in te loggen of te registreren.
+Bij het openen van de app kom je terecht op de Login pagina en gaat Google's \textit{Credential Manager} open. Deze onthoudt welke gegevens al gebruikt zijn om in te loggen of te registreren.
 Dankzij deze moet je je paswoord ook niet onthouden; het wordt allemaal veilig bewaard door Google.
 De pop-up laat je selecteren welk account je wilt gebruiken als, stel maar, je meerdere katten hebt. Indien er geen credentials te vinden zijn wordt je automatisch naar de Register pagina verstuurd.
 Verder kan je ook het Credentials menu sluiten om een gebruiker aan te maken.
@@ -69,9 +70,11 @@ In de tweede pagina moet je een naam, beschrijving en afbeelding invullen, die a
 Hier komt de scope van dit project weer in spelen: ik maak gebruik van Firebase RealTime database om alle gegevens en authenticatie op te slaan. Hier kunnen geen afbeeldingen opgeslaan worden, alleen text/JSON.
 Daarom zijn er op de RegisterDetails pagina twee knoppen; één om een afbeelding lokaal te openenen en één waarbij je de link naar een random foto online krijgt. 
 Beide zijn volledig functioneel, maar de lokale afbeelding gaat door niemand buiten de huidige telefoon bekeken kunnen worden, dus raad ik niet aan.
+De foto kan je aan de hand van een Android Intent selecteren.
 
 Proficiat! U bent nu de trotse eigenaar van een OnlyPaws account en wordt doorgestuurd naar de Home pagina.
 Hier worden één per één andere profielen getoond. Je kan ofwel Liken ofwel Disliken, door rechts of links te klikken op de pagina. 
+Bij een nieuw account worden hulptekens gegeven die aanduiden welke kant correspondeert aan welke actie. Deze kan je uitschakelen door in het midden --- tussen de twee knoppen --- te klikken.
 Centraal staat de foto van de kat met de naam en beschrijving bovenaan.
 Elke profiel die geliked wordt komt in de Favorites pagina te staan. Hier kan je alle profielen van Liked naar Dislike sturen en omgekeerd, plus de foto's bekijken door op de thumbnail te klikken.
 Bij het verwissellen van een profiel komt een pop-up tevoor om na te vragen of de gebruiker dit zeker wilt doen. Indien ja, wordt de operatie uitgevoerd. Indien nee sluit de pop-up en verandert er niks.
@@ -83,18 +86,17 @@ In de boven-rechtse hoek is een Log-Out knop te vinden waarmee je, uiteraard, ku
 
 \chapter{Documentatie}
 \section{MVVM}
-MVVM is een structuur waarbij er zo veel mogelijk abstractie is tussen data en display. Doorheen het process is de structuur meerdere keren vanaf nul weer begonnen,
-vaak omdat ik een nieuwe manier van werken gevonden had en die voorkeur gaf over de oude methode.
+MVVM is een structuur waarbij er zo veel mogelijk abstractie is tussen data en display. 
+Doorheen het creatieprocess is de structuur meerdere keren vanaf nul weer begonnen, vaak omdat ik een nieuwe manier van werken gevonden had en die voorkeur gaf over de oude methode.
 Een van de belangrijkste concepten is het \textit{Separation of Concerns} principe. Dit legt voor dat elk object, elke classe, elke pagina, elk data model geen kennis mag hebben van waar het gebruikt wordt, of in welke toepassing het beland.
 Eender welk bestand zou theoretisch geplakt kunnen worden in eender welke omgeving en werken. Een pagina zou geen fout moeten geven als een viewmodel verwisselt wordt.
-De structuur die ik aangenomen heb voor dit project draait om een paar begrippen die bij elke toepassing opnieuw gemaakt worden,
-en op een robuste manier code veiligheid behalen.
+De structuur die ik aangenomen heb voor dit project draait om een paar begrippen die bij elke toepassing opnieuw gemaakt worden, en op een robuste manier code veiligheid behalen.
 
 
 \subsection{ViewModel}
 Viewmodels zijn de classes waarin data wordt bijgehouden. Ze doen het rekenwerk, halen data op en sturen de nodige informatie door naar de gebruikersinterface.
 Intern bestaan er meerdere variabelen die doorheen de levenstijd van het viewmodel geldig blijven, samen met de nodige functies om alles operationeel te krijgen.
-Verder is er maar één publieke property --- de ScreenState --- en één publieke methode --- de OnAction methode. Meer hierover in het Action subsectie.
+Verder is er maar één publieke property (de \textit{ScreenState}) en één publieke methode (de \textit{OnAction} methode). Meer hierover in hun respectievelijke subsecties.
 
 Het basis ViewModel classe heeft twee eigenschappen die nodig zijn voor hun verwachtte werking.
 De eerste hiervan is dat ze niet composable zijn; hierdoor moet er geen \textit{remember} toegevoegd worden zodat ze heen de lifecycle van de applicatie blijven.
@@ -176,13 +178,8 @@ De beschikbaarheid van telloze resources betekend niet dat één app alles in be
 
 
 
-De eerste stap om dit probleem te benaderen is identificeren wanneer er nieuwe data moet opgehaald worden en deze momenten zo streng mogelijk reglementeren.
-Sommige scenarios zijn onmisbaar, zoals de Home pagina, waarbij elke Like/Dislike een nieuwe profiel wordt ingeladen. Hier wordt beide de bruto informatie en de afbeelding ingeladen.
-Op de Favorites pagina worden
- 
-
-
 \subsection{Structuur}
+Alle optimisaties op vlak van data gebeuren voornamelijk in de structuur van de database en het controlleren van welke informatie nodig is doorheen de app.
 
 \section{Navigatie}
 

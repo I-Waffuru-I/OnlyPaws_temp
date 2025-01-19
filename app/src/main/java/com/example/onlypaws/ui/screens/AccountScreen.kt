@@ -1,5 +1,6 @@
 package com.example.onlypaws.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -94,13 +96,19 @@ fun AccountSuccess(
     user : CatProfile,
     modifier: Modifier = Modifier
 ) {
+
+
+    val context = LocalContext.current
+    val saveText = stringResource(R.string.account_btn_save)
+
+
     ConstraintLayout(
         modifier = modifier.fillMaxSize()
     ) {
-        val (loginBtn, accountImage, accountName, accDescription) = createRefs()
+        val (logOutBtn, accountImage, accountName, accDescription) = createRefs()
 
         Box(
-            modifier = Modifier.constrainAs(loginBtn) {
+            modifier = Modifier.constrainAs(logOutBtn) {
                 top.linkTo(parent.top)
                 end.linkTo(parent.end)
             },
@@ -111,7 +119,7 @@ fun AccountSuccess(
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.ExitToApp,
-                    contentDescription = "Log out"
+                    contentDescription = stringResource(R.string.account_btn_logout)
                 )
             }
         }
@@ -122,7 +130,7 @@ fun AccountSuccess(
             contentDescription = user.name,
             modifier = Modifier
                 .constrainAs(accountImage) {
-                    top.linkTo(loginBtn.bottom, 10.dp)
+                    top.linkTo(logOutBtn.bottom, 10.dp)
                     start.linkTo(parent.start,40.dp)
                     end.linkTo(parent.end,40.dp)
                     width = Dimension.fillToConstraints
@@ -133,6 +141,7 @@ fun AccountSuccess(
         ValueUpdateField(
             onEditPress = {
                 onAction(AccountAction.OnSaveUsername(it))
+                Toast.makeText(context,saveText,Toast.LENGTH_SHORT).show()
             },
             title = stringResource(R.string.account_field_username),
             value = user.name,
@@ -145,6 +154,7 @@ fun AccountSuccess(
         ValueUpdateField(
             onEditPress = {
                 onAction(AccountAction.OnSaveDescription(it))
+                Toast.makeText(context,saveText,Toast.LENGTH_SHORT).show()
             },
             title = stringResource(R.string.account_field_description),
             value = user.description,

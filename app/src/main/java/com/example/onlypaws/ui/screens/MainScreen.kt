@@ -135,9 +135,13 @@ fun SuccessMain(
             .background(MaterialTheme.colorScheme.background)
     ){
 
-        var closeTutorial : Boolean by remember { mutableStateOf(false) }
+
+        var showTutorial : Boolean by remember { mutableStateOf(false) }
         val(catImg,catName) = createRefs()
 
+        LaunchedEffect(Unit) {
+            showTutorial = cat.id == 0
+        }
         // NAME
         Box(
             modifier = Modifier.constrainAs(catName){
@@ -180,7 +184,7 @@ fun SuccessMain(
 
 
         // highlights for Dis/Like
-        if(cat.id == 0 && !closeTutorial){
+        if(showTutorial){
 
             Row ()
             {
@@ -193,7 +197,8 @@ fun SuccessMain(
                 ){
                     Image(
                         painterResource(R.drawable.heart_like),
-                        contentDescription = "like"
+                        contentDescription = "like",
+                        modifier = Modifier.align(Alignment.Center)
                     )
                 }
                 Box(
@@ -202,7 +207,7 @@ fun SuccessMain(
                         .alpha(0f)
                         .weight(0.2f)
                 ){
-                    Button(onClick = {closeTutorial = true}) { }
+                    Button(onClick = {showTutorial = false}) { }
                 }
                 Box(
                     modifier = Modifier
@@ -215,7 +220,9 @@ fun SuccessMain(
 
                     Image(
                         painterResource(R.drawable.heart_dislike),
-                        contentDescription = "dislike"
+                        contentDescription = "dislike",
+                        modifier = Modifier
+                            .align(Alignment.Center)
                     )
                 }
             }

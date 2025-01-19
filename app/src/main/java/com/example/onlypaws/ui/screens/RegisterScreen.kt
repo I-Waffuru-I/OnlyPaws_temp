@@ -83,7 +83,6 @@ fun RegisterScreen(
             val listener = ViewTreeObserver.OnGlobalLayoutListener {
                 val isKeyboardOpen = ViewCompat.getRootWindowInsets(view)
                     ?.isVisible(WindowInsetsCompat.Type.ime()) ?: true
-                // ... do anything you want here with `isKeyboardOpen`
                 offset = if(isKeyboardOpen) offset.copy(y = -240) else offset.copy(y = -40)
             }
 

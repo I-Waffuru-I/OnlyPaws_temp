@@ -35,6 +35,7 @@ class MainScreenViewModel : ViewModel() {
             viewModelScope.launch{
                 getUserInfo(user)
                 getCurrentCat()
+                _userID = user
             }
     }
 
