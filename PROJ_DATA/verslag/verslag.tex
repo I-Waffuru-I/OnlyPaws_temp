@@ -14,7 +14,9 @@
 
 % Afbeeldingen
 \usepackage{graphicx}
+\usepackage{subcaption}
 \graphicspath{ {./images/} }
+
 
 
 \title{OnlyPaws}
@@ -84,6 +86,114 @@ Voer de nieuwe text in, duuw op het knopje en de gegevens worden opgeslaan.
 In de boven-rechtse hoek is een Log-Out knop te vinden waarmee je, uiteraard, kunt uitloggen van het account en terug naar de Login gaan.
 
 
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_login.png} 
+        \caption{Credential Manager}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_Reg1.png} 
+        \caption{Lege Register pagina}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_Reg2.png} 
+        \caption{\textit{Continue} eens ingevuld}
+    \end{subfigure}
+
+    \vspace{1em}
+
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_RegSelect.png} 
+        \caption{Afbeelding selecteren}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_RegRandom.png} 
+        \caption{Random afbeelding}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_RegSave.png} 
+        \caption{Gegevens opslaan}
+    \end{subfigure}
+
+\end{figure}
+
+
+\begin{figure}[h]
+
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_Main1.png} 
+        \caption{Main pagina}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_Main2.png} 
+        \caption{Nieuwe profiel na liken}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_List1.png} 
+        \caption{Liked profielen}
+    \end{subfigure}
+
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_List2.png} 
+        \caption{Disliked profielen}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_List3.png} 
+        \caption{Like veranderen}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_Acc.png} 
+        \caption{Account pagina}
+    \end{subfigure}
+
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_Acc2.png}
+        \caption{Gegevens aanpassen}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{DEMO_Acc3.png}
+        \caption{Terug naar Login}
+    \end{subfigure}
+    \hfill
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \chapter{Documentatie}
 \section{MVVM}
 MVVM is een structuur waarbij er zo veel mogelijk abstractie is tussen data en display. 
@@ -92,6 +202,9 @@ Een van de belangrijkste concepten is het \textit{Separation of Concerns} princi
 Eender welk bestand zou theoretisch geplakt kunnen worden in eender welke omgeving en werken. Een pagina zou geen fout moeten geven als een viewmodel verwisselt wordt.
 De structuur die ik aangenomen heb voor dit project draait om een paar begrippen die bij elke toepassing opnieuw gemaakt worden, en op een robuste manier code veiligheid behalen.
 
+\begin{center}
+    \includegraphics[scale=0.5]{MVVM_Overzicht}
+\end{center}
 
 \subsection{ViewModel}
 Viewmodels zijn de classes waarin data wordt bijgehouden. Ze doen het rekenwerk, halen data op en sturen de nodige informatie door naar de gebruikersinterface.
@@ -103,7 +216,9 @@ De eerste hiervan is dat ze niet composable zijn; hierdoor moet er geen \textit{
 Dit werkt samen met de tweede eigenschap: ze volgen het singleton patroon. Dit garandeert dat elke nieuwe aanroeping van een VM identiek hetzelfde object zal geven.
 Aan de hand van deze twee eigenschappen kunnen VMs doorheen de levenscyclus van de applicatie geldig blijven.
 
-
+\begin{center}
+    \includegraphics{MVVM_Viewmodel}
+\end{center}
 
 
 \subsection{Screen}
@@ -118,12 +233,15 @@ Elke screen heeft één publieke constructor en verschillende privé constructor
 Zo zijn er standard een ``Success(value)'', ``Failure(error)'' en ``Loading()'', drie vaak voorkomende scenarios, voornamelijk wanneer er data opgehaald moet worden.
 
 \begin{center}
-    \includegraphics{Screen_state}
+    \includegraphics[scale=0.9]{MVVM_Screen}
 \end{center}
 
 \subsection{State}
 State worden gebruikt om door te geven aan de UI wat te tonen. Alle nodige informatie voor de screens wordt zo gegeven.
 Twee formaten worden doorheen de app gebruikt, volgens wat de context nodig heeft.
+\begin{center}
+    \includegraphics{MVVM_State}
+\end{center}
 
 \subsubsection{State List}
 State List data classes maken gebruik van Kotlin's sterke enum types en smart casting om verschillende mogelijkheden efficiënt te behandelen, zonder extra gevallen.
@@ -133,16 +251,17 @@ De publieke constructor van de screens krijgen een state als parameter vanuit he
 Stel er wordt externe data opgehaald door het viewmodel, en er loopt iets mis. Het viewmodel kan een Failure state inzetten met een foutmelding.
 Dit belandt bij de Screen, waar een FailureScreen wordt gemaakt met de geleverde fout, die in een textvak wordt gezet.
 Stel de gebruiker herlaad de pagina, maar deze keer komt de data wel correct binnen. Het viewmodel zet dan de state op Success met de State Container als parameter.
-
 \begin{center}
-    \includegraphics{VM_State}
+    \includegraphics{MVVM_ScreenState}
 \end{center}
 
 \subsubsection{State Container}
 State Containers zijn, kort door de bocht, data classes waarmee alle data voor de UI in een bundle wordt verzameld.
 Zo moet er maar één parameter gegeven worden indien de UI er meerdere nodig heeft.
-Uiteraard bestaat er zo één per pagina; ze hebben niet de zelfde informatie nodig!
-
+Dit systeem wordt niet bij elke pagina toegepast; de MainScreen heeft enkel een CatProfile nodig, verder niets.
+\begin{center}
+    \includegraphics{MVVM_StateContainer}
+\end{center}
 
 
 \subsection{Action}
@@ -159,31 +278,163 @@ Abstractie zegt dat de UI deze logika niet zelf mag uitvoeren --- wat ook erg lo
 Aan de hand van het DoAction methode van het viewmodel, doorgegeven via de constructor van de pagina, kan OnPasswordUpdate uitgevoerd worden, met het paswoord als invoer.
 Deze controleert of het voldoet en update de \textit{canSignUp} property van de State Container.
 
+\begin{center}
+    \includegraphics{MVVM_Action}
+\end{center}
+
 
 
 \section{Database}
 \subsection{Optimisatie}
-Data ophalen en opslaan is één van de kenmerken van hedendaagse applicaties.
-Al kunnen we ervan uitgaan dat hardware over het algemeen steeds sterker en communicatie steeds sneller verloopt, moeten we rekening houden met sommige eigenschappen van mobiele telefoons.
-Deze hebben beperkte batterij en vaak maken gebruik van mobiele data i.p.v. wifi.
-Vaak of veel data ophalen neemt extra rekenkracht en verbruikt onnodig veel data, die bij sommige gebruikers beperkt kan zijn.
-Het is dus in het belang van de gebruikers om alle communicatie zo efficiënt en vlot mogelijk te maken om zo weinig mogelijk batterij en mobiele data te gebruiken.
+Data ophalen en opslaan is één van de kenmerken van hedendaagse applicaties en ligt aan de kern van een toepassing zoals deze.
+Het zou een heel speciale app zijn was een netwerkverbinding niet nodig; waar zouden de katten vandaan komen?
+Al gaan we er van uit dat telefoons sneller en efficiënter worden met elke nieuwe generatie, zekerheid kunnen we nooit hebben dat alle gebruikers een onbeperkte mobiele gegevens subscriptie hebben.
+Er is een evenwicht te vinden tussen de hoeveelheid data die opgehaald wordt en de hoeveelheid data die lokaal verwerkt moet worden, die geregeld kan worden door meer of minder taken te geven aan de database.
+Ofwel zorgt de database / server voor alle logica, filtreren en leveren van informatie, ofwel worden sommige taken aan de gebruiker overgelaten, waarbij rekenkracht voor de server bespaard wordt.
+Het eerste richt zich meer op de gebruikers, door hun eventuele mobiele data subscriptie te besparen, terwijl de tweede toekomstgericht werkt;
+hoe meer gebruikers, hoe meer rekenkracht de server nodig heeft, hoe sneller deze kan overlopen.
 
 
 Het zou volledig mogelijk zijn om dit project op te bouwen envan uitgaand dat iedere gebruiker over onbeperkte data en de nieuwste generatie telefoon beschikt.
 Dit zou mij veel moeite besparen op vlak van programmeer- en denkwerk, maar\ldots daar ben ik zelf niet tevreden mee.
-Hardware stijgt razendsnel in rekenkracht, programma's kunnen meer en meer resources in beslag nemen, en deze app zal realistisch nooit meer dan drie gebruikers hebben (dank je wel, Oma).
-Nochtands kan ik het niet over mijn hart krijgen om niet te optimiseren waar mogelijk, enerzijds omdat mijn telefoon zelf best achterhaald is, maar anderzijds omdat mijn principes dat vereisen.
-De beschikbaarheid van telloze resources betekend niet dat één app alles in beslag mag nemen.
-
-
+Hardware stijgt razendsnel in rekenkracht en programma's kunnen groeiende hoeveelheiden resources in beslag nemen, waardoor eenvoudige taken nauwelijks merkbaar worden in de loop van de toepassing.
+Verder nog, voor een toepassing met zo weinig gebruikers zullen de grootste bestanden de afbeeldingen blijven; of er twintig of hunderd gebruiker IDs opgehaald moeten worden maakt in vergelijking niks uit.
+Efficiëntie-gericht programmeren geef ik voorkeur over het alternatief, maar in deze context zijn de optimisatietechnieken amper merkbaar.
+De kleine stappen hiervoor bespreek ik verder wel.
 
 \subsection{Structuur}
-Alle optimisaties op vlak van data gebeuren voornamelijk in de structuur van de database en het controlleren van welke informatie nodig is doorheen de app.
+In dit project heb ik voor een Firebase \textit{Realtime Database} gekozen. Deze worden op een server van Google gehost en kunnen vrij grote `.json' bestanden bevatten.
+Dit is de simpelste oplossing op organisatievlak, maar heeft wel een paar tekortkomingen waar rond moest dansen.
+Het is een `.json' database, dus feitelijk een enkel-tekst database. Afbeeldingen kunnen niet opgeslaan worden, enkel een link er naartoe verwijzend.
+Er waren een paar alternatieven die ik na onderzoek tegen was gekomen.
+\begin{enumerate}
+    \item Firebase heeft een subclasse, Firebase \textit{Firestore}, wat wel een relationele database is met ruimte voor afbeeldingen.
+Al zou dit mijn probleem volledig oplossen, deze is niet gratis te gebruiken --- zeker door het verschil in rekenkracht met de gratis alternatief.
+    \item SupaBase is een relationele database die gebruikt wordt door een paar medestudenten. Dit platform begint gratis met wat ruimte voor afbeeldingen, en wordt pas betalend eens je boven dat volume geraakt.
+Al zou het een ideale oplossing zijn, ik heb die pas recent ontdekt, en Firebase was al ferm ingegroeid in de app, waardoor ik het hart niet meer had om te wissellen.
+    \item Ten laatste was de optie er om zelf een simpele API te hosten met achterliggende database.
+Hier zou ik volledig controle hebben over heel het infrastructuur, en zou mogelijks via een gratis URL of SSH toegang kunnen krijgen.
+Het probleem hier is dat ik thuis geen extra laptop heb die permanent kan aan blijven. Dit idee ging dus volledig af te tafel.
+\end{enumerate}
+Één ander voordeel dat een eigen server zou brengen is dat de administratie taak volledig van de gebruiker weg kan genomen worden.
+De server heeft kennis van wat elke gebruiker al heeft gezien en kan zelf profielen suggereren, \textit{wat eigenlijk één van mijn primaire doelen was}.
+Dit zou op een eigen machien moeten lopen; er is geen suggestiesysteem in Subapase.
+Maar ach, Firebase \textit{Realtime Database} is het geworden.
+
+Gebruikers emails worden meestal gebruikt in het pad; deze zijn uiteraard altijd uniek en kunnen dus maar naar één gebruiker verwijzen. 
+Ze worden eerst naar Base64 ge encodeert om speciale karacters te mogen gebruiken zonder conflicten met de URL.
+De opslag is gesplitst in een paar regios.
+
+\begin{enumerate}
+    \item ``users'', waar de email en account-gegevens opgeslaan worden.
+    Hier wordt ook informatie zoals de laatste geziene profiel bijgehouden en de profiel ID die bij het account past.
+    \begin{center}
+        \includegraphics{DB_user}
+    \end{center}
+
+    \item ``cats'', waar de publieke informatie voor profielen te vinden is (cat id, naam, beschrijving en afbeelding link).
+    Dit is wat bij elke Like / Dislike op de main pagina gezocht wordt.
+    De ID's zijn bewust een integer aangezien er geen server is die zelf een profiel kan leveren; de gebruiker's apparaat moet dus zelf +1 doen om de volgende te halen.
+    Dit zou niet gaan indien het ID een string is bvb.
+    \begin{center}
+        \includegraphics{DB_cat}
+    \end{center}
+    
+    \item ``liked'', waar elk account apart onthoudt welke profielen geliked zijn en welke niet.
+    Wanneer een profiel geliked wordt hun catID in de \verb|liked/user_id/l/liked_cat_id| tabel te staan.
+    Disliken werkt identiek hetzelfde, alleen vervang de \verb|l| met een \verb|d|.
+    \begin{center}
+        \includegraphics{DB_liked}
+    \end{center}
+
+    \item ``user\_ids'', een verbindingstabel van accounts en profielen.
+    Dankzij deze voorkom ik dat de gebruiker bij het registreren \textit{alle} data van alle profielen moet ophalen.
+    Hiermee kan je alle IDs krijgen, checken of je email in gebruik, checken wat de hoogste catID is en de volgende nemen.
+    Zo voorkom ik dat nog de email, nog een catID twee keer gebruikt wordt.
+    \begin{center}
+        \includegraphics{DB_userids}
+    \end{center}
+
+\end{enumerate}
+
+
+
+
+\section{Accounts}
+De app maakt gebruik van de Android-ingebouwde Credential Manager, gemaakt en geregeld door Google.
+Hiermee kan je veilig paswoorden opslaan, ophalen en verbinden aan je Google account.
+Intern wordt er gebruikt gemaakt van \textit{Account Manager}, een soort viewmodel voor de Credential Manager.
+Deze bevat twee publieke methodes, \verb|signIn()| en \verb|signUp()|.
+
+In \verb|signUp()| wordt een CreateCredential methode aangeroepen die een CreatePasswordRequest bevat.
+Zo komen we een nieuwe ID + Password combinatie uit en geen google account-verbinding (wat inderdaad ook kan).
+Dit slaat ook de gebruiker op in de Firebase Authentication dataset, apart van de rest van alle data.
+Uiteindelijk wordt nog de \verb|createUserWithEmailAndPassword()| methode aangeroepen, ingebouwd in het Firebase Authentication systeem.
+\begin{center}
+    \includegraphics{ACC_Create}
+\end{center}
+
+De \verb|signIn()| functie loop best gelijk.
+Hier wordt \verb|getCredential()| gebruikt in plaats van de creatie-methode, me filtering op alleen PasswordOption paswoorden.
+Nogmaals, dit vermijdt dat Google-accounts opgehaald worden.
+
+\begin{center}
+    \includegraphics{ACC_Get}
+\end{center}
+
 
 \section{Navigatie}
+De navigatiestructuur in Kotlin Jetpack Compose is niet altijd duidelijk wanneer je met de omgeving begint.
+Termen zoals \textit{NavController} en \textit{NavHost} worden snel door elkaar gegooid in artikels,
+iedereen heeft een andere manier van werken en zelfs Google is niet eenduidig met hoe ze het willen.
+Sommige concepten blijven wel hangen, en na wat puzzlen in een ander project ben ik op deze oplossing gekomen.
+
+Elke \textit{composable} in de Navigation Host moet een adres bevatten dat uniek hier naartoe kan lijden.
+Deze adressen worden intern altijd naar een string omgevormd, maar met eenvoudige text adressen werken is niet erg praktisch.
+Zie het zoals een postbode. Krijgt hij het adres, prima, maar zonder beschrijving van welke mail bij dit huis moet is hij er ook niets mee.
+
+Daarmee komen serialiseerbare objecten/data classes van pas.
+Aan de hand van de \textit{@Serializable} tag kunnen objecten serialiseerbaar worden, wat betekent dat je deze kunt omzetten (serialiseren) naar een string en vice-versa.
+Een ander merkwaardige eigenschap is hoe je properties kunt aanmaken en instellen binnen een data class.
+Serialiseer je er zo één, kan je data sturen doorheen de applicatie als parameters in de navigatieadressen.
+\begin{center}
+    \includegraphics[scale=0.8]{NAV_Serialisable}
+\end{center}
+
+Elke van deze adressen kan je koppellen aan een \textit{composable}, om het als een effectief adress in te stellen.
+Hier kan je dat object deserialiseren om de parameters uit te halen, maar uiteraard ook alle instellingen juist zetten voor de screen, zoals navigatiefuncties.
+In de context van de RegisterDetails pagina dient dat om de email en passwoord ingegeven op de vorige pagina door te geven.
+Deze worden uitgelezen en in de state van de nieuwe pagina onthouden.
+\begin{center}
+    \includegraphics[scale=0.8]{NAV_Composable}
+\end{center}
+
+Verder bestaat er een \textit{Route} classe, die gebruikt wordt voor de navigatiebalk.
+Hierbij moet een naam, route en icon gegeven worden.
+De naam dient voor accessibility / scherm lezers in geval van mindervaliden met zichtsproblemen.
+De route geeft mee naar welk adress genavigeerd moet worden, en de icon is het ikoontje dat je ziet.
+\begin{center}
+    \includegraphics{NAV_Route}
+\end{center}
+
+Deze worden uiteindelijk in een lijst gezet, en mee gegeven aan de Bottom Bar.
+Enkel de nodige routes komen hier te staan, uiteraard.
 
 
 \chapter{Besluit}
+Het maken van \textit{OnlyPaws}\texttrademark  was een leerrijkzame ervaring,
+beide op vlak van programmeren als op productie-wijs redeneren.
+Zelf alle kleine details uitwerken van de achterliggende code laat men appreciëren hoe veel werk er effectief zit in onze allerdaagse apps.
+Al zijn de programmeertools van Google niet altijd eenduidig en helder te gebruiken, er is enorm veel moeite in gestoken om de productie van nieuwe toepassingen zo vlot mogelijk te laten lopen.
+
+Kotlin is mijn eerste ervaring met een \textit{functional programming language}, buiten talen die er begrippen van over nemen (stel maar, Rust's Closures of C\#'s Delegates).
+Ik ben niet in staat te zeggen welke stijl ik liever heb, maar ik ben wel content om de voetjes al een beetje nat te hebben gemaakt.
+Één project lang diep duiken in het prullen-werk van zo een toepassing en groeiende taalomgeving is erg interessant, en kan veel bijbrengen. 
+
+Wat ik niet opnieuw zou doen, is deze topic voor het project.
+Al is ``een dating app voor katten'' wel grappig en interessant te maken, er kwam veel te veel gedoe op met afbeeldingen.
+Jetpack Compose heeft hier alle nodige tools voor, maar niet altijd dicht bij de hand.
+Meerdere keren moest ik een half uur terug stappen omdat ik ergens een afbeelding was vergeten een vaste grootte te zetten, of een waarde moest gokken dat er hopelijk goed zou uitzien.
+Voor een eerste ervaring met de taal was het te doen, ja, maar in het vervolg zou ik zeker een project kiezen waar minder focus op afbeeldingen ligt, en voorral geen moeten opgeslaan worden.
 
 \end{document}

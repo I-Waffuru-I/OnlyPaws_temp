@@ -52,8 +52,8 @@ class AccountManager(
                     auth.createUserWithEmailAndPassword(data.email,data.password)
                     return SignUpResult.Success(data.email)
                 }
-            }
 
+            }
         } catch (e : CreateCredentialCancellationException) {
             e.printStackTrace()
             SignUpResult.Cancelled

@@ -9,3 +9,4 @@ data class LoginState (
     var triesToRegister : Boolean = false,
     var hasNoCredentials : Boolean = false,
 )
+

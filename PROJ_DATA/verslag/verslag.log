@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.12.24)  19 JAN 2025 11:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.12.24)  20 JAN 2025 14:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -103,27 +103,50 @@ File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen156
 \Gin@req@width=\dimen157
+) (C:\Users\vmath\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+ (C:\Users\vmath\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (C:\Users\vmath\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen158
+\captionmargin=\dimen159
+\caption@leftmargin=\dimen160
+\caption@rightmargin=\dimen161
+\caption@width=\dimen162
+\caption@indent=\dimen163
+\caption@parindent=\dimen164
+\caption@hangindent=\dimen165
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count277
+\c@continuedfloat=\count278
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count279
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count280
 ) (C:\Users\vmath\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count277
+\l__color_backend_stack_int=\count281
 \l__pdf_internal_box=\box53
 ) (verslag.aux)
 \openout1 = `verslag.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -161,16 +184,16 @@ LaTeX Font Info:    ... okay on input line 23.
 
 (C:\Users\vmath\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count278
-\scratchdimen=\dimen158
+\scratchcounter=\count282
+\scratchdimen=\dimen166
 \scratchbox=\box54
-\nofMPsegments=\count279
-\nofMParguments=\count280
+\nofMPsegments=\count283
+\nofMParguments=\count284
 \everyMPshowfont=\toks20
-\MPscratchCnt=\count281
-\MPscratchDim=\dimen159
-\MPnumerator=\count282
-\makeMPintoPDFobject=\count283
+\MPscratchCnt=\count285
+\MPscratchDim=\dimen167
+\MPnumerator=\count286
+\makeMPintoPDFobject=\count287
 \everyMPtoPDFconversion=\toks21
 ) (C:\Users\vmath\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -178,12 +201,14 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (C:\Users\vmath\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 24.
+(Font)              <12> on input line 26.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 24.
+(Font)              <8> on input line 26.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 24.
+(Font)              <6> on input line 26.
 
 
 [1
@@ -209,38 +234,213 @@ Hoofdstuk 1.
 
 ]
 Hoofdstuk 2.
+<./images/DEMO_login.png, id=19, 279.29344pt x 593.21625pt>
+File: ./images/DEMO_login.png Graphic file (type png)
+<use ./images/DEMO_login.png>
+Package pdftex.def Info: ./images/DEMO_login.png  used on input line 92.
+(pdftex.def)             Requested size: 145.68144pt x 309.4337pt.
+<./images/DEMO_Reg1.png, id=21, 283.0575pt x 592.46344pt>
+File: ./images/DEMO_Reg1.png Graphic file (type png)
+<use ./images/DEMO_Reg1.png>
+Package pdftex.def Info: ./images/DEMO_Reg1.png  used on input line 97.
+(pdftex.def)             Requested size: 145.68144pt x 304.9277pt.
+<./images/DEMO_Reg2.png, id=22, 282.30469pt x 591.71063pt>
+File: ./images/DEMO_Reg2.png Graphic file (type png)
+<use ./images/DEMO_Reg2.png>
+Package pdftex.def Info: ./images/DEMO_Reg2.png  used on input line 102.
+(pdftex.def)             Requested size: 145.68144pt x 305.35284pt.
+<./images/DEMO_RegSelect.png, id=23, 279.29344pt x 591.71063pt>
+File: ./images/DEMO_RegSelect.png Graphic file (type png)
+<use ./images/DEMO_RegSelect.png>
+Package pdftex.def Info: ./images/DEMO_RegSelect.png  used on input line 110.
+(pdftex.def)             Requested size: 145.68144pt x 308.64835pt.
+<./images/DEMO_RegRandom.png, id=24, 283.0575pt x 593.21625pt>
+File: ./images/DEMO_RegRandom.png Graphic file (type png)
+<use ./images/DEMO_RegRandom.png>
+Package pdftex.def Info: ./images/DEMO_RegRandom.png  used on input line 115.
+(pdftex.def)             Requested size: 145.68144pt x 305.31517pt.
+<./images/DEMO_RegSave.png, id=25, 280.79906pt x 591.71063pt>
+File: ./images/DEMO_RegSave.png Graphic file (type png)
+<use ./images/DEMO_RegSave.png>
+Package pdftex.def Info: ./images/DEMO_RegSave.png  used on input line 120.
+(pdftex.def)             Requested size: 145.68144pt x 306.98705pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./images/DEMO_Main1.png, id=26, 280.04625pt x 591.71063pt>
+File: ./images/DEMO_Main1.png Graphic file (type png)
+<use ./images/DEMO_Main1.png>
+Package pdftex.def Info: ./images/DEMO_Main1.png  used on input line 131.
+(pdftex.def)             Requested size: 145.68144pt x 307.8177pt.
+<./images/DEMO_Main2.png, id=27, 282.30469pt x 591.71063pt>
+File: ./images/DEMO_Main2.png Graphic file (type png)
+<use ./images/DEMO_Main2.png>
+Package pdftex.def Info: ./images/DEMO_Main2.png  used on input line 136.
+(pdftex.def)             Requested size: 145.68144pt x 305.35284pt.
+<./images/DEMO_List1.png, id=28, 280.79906pt x 590.205pt>
+File: ./images/DEMO_List1.png Graphic file (type png)
+<use ./images/DEMO_List1.png>
+Package pdftex.def Info: ./images/DEMO_List1.png  used on input line 141.
+(pdftex.def)             Requested size: 145.68144pt x 306.2059pt.
+<./images/DEMO_List2.png, id=29, 284.56313pt x 597.73312pt>
+File: ./images/DEMO_List2.png Graphic file (type png)
+<use ./images/DEMO_List2.png>
+Package pdftex.def Info: ./images/DEMO_List2.png  used on input line 147.
+(pdftex.def)             Requested size: 145.68144pt x 306.01642pt.
+<./images/DEMO_List3.png, id=30, 280.79906pt x 593.96906pt>
+File: ./images/DEMO_List3.png Graphic file (type png)
+<use ./images/DEMO_List3.png>
+Package pdftex.def Info: ./images/DEMO_List3.png  used on input line 152.
+(pdftex.def)             Requested size: 145.68144pt x 308.15875pt.
+<./images/DEMO_Acc.png, id=31, 282.30469pt x 592.46344pt>
+File: ./images/DEMO_Acc.png Graphic file (type png)
+<use ./images/DEMO_Acc.png>
+Package pdftex.def Info: ./images/DEMO_Acc.png  used on input line 157.
+(pdftex.def)             Requested size: 145.68144pt x 305.74133pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./images/DEMO_Acc2.png, id=32, 280.79906pt x 592.46344pt>
+File: ./images/DEMO_Acc2.png Graphic file (type png)
+<use ./images/DEMO_Acc2.png>
+Package pdftex.def Info: ./images/DEMO_Acc2.png  used on input line 166.
+(pdftex.def)             Requested size: 145.68144pt x 307.37762pt.
+<./images/DEMO_Acc3.png, id=33, 280.79906pt x 592.46344pt>
+File: ./images/DEMO_Acc3.png Graphic file (type png)
+<use ./images/DEMO_Acc3.png>
+Package pdftex.def Info: ./images/DEMO_Acc3.png  used on input line 171.
+(pdftex.def)             Requested size: 145.68144pt x 307.37762pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 
 
 [3
 
 ]
+
+[4 <./images/DEMO_login.png> <./images/DEMO_Reg1.png> <./images/DEMO_Reg2.png> <./images/DEMO_RegSelect.png> <./images/DEMO_RegRandom.png> <./images/DEMO_RegSave.png>]
+
+[5 <./images/DEMO_Main1.png> <./images/DEMO_Main2.png> <./images/DEMO_List1.png> <./images/DEMO_List2.png> <./images/DEMO_List3.png> <./images/DEMO_Acc.png>]
+
+[6 <./images/DEMO_Acc2.png> <./images/DEMO_Acc3.png>]
 Hoofdstuk 3.
-<./images/Screen_state.png, id=22, 380.92313pt x 450.18187pt>
-File: ./images/Screen_state.png Graphic file (type png)
-<use ./images/Screen_state.png>
-Package pdftex.def Info: ./images/Screen_state.png  used on input line 121.
-(pdftex.def)             Requested size: 380.92218pt x 450.18077pt.
+<./images/MVVM_Overzicht.png, id=63, 665.3658pt x 302.5704pt>
+File: ./images/MVVM_Overzicht.png Graphic file (type png)
+<use ./images/MVVM_Overzicht.png>
+Package pdftex.def Info: ./images/MVVM_Overzicht.png  used on input line 206.
+(pdftex.def)             Requested size: 332.68208pt x 151.28482pt.
+<./images/MVVM_Viewmodel.png, id=64, 438.9198pt x 444.7014pt>
+File: ./images/MVVM_Viewmodel.png Graphic file (type png)
+<use ./images/MVVM_Viewmodel.png>
+Package pdftex.def Info: ./images/MVVM_Viewmodel.png  used on input line 220.
+(pdftex.def)             Requested size: 438.91872pt x 444.70032pt.
 
 
-[4
+[7
 
-]
-<./images/VM_State.png, id=27, 403.5075pt x 103.13531pt>
-File: ./images/VM_State.png Graphic file (type png)
-<use ./images/VM_State.png>
-Package pdftex.def Info: ./images/VM_State.png  used on input line 138.
-(pdftex.def)             Requested size: 403.50652pt x 103.13504pt.
+ <./images/MVVM_Overzicht.png>]
+<./images/MVVM_Screen.png, id=69, 491.436pt x 463.9734pt>
+File: ./images/MVVM_Screen.png Graphic file (type png)
+<use ./images/MVVM_Screen.png>
+Package pdftex.def Info: ./images/MVVM_Screen.png  used on input line 236.
+(pdftex.def)             Requested size: 442.28831pt x 417.57219pt.
 
 
-[5 <./images/Screen_state.png>]
+[8 <./images/MVVM_Viewmodel.png>]
+<./images/MVVM_State.png, id=74, 357.9774pt x 85.2786pt>
+File: ./images/MVVM_State.png Graphic file (type png)
+<use ./images/MVVM_State.png>
+Package pdftex.def Info: ./images/MVVM_State.png  used on input line 243.
+(pdftex.def)             Requested size: 357.97652pt x 85.27837pt.
+<./images/MVVM_ScreenState.png, id=75, 296.307pt x 450.483pt>
+File: ./images/MVVM_ScreenState.png Graphic file (type png)
+<use ./images/MVVM_ScreenState.png>
+Package pdftex.def Info: ./images/MVVM_ScreenState.png  used on input line 255.
+(pdftex.def)             Requested size: 296.30627pt x 450.48189pt.
 
-[6 <./images/VM_State.png>]
 
-[7]
+[9 <./images/MVVM_Screen.png> <./images/MVVM_State.png>]
+<./images/MVVM_StateContainer.png, id=81, 264.23718pt x 155.07938pt>
+File: ./images/MVVM_StateContainer.png Graphic file (type png)
+<use ./images/MVVM_StateContainer.png>
+Package pdftex.def Info: ./images/MVVM_StateContainer.png  used on input line 263.
+(pdftex.def)             Requested size: 264.23653pt x 155.07898pt.
+
+
+[10 <./images/MVVM_ScreenState.png> <./images/MVVM_StateContainer.png>]
+<./images/MVVM_Action.png, id=87, 263.5446pt x 98.769pt>
+File: ./images/MVVM_Action.png Graphic file (type png)
+<use ./images/MVVM_Action.png>
+Package pdftex.def Info: ./images/MVVM_Action.png  used on input line 282.
+(pdftex.def)             Requested size: 263.54395pt x 98.76874pt.
+
+
+[11 <./images/MVVM_Action.png>]
+<./images/DB_user.png, id=92, 198.7425pt x 97.86563pt>
+File: ./images/DB_user.png Graphic file (type png)
+<use ./images/DB_user.png>
+Package pdftex.def Info: ./images/DB_user.png  used on input line 332.
+(pdftex.def)             Requested size: 198.742pt x 97.86537pt.
+<./images/DB_cat.png, id=93, 394.47375pt x 117.43875pt>
+File: ./images/DB_cat.png Graphic file (type png)
+<use ./images/DB_cat.png>
+Package pdftex.def Info: ./images/DB_cat.png  used on input line 340.
+(pdftex.def)             Requested size: 394.47278pt x 117.43845pt.
+<./images/DB_liked.png, id=94, 186.6975pt x 404.26031pt>
+File: ./images/DB_liked.png Graphic file (type png)
+<use ./images/DB_liked.png>
+Package pdftex.def Info: ./images/DB_liked.png  used on input line 347.
+(pdftex.def)             Requested size: 186.69704pt x 404.25932pt.
+
+
+[12 <./images/DB_user.png> <./images/DB_cat.png>]
+<./images/DB_userids.png, id=101, 273.27094pt x 142.28156pt>
+File: ./images/DB_userids.png Graphic file (type png)
+<use ./images/DB_userids.png>
+Package pdftex.def Info: ./images/DB_userids.png  used on input line 355.
+(pdftex.def)             Requested size: 273.27025pt x 142.2812pt.
+
+
+[13 <./images/DB_liked.png> <./images/DB_userids.png>]
+<./images/ACC_Create.png, id=107, 395.22656pt x 182.93344pt>
+File: ./images/ACC_Create.png Graphic file (type png)
+<use ./images/ACC_Create.png>
+Package pdftex.def Info: ./images/ACC_Create.png  used on input line 374.
+(pdftex.def)             Requested size: 395.22559pt x 182.93298pt.
+<./images/ACC_Get.png, id=108, 424.58624pt x 197.98969pt>
+File: ./images/ACC_Get.png Graphic file (type png)
+<use ./images/ACC_Get.png>
+Package pdftex.def Info: ./images/ACC_Get.png  used on input line 382.
+(pdftex.def)             Requested size: 424.5852pt x 197.9892pt.
+<./images/NAV_Serialisable.png, id=109, 216.05719pt x 388.45125pt>
+File: ./images/NAV_Serialisable.png Graphic file (type png)
+<use ./images/NAV_Serialisable.png>
+Package pdftex.def Info: ./images/NAV_Serialisable.png  used on input line 401.
+(pdftex.def)             Requested size: 172.84596pt x 310.76141pt.
+
+
+[14 <./images/ACC_Create.png> <./images/ACC_Get.png>]
+<./images/NAV_Composable.png, id=115, 365.86688pt x 548.0475pt>
+File: ./images/NAV_Composable.png Graphic file (type png)
+<use ./images/NAV_Composable.png>
+Package pdftex.def Info: ./images/NAV_Composable.png  used on input line 409.
+(pdftex.def)             Requested size: 292.6939pt x 438.4386pt.
+
+
+[15 <./images/NAV_Serialisable.png>]
+<./images/NAV_Route.png, id=120, 179.92218pt x 82.05656pt>
+File: ./images/NAV_Route.png Graphic file (type png)
+<use ./images/NAV_Route.png>
+Package pdftex.def Info: ./images/NAV_Route.png  used on input line 417.
+(pdftex.def)             Requested size: 179.92174pt x 82.05635pt.
+
+
+[16 <./images/NAV_Composable.png> <./images/NAV_Route.png>]
 Hoofdstuk 4.
 
 
-[8
+[17
 
 ] (verslag.aux)
  ***********
@@ -249,17 +449,17 @@ L3 programming layer <2024-11-02>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4050 strings out of 473650
- 67505 string characters out of 5717934
- 484710 words of memory out of 5000000
- 27131 multiletter control sequences out of 15000+600000
- 563779 words of font info for 55 fonts, out of 8000000 for 9000
+ 5818 strings out of 473650
+ 103971 string characters out of 5717934
+ 511546 words of memory out of 5000000
+ 28888 multiletter control sequences out of 15000+600000
+ 564423 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,65p,1254b,322s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\vmath\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on verslag.pdf (9 pages, 176302 bytes).
+ 67i,8n,77p,1254b,516s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\vmath\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Users/vmath/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on verslag.pdf (18 pages, 3095207 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
+ 171 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 151 words of extra memory for PDF output out of 10000 (max. 10000000)
 
