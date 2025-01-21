@@ -109,7 +109,7 @@ Register :
 - de RegisterDetails screen. Hier vul je een gebruikersnaam, beschrijving en afbeelding in met wat invoervelden + die Random Cat knop.
 - Checks : Paswoord langer dan 6 chars (wordt altijd gecheckt) en email die nog niet in gebruik is (enkel wanneer je Register klikt wordt dit gecheckt) 
 
-## Week 12 (16/12):  uren:
+## Week 12 (16/12):  uren: 6-7
 Account : 
 - Verdere UI improvements. Afbeelding staat centraal, update fields werken en hebben wat betere styling, de aangepaste waardes worden opgeslaan.
 
@@ -122,3 +122,37 @@ MainScreen :
 
 Database :
 - Extra functies toegevoegd aan de User + Cat repositories voor de extra bewerkingen in MainScreen.
+
+
+## Extra weken : 25-30 uur? Zo iets?
+
+Register / RegisterDetails :
+- Styling overhaul:{
+    standard afbeelding gegeven indien er nog geen is,
+    input velden hebben passende kleuren,
+    paswoord veld verbergd nu de text en heeft een toggle om het zichtbaar te maken,
+    velden zijn nu allemaal wat mooier en passen beter met het kleurschema
+}
+- Kleine bugfixing bij het inleveren van een lege afbeelding link die heel het scherm leeg maakt (bvb bij het wegklikken van de foto select pop-up),
+- Er wordt nu een nieuwe link gecached zo de afbeelding eerder kan laden terwijl de volgende wordt opgehaald. Dit maakt het een beetje sneller.
+
+Main :
+- Meerdere keren inloggen ging mis, dat is nu gefixt met een simpele check bij opstarten van de pagina.
+- een indicatie gemaakt bij de eerste keer opstarten waarbij duidelijk gemaakt wordt wat Dis/Liken is. Deze kan uitgeschakeld worden door in het midden te klikken.
+
+
+List :
+- Styling overhaul: {
+    list items kregen een fix-up,
+    bevestigings dialog is wat mooier en beter passende kleuren,
+    afbeelding klikken kan je nu weer sluiten door ernaast/onder te klikken,
+    icon toegevoegd voor wanneer de lijst leeg is
+}
+
+Account : 
+- Styling overhaul
+- Bugfixing bij het wissellen van ingelogde gebruiker.
+
+Algemeen:
+- Animatie toegevoegd voor de Loading screens. Grappige poes die met z'n staart swingt :)
+- Verder zijn er nog veel kleine aanpassingen geweest aan de structuur en classes. Dingen zoals het overschakelen en fixen van Mutables naar MutableStateOf, wat altijd leuke problemen zijn om tegen te komen.
